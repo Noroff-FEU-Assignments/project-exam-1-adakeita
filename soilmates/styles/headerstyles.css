@@ -1,0 +1,27 @@
+.logo-container {
+	width: 95px;
+}
+
+.logo-img {
+	width: 100%;
+}
+
+.nav-container {
+    margin: 5px 25px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.nav-link-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.nav-link {
+	list-style-type: none;
+	color: black;
+	padding: 0px 5px;
+}

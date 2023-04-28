@@ -1,0 +1,60 @@
+:root {
+	--background: #f9f7f5;
+}
+
+body {
+	width: 100vw;
+	min-height: 100vh;
+	margin: 0;
+	overflow-x: hidden;
+	background: var(--background);
+	background-image: url("../images/cornerart.png");
+	background-repeat: no-repeat;
+	background-position: bottom right;
+	background-size: contain;
+}
+
+::marker {
+	display: none;
+	visibility: hidden;
+}
+
+::marker,
+li {
+	list-style-type: none;
+}
+
+.site-font {
+	font-family: "Tenor Sans", sans-serif;
+}
+
+.content-font {
+	font-family: "Josefin Slab", serif;
+}
+
+.content-container {
+	margin: 0px 30px;
+}
+
+.loading-indicator {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 40px;
+	height: 40px;
+	border: 5px solid #f3f3f3;
+	border-top: 5px solid #d77d24;
+	border-radius: 50%;
+	animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	100% {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}

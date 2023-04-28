@@ -9,10 +9,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@300&family=Tenor+Sans&display=swap"
         rel="stylesheet">
-        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="styles/globals.css">
     <link rel="stylesheet" href="styles/headerstyles.css">
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/carousel.css">
     <link rel="stylesheet" href="styles/footerstyles.css">
+    <script src="scripts/script.js" defer></script>
+    <script src="scripts/fetchData.js" defer></script>
+    <script src="scripts/carousel.js" defer></script>
     <title>Soilmates | Home</title>
 </head>
 
@@ -25,8 +30,8 @@
         </div>
         <ul class="nav-link-container nav-item-container">
             <li class="nav-item site-font"><a class="nav-link" href="">Home</a></li>
-            <li class="nav-item site-font"><a class="nav-link" href="">About</a></li>
-            <li class="nav-item site-font"><a class="nav-link" href="">Posts</a></li>
+            <li class="nav-item site-font"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item site-font"><a class="nav-link" href="posts.html">Posts</a></li>
             <li class="nav-item site-font"><a class="nav-link" href="">Contact</a></li>
         </ul>
     </nav>
@@ -36,29 +41,42 @@
                 Welcome to Soilmates
             </h1>
         </div>
+        <div class="soilmate-hello site-font">
+            If you're looking for practical tips, engaging content, and a friendly community of fellow plant
+            enthusiasts, you've come to the right place. Soilmates is a place where you can share your successes and
+            failures, ask questions, and get inspired.
+        </div>
         <div class="carousel-container">
+
             <div class="carousel-bg">
                 <div class="carousel-content-wrapper">
                     <div class="arrow-container left-arrow-container">
                         <img class="carousel-arrow left-arrow" src="images/left-arrow.png" alt="Left Arrow">
                     </div>
+                    <div class="loading-indicator"></div>
                     <div class="content-font carousel-content">
                         <h2 class="content-font carousel-header">New posts</h2>
                         <div class="main-latest-post">
+                            <div class="loading-container" style="display: none;">
+                                <div class="loading-spinner"></div>
+                            </div>
                             <div class="latest-index-text-container">
+                                <p class="index-post-header"></p>
+                                <p class="tagline"></p>
                                 <p class="latest-index-text">
                                     Lorem, ipsum dolor sit amet
                                     consectetur adipisicing elit. Ut quae..
                                     <br>
-                                    <br>
+                                <p class="readmore-container">
                                     <a class="seemore-link" href=""><em>Read More</em></a>
+                                </p>
                                 </p>
                             </div>
                             <div class="latest-index-image-container">
                                 <img class="latest-index-img" src="/images/plantsheld.png" alt="">
                             </div>
                         </div>
-                        <div class="next-post-container">
+                        <div class="previous-post-container">
                             <div class="carousel-img-container">
                                 <img class="carousel-img" src="images/plant1.png" alt="">
                             </div>
