@@ -4,6 +4,7 @@ const excerptElement = document.querySelector(".latest-index-text");
 const imgElementMain = document.querySelector(".latest-index-img");
 const leftArrow = document.querySelector(".left-arrow");
 const rightArrow = document.querySelector(".right-arrow");
+const readmoreLink =document.querySelectorAll(".readmore-link")
 let currentStartIndex = 0;
 let mainContainerData = {};
 let firstLoad = true;
@@ -60,6 +61,7 @@ function updateCarouselImages(reversedData) {
 			imgElement.setAttribute("alt", postData["post-title"]);
 			imgElement.setAttribute("data-tagline", postData["tagline"]);
 			imgElement.setAttribute("data-text", postData["blog-text"]);
+			imgElement.setAttribute("data-id", parseInt(reversedData[index + 1].id)); // Add the id attribute here
 
 			imgElement.removeEventListener("click", swapMainContainerAndCarouselImage);
 			imgElement.addEventListener("click", swapMainContainerAndCarouselImage);
@@ -76,6 +78,7 @@ function swapMainContainerAndCarouselImage() {
 		tagline: imgElement.getAttribute("data-tagline"),
 		"blog-text": imgElement.getAttribute("data-text"),
 		"post-image": imgElement.getAttribute("src"),
+		id: parseInt(imgElement.getAttribute("data-id")), // Add the id property here
 	};
 
 	// Swap main container data and clicked image
@@ -87,6 +90,7 @@ function swapMainContainerAndCarouselImage() {
 	imgElement.setAttribute("alt", tempData["post-title"]);
 	imgElement.setAttribute("data-tagline", tempData["tagline"]);
 	imgElement.setAttribute("data-text", tempData["blog-text"]);
+	imgElement.setAttribute("data-id", tempData.id); // Add the id attribute here
 
 	updateArrowVisibility();
 }
@@ -98,8 +102,8 @@ async function fetchLatestPosts(startIndex = 0, updateCarousel = false) {
 			return [];
 		}
 
-		const latestPost = data[data.length - 1].acf; // Set the latest post as the last post in the array
-		mainContainerData = { ...latestPost };
+		const latestPost = data[data.length - 1]; // Set the latest post as the last post in the array
+		mainContainerData = { ...latestPost.acf, id: latestPost.id }; // Add the id property here
 
 		if (latestPost) {
 			updateMainContainer(mainContainerData);
@@ -126,7 +130,8 @@ async function fetchLatestPosts(startIndex = 0, updateCarousel = false) {
 function updateMainContainer(data) {
 	titleElement.innerHTML = data["post-title"];
 	taglineElement.innerHTML = data["tagline"];
-	excerptElement.innerHTML = `${data["blog-text"]} <a class="seemore-link" href="${data["post-title"]}"><em>Read More</em></a>`;
+	const excerptText = `${data["blog-text"]} <a class="readmore-link" href="blogpost.html?id=${data.id}"><em>Read More</em></a>`;
+	excerptElement.innerHTML = excerptText;
 	imgElementMain.setAttribute("src", data["post-image"]);
 	imgElementMain.setAttribute("alt", data["post-title"]);
 }
@@ -135,4 +140,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	await fetchAllPosts();
 	const data = await fetchLatestPosts(0, true);
 	setupArrows(data);
+
+	
+	
 });

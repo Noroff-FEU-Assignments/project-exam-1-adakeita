@@ -19,6 +19,12 @@ body {
 	visibility: hidden;
 }
 
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
 ::marker,
 li {
 	list-style-type: none;

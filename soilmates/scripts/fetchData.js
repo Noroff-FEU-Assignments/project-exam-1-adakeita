@@ -48,9 +48,12 @@ function getLatestPosts(startIndex = 0, perPage = 4) {
   }
   
 
-function getBlogPostById(id) {
-  return allPosts.find((post) => post.id === id);
-}
+  function getBlogPostById(id) {
+    console.log("Searching for post with ID:", id);
+    return allPosts.find((post) => parseInt(post.id, 10) == id);
+  }
+  
+  
 
 document.addEventListener("DOMContentLoaded", async () => {
   await fetchAllPosts();
