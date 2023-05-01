@@ -22,16 +22,16 @@
 }
 
 .blog-list-container-wrapper {
-	height: 515px;
+	height: 400px;
 	box-sizing: border-box;
 	overflow-y: auto;
 	padding: 5px;
-	background-color: #ffffffa6;
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none;
 	margin: auto;
-	width: 50%;
+	width: 60%;
 	margin-bottom: 45px;
+	border-top: 1px solid black;
 }
 
 .blog-list-container-wrapper::-webkit-scrollbar {
@@ -40,15 +40,20 @@
 
 .blog-post {
 	border: 1px solid black;
-	padding: 5px;
-	margin: 20px;
-	border-radius: 5px;
-	background-position-y: center;
-	background-size: cover;
+    padding: 15px;
+    margin: 35px auto;
+    border-radius: 5px;
+    background-position-y: center;
+    background-size: cover;
+    max-width: 320px;
+    transition: 0.23s ease-in-out;
+}
+
+.blog-post:hover {
+transform: scale(1.1);
 }
 
 .blog-post-content {
-	background: #ffffff42;;
 	padding: 5px 0px;
 	border-radius: 3px;
 	text-align: center;
@@ -58,7 +63,7 @@
 
 .blogtitle-list {
 	font-size: 20px;
-	background-color: rgba(255, 255, 255, 0.541);
+	background-color: #ffffffbf;
 }
 
 .viewmore-wrapper {
