@@ -29,13 +29,18 @@
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none;
 	margin: auto;
-	width: 60%;
+	width: 70%;
 	margin-bottom: 45px;
+	padding: 0px 20px;
 	border-top: 1px solid black;
 }
 
 .blog-list-container-wrapper::-webkit-scrollbar {
 	display: none;
+}
+
+.blog-list-container {
+	box-sizing: border-box;
 }
 
 .blog-post {
@@ -77,6 +82,11 @@ transform: scale(1.1);
 	border-radius: 5px;
 	box-shadow: 5px 5px 7px 0px #0000007d;
 	font-size: 15px;
+	transition: 0.23s ease-in-out;
+}
+
+#view-more-button:hover {
+ transform: scale(1.1);
 }
 
 @media (min-width: 768px) {
