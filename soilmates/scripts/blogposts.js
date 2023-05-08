@@ -1,4 +1,11 @@
-function displayBlogPosts(posts) {
+import {
+	getBlogPosts,
+	showLoadingIndicator,
+	hideLoadingIndicator,
+	getPostById,
+} from "./utils.js";
+
+export function displayBlogList(posts) {
 	const blogPostsContainer = document.querySelector(".blog-list-container");
 
 	posts.forEach((post) => {
@@ -23,60 +30,147 @@ function displayBlogPosts(posts) {
 	});
 }
 
-let startIndex = 0;
-const postsPerPage = 10;
-
-async function loadBlogPosts() {
-	showLoadingIndicator();
-	console.log("Loading blog posts");
-	const posts = getBlogPosts(startIndex, postsPerPage);
-	console.log("Blog posts to display:", posts);
-	displayBlogPosts(posts);
-	startIndex += postsPerPage;
-	hideLoadingIndicator();
+export async function loadBlogPosts(startIndex = 0, perPage = 10) {
+	try {
+		showLoadingIndicator();
+		const posts = getBlogPosts(startIndex, perPage);
+		console.log("Blog posts to display:", posts);
+		displayBlogList(posts);
+	} catch (error) {
+		console.error("Error loading blog posts:", error);
+	} finally {
+		hideLoadingIndicator();
+	}
 }
 
-async function displayBlogPost() {
+export function createPageHeaderElement(text) {
+	const header = document.createElement("h1");
+	header.classList.add("page-header");
+	header.textContent = text;
+	return header;
+}
+
+export function createBlogPostContainerElement() {
+	const blogPostContainer = document.createElement("div");
+	blogPostContainer.classList.add("blogpost-container");
+	return blogPostContainer;
+}
+
+export function createModal() {
+	const modal = document.createElement("div");
+	modal.classList.add("modal", "hidden");
+
+	const modalImage = document.createElement("img");
+	modalImage.setAttribute("id", "modal-image");
+	modalImage.setAttribute("alt", "Blog post image enlarged");
+
+	modal.appendChild(modalImage);
+	document.body.appendChild(modal);
+
+	return modal;
+}
+
+export async function displayBlogPost() {
 	showLoadingIndicator();
 
-	const titleElement = document.querySelector(".page-header");
-	const contentElement = document.querySelector(".page-text-container");
+	const contentContainer = document.querySelector(".content-container");
 	const blogPostWrapper = document.querySelector(".blogpost-wrapper");
 
 	const postId = parseInt(new URLSearchParams(window.location.search).get("id"));
-	const post = await getBlogPostById(postId);
+	const post = await getPostById(postId);
+	const modal = createModal();
 
 	if (post) {
 		const postData = post.acf;
 		const postImage = postData["post-image"];
+		const postTitle = postData["post-title"];
+		const postTagline = postData["tagline"];
 
-		titleElement.innerHTML = postData["post-title"];
-		contentElement.innerHTML = `
-        <div class="blogpost-img-wrapper">
-          <img src="${postImage}" alt="Blog post image">
-        </div>
-        <div class="blogpost-container">
-          <p>${postData["blog-text"].replace(/\r\n/g, "</p><p>")}</p>
-        </div>
-      `;
+		const blogPostContainer = createBlogPostContainerElement();
+		const blogPostContent = createBlogPostContent(
+			postData["blog-text"],
+			postImage,
+			postTitle,
+			postTagline
+		);
+		blogPostContainer.innerHTML += blogPostContent;
+
+		const blogpostImg = blogPostContainer.querySelector(".blogpost-img");
+
+		const modalImage = modal.querySelector("#modal-image");
+
+		// Open the modal when image is clicked
+		blogpostImg.addEventListener("click", () => {
+			modalImage.src = postImage;
+			modal.classList.remove("hidden");
+		});
+
+		// Close the modal when clicking outside
+		modal.addEventListener("click", (event) => {
+			if (event.target !== modalImage) {
+				modal.classList.add("hidden");
+			}
+		});
+
+		blogPostWrapper.appendChild(blogPostContainer);
+		moveImageContainer();
 	} else {
-		titleElement.innerHTML = "Post not found";
-		contentElement.innerHTML =
-			"<p>We couldn't find the post you're looking for. Please go back and try again.</p>";
+		displayNotFoundMessage(blogPostWrapper);
 	}
 
 	hideLoadingIndicator();
 }
 
-// Add this init function instead
-document.addEventListener("DOMContentLoaded", async () => {
-	await fetchAllPosts();
 
-	if (window.location.pathname.includes("posts.html")) {
-		const viewMoreButton = document.getElementById("view-more-button");
-		viewMoreButton.addEventListener("click", loadBlogPosts);
-		loadBlogPosts();
-	} else if (window.location.pathname.includes("blogpost.html")) {
-		displayBlogPost();
+
+export function moveImageContainer() {
+	const blogPostContentWrapper = document.querySelector(".blogpost-content-wrapper");
+	const textContainer = document.querySelector(".blogpost-text-container");
+	const imgContainer = document.querySelector(".blogpost-img-container");
+	const mediaContainer =
+		document.querySelector(".blogpost-media-container") || document.createElement("div");
+
+	if (window.innerWidth < 760) {
+		if (!mediaContainer.classList.contains("blogpost-media-container")) {
+			mediaContainer.classList.add("blogpost-media-container");
+			blogPostContentWrapper.appendChild(mediaContainer);
+		}
+		mediaContainer.appendChild(textContainer);
+		mediaContainer.appendChild(imgContainer);
+	} else {
+		if (mediaContainer.classList.contains("blogpost-media-container")) {
+			mediaContainer.remove();
+			blogPostContentWrapper.appendChild(textContainer);
+			blogPostContentWrapper.appendChild(imgContainer);
+		}
 	}
-});
+}
+
+function createBlogPostContent(blogText, postImage, title, tagline) {
+	return `
+        <div class="blogpost-content-wrapper">
+            <div class="blogpost-header-container">
+                <h1 class="blogpost-title">${title}</h1>
+                <p class="blogpost-tagline">${tagline}</p>
+            </div>
+            <div class="blogpost-text-container">
+                <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p>")}</p>
+            </div>
+            <div class="blogpost-img-container">
+                <img class="blogpost-img" src="${postImage}" alt="Blog post image">
+            </div>
+        </div>
+    `;
+}
+
+function displayNotFoundMessage(headerContent) {
+	const titleElement = createPageHeaderElement("Post not found");
+	headerContent.appendChild(titleElement);
+
+	const blogPostWrapper = document.querySelector(".blogpost-wrapper");
+
+	const blogPostContainer = createBlogPostContainerElement();
+	blogPostContainer.innerHTML =
+		"<p>We couldn't find the post you're looking for. Please go back and try again.</p>";
+	blogPostWrapper.appendChild(blogPostContainer);
+}

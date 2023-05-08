@@ -1,3 +1,6 @@
+import { getLatestPosts, fetchAllPosts, allPosts } from './utils.js';
+
+
 const carouselBg = document.querySelector(".carousel-bg");
 let leftArrow;
 let rightArrow;
@@ -45,7 +48,9 @@ const createCarouselContentWrapper = (posts) => `
     <div class="arrow-container left-arrow-container">
       <img class="carousel-arrow left-arrow" src="images/left-arrow.png" alt="Left Arrow">
     </div>
-    <div class="loading-indicator"></div>
+    <div class="carousel-content-loading-wrapper">
+      <div class="loading-indicator"></div>
+    </div>
     <div class="content-font carousel-content">
       <h2 class="content-font carousel-header">New posts</h2>
       ${createMainLatestPost(posts[0])}
@@ -64,7 +69,7 @@ function swapMainContainerAndCarouselImage(clickedImage) {
 	const excerptElement = document.querySelector(".latest-index-text");
 	const readMoreLink = document.querySelector(".read-more-link");
 
-	// Store current main image data
+	// Store current main image
 	const tempData = {
 		id: mainImage.dataset.id,
 		src: mainImage.src,
@@ -167,15 +172,15 @@ function updateArrowVisibility() {
 	const totalPosts = allPosts.length;
 	const maxStartIndex = Math.max(0, totalPosts - 4);
 
-	// Hide left arrow at start
+	// Hide left arrow
 	leftArrow.style.display = currentStartIndex === 0 ? "none" : "block";
 
-	// Hide right arrow at end
+	// Hide right arrow
 	rightArrow.style.display = currentStartIndex >= maxStartIndex ? "none" : "block";
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
+export async function setupCarousel() {
 	await fetchAllPosts();
 	await fetchLatestPosts(0, true);
-	setupArrows(); // Move this line from inside fetchLatestPosts() to here
-});
+	setupArrows();
+  }

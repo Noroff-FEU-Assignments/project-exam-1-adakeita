@@ -11,9 +11,10 @@
 	margin: auto;
 	width: 100%;
 	height: 100%;
-	border-radius: 3px;
+	border-radius: 55px;
+	border: 1px solid;
 	background-color: white;
-	box-shadow: 5px 5px 7px 0px #0000007d;
+	box-shadow: 3px 6px 3px 0px #0000007d;
 }
 
 .carousel-content-wrapper {
@@ -74,6 +75,7 @@
 	height: 240px;
 	box-sizing: border-box;
 	align-items: stretch;
+	border-bottom: 1px solid black;
 }
 
 .latest-index-text-container,
@@ -102,6 +104,7 @@
 	height: 100%;
 	max-height: 200px;
 	object-fit: cover;
+	border-radius: 55px;
 }
 
 .previous-post-container {
@@ -123,10 +126,13 @@
 	width: 100%;
 	height: 115px;
 	object-fit: cover;
+	border-radius: 5px;
+	border-style: groove;
+	box-shadow: 5px 5px 7px 0px #0000007d;
 }
 
 .carousel-img:hover {
-transform: scale(1.1);
-transition: 0.23s ease-in-out;
-cursor: pointer;
+	transform: scale(1.1);
+	transition: 0.23s ease-in-out;
+	cursor: pointer;
 }

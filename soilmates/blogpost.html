@@ -14,9 +14,10 @@
     <link rel="stylesheet" href="styles/headerstyles.css">
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/footerstyles.css">
-    <script src="scripts/script.js" defer></script>
-    <script src="scripts/fetchData.js" defer></script>
-    <script src="scripts/blogposts.js" defer></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js" defer></script>
+    <script type="module" src="scripts/utils.js" defer></script>
+    <script type="module" src="scripts/init.js" defer></script>
+    <script type="module" src="scripts/blogposts.js" defer></script>
     <title>Soilmates | Blogpost</title>
 </head>
 
@@ -24,7 +25,7 @@
     <nav class="nav-container">
         <div class="logo-container">
             <a class="logo-link" href="index.html">
-                <img class="logo-img" src="images/LOGO_4.png" alt="logo-image: plant in house and name">
+                <img class="logo-img" src="images/LOGO_5.png" alt="logo-image: plant in house and name">
             </a>
         </div>
         <ul class="nav-link-container nav-item-container">
@@ -35,20 +36,42 @@
         </ul>
     </nav>
     <main class="content-container">
-        <div class="page-header-container">
-            <h1 class="page-header site-font">
-                Posts
-            </h1>
-            <div class="page-text-container site-font">
-                <p class="page-text">Heres some reading material</p>
-            </div>
-            <div class="blogpost-wrapper">
-                <div class="loading-indicator"></div>
-            </div>
+        <div class="blogpost-wrapper">
+            <div class="loading-indicator"></div>
         </div>
+        <div class="comment-content-wrapper">
+            <div class="post-comment-container card">
+                <form id="comment-form">
+                    <div class="comment-input-wrapper">
+                        <div class="personalia-comment-form">
+                            <label for="name">Name</label>
+                            <input class="comment-form-input form-name" type="text" id="author_name" name="author_name"
+                                placeholder="Your Name" required />
 
-
+                            <label for="email">Email</label>
+                            <input class="comment-form-input form-email" type="email" id="email" name="email">
+                        </div>
+                        <div class="comment-text-container">
+                            <label for="comment">Comment</label>
+                            <textarea class="comment-form-input comment-text" id="comment" name="comment"
+                                required></textarea>
+                        </div>
+                    </div>
+                    <div class="comment-btn-container">
+                        <button class="submit-comment-btn" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="comments-container card"></div>
+        </div>
     </main>
+    <footer>
+        <div class="footer-content">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, dignissimos. Accusantium, veniam magni
+                similique tempore ipsum soluta molestias impedit eveniet quo corporis magnam harum incidunt aut
+                perferendis consectetur placeat quas.</p>
+        </div>
+    </footer>
 </body>
 
 </html>
