@@ -25,6 +25,7 @@ window.addEventListener("resize", moveImageContainer);
 document.addEventListener("DOMContentLoaded", async () => {
 	await fetchAllPosts();
 	await initAuth0();
+	console.log("User authenticated:", await isAuthenticated());
 
 	const loginButton = document.getElementById("login");
 	const logoutButton = document.getElementById("logout");
