@@ -12,13 +12,11 @@ import {
 	loadBlogPosts,
 	moveImageContainer,
 } from "./blogposts.js";
-import { initAuth0, submitComment, isAuthenticated, getUserProfile } from "./auth.js";
 
 window.addEventListener("resize", moveImageContainer);
 
 document.addEventListener("DOMContentLoaded", async () => {
 	await fetchAllPosts();
-	await initAuth0();
 
 	if (
 		window.location.pathname.includes("index.html") ||
@@ -45,32 +43,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 		displayComments(comments);
 		const commentForm = document.getElementById("comment-form");
 
-		commentForm.addEventListener("submit", async (event) => {
-			event.preventDefault();
-
-			if (!(await isAuthenticated())) {
-				alert("You need to be logged in to submit a comment.");
-				return;
-			}
-
-			const userProfile = await getUserProfile(); // Get the user's profile from Auth0
-
-			const authorNameInput = document.getElementById("author_name");
-			const commentInput = document.getElementById("comment");
-
-			const authorName = authorNameInput.value;
-			const commentContent = commentInput.value;
-
-			try {
-				await submitComment(postId, commentContent, userProfile.sub, authorName);
-				alert("Comment submitted successfully!");
-
-				authorNameInput.value = "";
-				commentInput.value = "";
-			} catch (error) {
-				console.error("Error submitting comment:", error);
-				alert("Failed to submit the comment. Please try again.");
-			}
-		});
 	}
 });
