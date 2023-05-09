@@ -31,11 +31,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	loginButton.addEventListener("click", async () => {
 		const currentUrl = window.location.href;
-		await login(currentUrl);
+		login(currentUrl);
 	});
 
 	logoutButton.addEventListener("click", async () => {
-		await logout();
+		logout();
 	});
 
 	if (
