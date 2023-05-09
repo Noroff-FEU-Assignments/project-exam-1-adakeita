@@ -24,14 +24,16 @@ window.addEventListener("resize", moveImageContainer);
 
 document.addEventListener("DOMContentLoaded", async () => {
 	await fetchAllPosts();
-	await initAuth0();
+	const currentUrl = window.location.href;
+	initAuth0(currentUrl);
+
 	console.log("User authenticated:", await isAuthenticated());
 
 	const loginButton = document.getElementById("login");
 	const logoutButton = document.getElementById("logout");
 
 	loginButton.addEventListener("click", async () => {
-		const currentUrl = window.location.origin;
+		const currentUrl = window.location.href;
 		login(currentUrl);
 	});
 
