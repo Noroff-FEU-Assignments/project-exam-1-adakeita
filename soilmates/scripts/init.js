@@ -26,6 +26,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 	await fetchAllPosts();
 	await initAuth0();
 
+	const loginButton = document.getElementById("login");
+	loginButton.addEventListener("click", async () => {
+		const currentUrl = window.location.href;
+		await login(currentUrl);
+	});
+
 	if (
 		window.location.pathname.includes("index.html") ||
 		window.location.pathname === "/"
@@ -43,23 +49,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 			await loadBlogPosts(startIndex, postsPerPage);
 		});
 	} else if (window.location.pathname.includes("blogpost.html")) {
-		const postId = window.location.search.split("=")[1]; // Get the post ID from the URL
-		const post = getPostById(postId); // Get the blog post using the ID
-		displayBlogPost(post); // Display the blog post
+		const postId = window.location.search.split("=")[1]; // Get the post ID from URL
+		const post = getPostById(postId); // Get the blog post ID
+		displayBlogPost(post); // Display blog post
 
-		const comments = await fetchCommentsForPost(postId); // Fetch comments for the blog post
+		const comments = await fetchCommentsForPost(postId); // Fetch comments
 		displayComments(comments);
 		const commentForm = document.getElementById("comment-form");
 
 		commentForm.addEventListener("submit", async (event) => {
 			event.preventDefault();
 
-			if (!(await isAuthenticated())) {
-				if (
-					confirm("You need to be logged in to post a comment. Would you like to log in?")
-				) {
-					login(); // login from auth.js
-				}
+			const isLoggedIn = await isAuthenticated();
+			if (!isLoggedIn) {
+				const currentUrl = window.location.href;
+				login(currentUrl);
 				return;
 			}
 
@@ -72,7 +76,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 			const commentContent = commentInput.value;
 
 			try {
-				await submitComment(postId, commentContent, userProfile.sub, authorName);
+				const userToken = await getAccessToken();
+				await submitComment(postId, commentContent, userToken, authorName);
 				alert("Comment submitted successfully!");
 
 				authorNameInput.value = "";
