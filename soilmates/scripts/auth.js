@@ -5,7 +5,7 @@ export async function initAuth0() {
   auth0Client = await createAuth0Client({
     domain: "dev-2alcwci351nap0te.us.auth0.com",
     client_id: "vvCTbVE4dXvicqedJbOgFrdP2DsdDh8a",
-    redirect_uri: window.location.href,
+    redirect_uri: window.location.origin,
     audience: "https://api.adakeita.dev",
     scope: "openid profile email",
   });
