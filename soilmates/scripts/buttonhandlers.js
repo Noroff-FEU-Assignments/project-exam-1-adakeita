@@ -55,7 +55,7 @@ export async function setupSubmitCommentButton(postId) {
 	});
 }
 
-export async function submitComment(postId, commentContent, userToken) {
+export async function submitComment(postId, commentContent, userToken, authorName) {
 	const response = await fetch(`https://api.adakeita.dev/wp-json/wp/v2/comments`, {
 		method: "POST",
 		headers: {
@@ -65,6 +65,7 @@ export async function submitComment(postId, commentContent, userToken) {
 		body: JSON.stringify({
 			content: commentContent,
 			post: postId,
+			author_name: authorName,
 		}),
 	});
 
