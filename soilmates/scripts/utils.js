@@ -93,27 +93,6 @@ export function displayComments(comments) {
 		</div>
 	  `;
 
-		commentsContainer.insert("beforeend", commentHTML);
+		commentsContainer.insertAdjacentHTML("beforeend", commentHTML);
 	});
-}
-
-export async function submitComment(postId, commentContent, userToken) {
-	const response = await fetch(`https://api.adakeita.dev/wp-json/wp/v2/comments`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${userToken}`,
-		},
-		body: JSON.stringify({
-			content: commentContent,
-			post: postId,
-		}),
-	});
-
-	if (response.status === 201) {
-		const data = await response.json();
-		return data;
-	} else {
-		throw new Error("Failed to submit comment");
-	}
 }
