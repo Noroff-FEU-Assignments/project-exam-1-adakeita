@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const logoutButton = document.getElementById("logout");
 
 	loginButton.addEventListener("click", async () => {
-		const currentUrl = window.location.href;
+		const currentUrl = window.location.origin;
 		login(currentUrl);
 	});
 
