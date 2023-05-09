@@ -27,9 +27,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 	await initAuth0();
 
 	const loginButton = document.getElementById("login");
+	const logoutButton = document.getElementById("logout");
+
 	loginButton.addEventListener("click", async () => {
 		const currentUrl = window.location.href;
 		await login(currentUrl);
+	});
+
+	logoutButton.addEventListener("click", async () => {
+		await logout();
 	});
 
 	if (

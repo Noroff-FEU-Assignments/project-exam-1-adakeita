@@ -20,15 +20,14 @@ export async function initAuth0() {
 }
 
 // Function to log in
-export const login = async () => {
-  try {
-    const currentUrl = window.location.href;
-    await auth0Client.loginWithRedirect({
-      redirect_uri: currentUrl,
-    });
-  } catch (error) {
-    console.error("Error during login:", error);
-  }
+export const login = async (callbackUrl) => {
+	try {
+		await auth0Client.loginWithRedirect({
+			redirect_uri: callbackUrl,
+		});
+	} catch (error) {
+		console.error("Error during login:", error);
+	}
 };
 
 // Function to log out
