@@ -13,6 +13,7 @@ export async function initAuth0() {
 		try {
 			await auth0Client.handleRedirectCallback();
 			window.history.replaceState({}, document.title, "/");
+			window.location.reload();
 		} catch (error) {
 			console.error("Error handling redirect callback:", error);
 		}
@@ -34,6 +35,7 @@ export const login = async (callbackUrl) => {
 export async function logout() {
 	await auth0Client.logout({
 		returnTo: window.location.origin,
+		client_id: "vvCTbVE4dXvicqedJbOgFrdP2DsdDh8a",
 	});
 }
 
