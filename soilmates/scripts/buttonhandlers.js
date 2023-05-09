@@ -29,12 +29,10 @@ export async function setupSubmitCommentButton(postId) {
 		console.log("Submit button clicked");
 
 		const isLoggedIn = await isAuthenticated();
-		console.log("Is user logged in?", isLoggedIn);
-
 		if (!isLoggedIn) {
-			const currentUrl = window.location.href;
-			console.log("Redirecting to login");
-			login(currentUrl);
+			const currentUrl = window.location.href.split("?")[0];
+			const postIdParam = window.location.search;
+			login(currentUrl, postIdParam);
 			return;
 		}
 
