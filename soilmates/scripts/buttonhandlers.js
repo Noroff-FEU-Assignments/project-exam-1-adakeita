@@ -26,9 +26,14 @@ export async function setupSubmitCommentButton(postId) {
 	commentForm.addEventListener("submit", async (event) => {
 		event.preventDefault();
 
+		console.log("Submit button clicked");
+
 		const isLoggedIn = await isAuthenticated();
+		console.log("Is user logged in?", isLoggedIn);
+
 		if (!isLoggedIn) {
 			const currentUrl = window.location.href;
+			console.log("Redirecting to login");
 			login(currentUrl);
 			return;
 		}
