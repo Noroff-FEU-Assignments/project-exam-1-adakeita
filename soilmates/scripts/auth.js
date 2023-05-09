@@ -8,9 +8,14 @@ async function initAuth0() {
 	});
 }
 
-async function login(redirectUri, additionalRedirectParams = "") {
+async function login(redirectUri, additionalRedirectParams = "", onLogin) {
+	const appState = {
+		onLogin,
+	};
+
 	await auth0.loginWithRedirect({
 		redirect_uri: redirectUri + additionalRedirectParams,
+		appState,
 	});
 }
 
@@ -18,7 +23,10 @@ async function handleRedirectCallback() {
 	const isAuthenticated = await auth0.isAuthenticated();
 
 	if (!isAuthenticated && window.location.search.includes("code=")) {
-		await auth0.handleRedirectCallback();
+		const result = await auth0.handleRedirectCallback();
+		if (result && result.appState && result.appState.onLogin) {
+			result.appState.onLogin();
+		}
 	}
 }
 

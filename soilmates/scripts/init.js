@@ -17,13 +17,14 @@ import {
 	setupLogoutButton,
 	setupSubmitCommentButton,
 } from "./buttonhandlers.js";
-import { initAuth0 } from "./auth.js";
+import { handleRedirectCallback, initAuth0 } from "./auth.js";
 
 window.addEventListener("resize", moveImageContainer);
 
 document.addEventListener("DOMContentLoaded", async () => {
 	await initAuth0();
 	await fetchAllPosts();
+	await handleRedirectCallback();
 
 	if (
 		window.location.pathname.includes("index.html") ||
