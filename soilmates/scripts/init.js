@@ -4,6 +4,7 @@ import {
 	getBlogPosts,
 	fetchCommentsForPost,
 	getPostById,
+	submitComment,
 } from "./utils.js";
 import { setupCarousel } from "./carousel.js";
 import {
@@ -12,13 +13,12 @@ import {
 	loadBlogPosts,
 	moveImageContainer,
 } from "./blogposts.js";
+import { initAuth0, isAuthenticated,} from "./auth.js";
 import {
-	initAuth0,
-	submitComment,
-	isAuthenticated,
-	getUserProfile,
-	login,
-} from "./auth.js";
+	setupLoginButton,
+	setupLogoutButton,
+	setupSubmitCommentButton,
+} from "./buttonhandlers";
 
 window.addEventListener("resize", moveImageContainer);
 
@@ -29,17 +29,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	console.log("User authenticated:", await isAuthenticated());
 
-	const loginButton = document.getElementById("login");
-	const logoutButton = document.getElementById("logout");
-
-	loginButton.addEventListener("click", async () => {
-		const currentUrl = window.location.href;
-		login(currentUrl);
-	});
-
-	logoutButton.addEventListener("click", async () => {
-		logout();
-	});
+	setupLoginButton();
+	setupLogoutButton();
 
 	if (
 		window.location.pathname.includes("index.html") ||
@@ -64,37 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 		const comments = await fetchCommentsForPost(postId); // Fetch comments
 		displayComments(comments);
-		const commentForm = document.getElementById("comment-form");
 
-		commentForm.addEventListener("submit", async (event) => {
-			event.preventDefault();
-
-			const isLoggedIn = await isAuthenticated();
-			if (!isLoggedIn) {
-				const currentUrl = window.location.href;
-				login(currentUrl);
-				return;
-			}
-
-			const userProfile = await getUserProfile(); // user's profile Auth0
-
-			const authorNameInput = document.getElementById("author_name");
-			const commentInput = document.getElementById("comment");
-
-			const authorName = authorNameInput.value;
-			const commentContent = commentInput.value;
-
-			try {
-				const userToken = await getAccessToken();
-				await submitComment(postId, commentContent, userToken, authorName);
-				alert("Comment submitted successfully!");
-
-				authorNameInput.value = "";
-				commentInput.value = "";
-			} catch (error) {
-				console.error("Error submitting comment:", error);
-				alert("Failed to submit the comment. Please try again.");
-			}
-		});
+		setupSubmitCommentButton(postId);
 	}
 });
