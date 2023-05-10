@@ -96,3 +96,51 @@ export function displayComments(comments) {
 		commentsContainer.insertAdjacentHTML("beforeend", commentHTML);
 	});
 }
+
+// utils.js
+function validateContactForm(event) {
+    event.preventDefault();
+
+    // Get input values
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let subject = document.getElementById('subject').value;
+    let message = document.getElementById('message').value;
+
+    // Clear previous error messages
+    document.getElementById('nameError').innerHTML = "";
+    document.getElementById('emailError').innerHTML = "";
+    document.getElementById('subjectError').innerHTML = "";
+    document.getElementById('messageError').innerHTML = "";
+
+    // Validate input
+    let isValid = true;
+
+    if (name.length < 5) {
+        isValid = false;
+        document.getElementById('nameError').innerHTML = "Name must be more than 5 characters long.";
+    }
+
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!email.match(emailPattern)) {
+        isValid = false;
+        document.getElementById('emailError').innerHTML = "Must be a valid email address.";
+    }
+
+    if (subject.length < 15) {
+        isValid = false;
+        document.getElementById('subjectError').innerHTML = "Subject must be more than 15 characters long.";
+    }
+
+    if (message.length < 25) {
+        isValid = false;
+        document.getElementById('messageError').innerHTML = "Message must be more than 25 characters long.";
+    }
+
+    if (isValid) {
+        // If input is valid
+        console.log("Form is valid, sending data...");
+    }
+}
+
+export { validateContactForm };
