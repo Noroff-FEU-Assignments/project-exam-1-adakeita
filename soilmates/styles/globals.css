@@ -8,10 +8,13 @@ body {
 	margin: 0;
 	overflow-x: hidden;
 	background: var(--background);
-	background-image: url("../images/Untitled.png");
+}
+
+.content-container {
+	background-image: url(../images/Untitled.png);
 	background-repeat: no-repeat;
-	background-position: bottom right;
-	background-size: contain;
+	background-position: unset;
+	background-size: cover;
 }
 
 ::marker {
