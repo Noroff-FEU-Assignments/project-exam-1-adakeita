@@ -11,6 +11,7 @@ const createMainLatestPost = (post) => `
   <div class="main-latest-post">
     <div class="latest-index-text-container">
       <p class="index-post-header">${post.acf["post-title"]}</p>
+      <p class="tagline">${post.acf["tagline"]}</p>
       <p class="latest-index-text">
         ${post.acf["blog-text"].substring(0, 100)}...
         <br>
