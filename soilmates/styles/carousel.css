@@ -26,6 +26,7 @@
 	box-sizing: border-box;
 	width: 80%;
 	max-width: 850px;
+	min-width: 450px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
