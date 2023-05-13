@@ -2,6 +2,7 @@ footer {
     overflow: hidden;
     background: white;
     height: 130px;
+    border: 1px solid #1f761f;
 }
 
 .footer-ul {

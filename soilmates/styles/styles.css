@@ -85,17 +85,18 @@ bloglist
 */
 
 .blog-list-container-wrapper {
+	display: flex;
 	height: 400px;
-	box-sizing: border-box;
 	overflow-y: auto;
-	padding: 5px;
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none;
 	margin: auto;
 	width: 70%;
 	margin-bottom: 45px;
 	padding: 0px 20px;
 	border-top: 1px solid black;
+	flex-direction: column;
+	background: #ffffffb0;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none;
 }
 
 .blog-list-container-wrapper::-webkit-scrollbar {
@@ -103,7 +104,12 @@ bloglist
 }
 
 .blog-list-container {
-	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	overflow-y: auto;
+	margin: auto;
+	width: 100%;
 }
 
 .blog-post {
@@ -113,7 +119,7 @@ bloglist
 	border-radius: 5px;
 	background-position-y: center;
 	background-size: cover;
-	max-width: 320px;
+	width: 40%;
 	transition: 0.23s ease-in-out;
 }
 
@@ -136,6 +142,7 @@ bloglist
 
 .viewmore-wrapper {
 	text-align: center;
+	margin: 30px auto;
 }
 
 #view-more-button {
@@ -206,7 +213,7 @@ Blogposts
 	transform: scale(1.1);
 }
 
-/* Add this media query for smaller screens */
+
 @media screen and (max-width: 760px) {
 	.blogpost-content-wrapper {
 		display: flex;
@@ -219,7 +226,7 @@ Blogposts
 	}
 
 	.blogpost-header-container {
-		font-size: 1.5rem; /* Increase font size for header */
+		font-size: 1.5rem;
 		text-align: center;
 		flex: 1; /* Center the header text */
 	}

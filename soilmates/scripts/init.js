@@ -19,7 +19,6 @@ import {
 } from "./buttonhandlers.js";
 import { handleRedirectCallback, initAuth0 } from "./auth.js";
 
-window.addEventListener("resize", moveImageContainer);
 
 document.addEventListener("DOMContentLoaded", async () => {
 	await initAuth0();
@@ -45,6 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			await loadBlogPosts(startIndex, postsPerPage);
 		});
 	} else if (window.location.pathname.includes("blogpost.html")) {
+		window.addEventListener("resize", moveImageContainer);
 		const postId = window.location.search.split("=")[1]; // Get the post ID from the URL
 		const post = getPostById(postId); // Get the blog post using the ID
 		displayBlogPost(post); // Display the blog post
