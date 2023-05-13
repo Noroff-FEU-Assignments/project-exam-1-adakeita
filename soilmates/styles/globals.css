@@ -15,6 +15,7 @@ body {
 	background-repeat: no-repeat;
 	background-position: unset;
 	background-size: cover;
+	overflow: hidden;
 }
 
 ::marker {

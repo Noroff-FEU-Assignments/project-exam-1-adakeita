@@ -39,16 +39,22 @@
 
 .welcome-text-wrapper {
 	display: flex;
-    box-sizing: border-box;
-    text-align: center;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
+	box-sizing: border-box;
+	text-align: center;
+	align-items: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .welcome-text {
 	width: 80%;
+}
+
+.theme-posts-container {
+	height: 325px;
+	margin: 30px auto;
+	background: #6fc4e6;
 }
 
 .modal {
@@ -261,6 +267,7 @@ Blogposts
 .comment-content-wrapper {
 	width: 50vw;
 	margin: auto;
+	margin: 20px auto;
 }
 
 .post-comment-container {
