@@ -93,13 +93,16 @@ export async function displayBlogPost() {
 		const postTitle = postData["post-title"];
 		const postTagline = postData["tagline"];
 
+		const headerTaglineContainer = document.createElement('div');
+		headerTaglineContainer.classList.add('header-tagline-container');
+		headerTaglineContainer.innerHTML = `
+            <h1 class="blogpost-title">${postTitle}</h1>
+            <p class="blogpost-tagline">${postTagline}</p>
+        `;
+		contentContainer.insertBefore(headerTaglineContainer, blogPostWrapper);
+
 		const blogPostContainer = createBlogPostContainerElement();
-		const blogPostContent = createBlogPostContent(
-			postData["blog-text"],
-			postImage,
-			postTitle,
-			postTagline
-		);
+		const blogPostContent = createBlogPostContent(postData["blog-text"], postImage);
 		blogPostContainer.innerHTML += blogPostContent;
 
 		const blogpostImg = blogPostContainer.querySelector(".blogpost-img");
@@ -153,20 +156,14 @@ export function moveImageContainer() {
 	}
 }
 
-function createBlogPostContent(blogText, postImage, title, tagline) {
+function createBlogPostContent(blogText, postImage) {
 	return `
         <div class="blogpost-content-wrapper">
-            <div class="header-tagline-container">
-                <h1 class="blogpost-title">${title}</h1>
-                <p class="blogpost-tagline">${tagline}</p>
+            <div class="blogpost-text-container">
+                <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p>")}</p>
             </div>
-            <div class="image-text-container">
-                <div class="blogpost-text-container">
-                    <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p>")}</p>
-                </div>
-                <div class="blogpost-img-container">
-                    <img class="blogpost-img" src="${postImage}" alt="Blog post image">
-                </div>
+            <div class="blogpost-img-container">
+                <img class="blogpost-img" src="${postImage}" alt="Blog post image">
             </div>
         </div>
     `;
