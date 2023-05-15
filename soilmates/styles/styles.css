@@ -41,6 +41,7 @@
 }
 
 .welcome-text-wrapper {
+	padding: 0px 30px;
 	display: flex;
 	box-sizing: border-box;
 	text-align: center;
@@ -100,7 +101,7 @@
 }
 
 .searchbox-input {
-	padding: 5px;
+	padding: 5px 50px;
 }
 
 .searchbox-img-wrapper {
@@ -201,7 +202,7 @@ content-styling {
 	background-position-y: center;
 	background-size: cover;
 	width: 40%;
-	height: 85px;
+	height: 100px;
 	transition: 0.23s ease-in-out;
 }
 
