@@ -11,7 +11,6 @@ const createMainLatestPost = (post) => `
   <div class="main-latest-post">
     <div class="latest-index-text-container">
       <p class="index-post-header">${post.acf["post-title"]}</p>
-      <p class="tagline">${post.acf["tagline"]}</p>
       <p class="latest-index-text">
         ${post.acf["blog-text"].substring(0, 100)}...
         <br>
@@ -21,9 +20,8 @@ const createMainLatestPost = (post) => `
       </p>
     </div>
     <div class="latest-index-image-container">
-      <img class="latest-index-img" src="${post.acf["post-image"]}" alt="${
-	post.acf["post-title"]
-}">
+      <img class="latest-index-img" src="${post.acf["post-image"]}" alt="${post.acf["post-title"]
+	}">
     </div>
   </div>
 `;
@@ -34,17 +32,18 @@ const createPreviousPostContainer = (posts) => `
 <h2>Previous<h2>
 </div>
     ${posts
-			.slice(1, 4)
-			.map(
-				(post) => `
+		.slice(1, 4)
+		.map(
+			(post) => `
       <div class="carousel-img-container">
-        <img class="carousel-img" src="${post.acf["post-image"]}" alt="${post.acf["post-title"]}" data-id="${post.id}" data-tagline="${post.acf["tagline"]}" data-text="${post.acf["blog-text"]}">
+        <img class="carousel-img" src="${post.acf["post-image"]}" alt="${post.acf["post-title"]}" data-id="${post.id}" data-text="${post.acf["blog-text"]}">
       </div>
     `
-			)
-			.join("")}
+		)
+		.join("")}
   </div>
 `;
+
 
 const createCarouselContentWrapper = (posts) => `
   <div class="carousel-content-wrapper">
@@ -68,7 +67,6 @@ const createCarouselContentWrapper = (posts) => `
 function swapMainContainerAndCarouselImage(clickedImage) {
 	const mainImage = document.querySelector(".latest-index-img");
 	const titleElement = document.querySelector(".index-post-header");
-	const taglineElement = document.querySelector(".tagline");
 	const excerptElement = document.querySelector(".latest-index-text");
 	const readMoreLink = document.querySelector(".read-more-link");
 
@@ -76,7 +74,6 @@ function swapMainContainerAndCarouselImage(clickedImage) {
 	const tempData = {
 		id: mainImage.dataset.id,
 		src: mainImage.src,
-		tagline: titleElement.textContent,
 		text: excerptElement.textContent,
 	};
 
@@ -84,7 +81,6 @@ function swapMainContainerAndCarouselImage(clickedImage) {
 	mainImage.dataset.id = clickedImage.dataset.id;
 	mainImage.src = clickedImage.src;
 	titleElement.textContent = clickedImage.alt;
-	taglineElement.textContent = clickedImage.dataset.tagline;
 	excerptElement.textContent = clickedImage.dataset.text.substring(0, 100) + "...";
 	readMoreLink.href = `blogpost.html?id=${clickedImage.dataset.id}`;
 
@@ -92,9 +88,9 @@ function swapMainContainerAndCarouselImage(clickedImage) {
 	clickedImage.dataset.id = tempData.id;
 	clickedImage.src = tempData.src;
 	clickedImage.alt = tempData.tagline;
-	clickedImage.dataset.tagline = tempData.tagline;
 	clickedImage.dataset.text = tempData.text;
 }
+
 
 async function fetchLatestPosts(startIndex = 0, updateCarousel = false) {
 	try {
@@ -186,4 +182,4 @@ export async function setupCarousel() {
 	await fetchAllPosts();
 	await fetchLatestPosts(0, true);
 	setupArrows();
-  }
+}
