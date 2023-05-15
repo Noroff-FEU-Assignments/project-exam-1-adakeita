@@ -10,25 +10,32 @@ export function displayBlogList(posts) {
 
 	posts.forEach((post) => {
 		const postTitle = post.acf["post-title"];
+		const postTagline = post.acf["tagline"];
+		const postDate = new Date(post.date);
+		const formattedDate = `${postDate.getDate().toString().padStart(2, '0')}/${(postDate.getMonth() + 1).toString().padStart(2, '0')}/${postDate.getFullYear().toString().substr(-2)}`;
 		const postExcerpt = post.acf["blog-text"].substring(0, 100) + "...";
 		const postId = post.id;
 		const postImage = post.acf["post-image"];
 
 		const postHTML = `
-        <a class="post-redirect" href="blogpost.html?id=${postId}">
-          <div class="blog-post" style="background-image: url('${postImage}');">
-              <div class="blogpost-stylingwrapper">
-                <div class="blog-post-content content-font">
-                  <h2 class="blogtitle-list">${postTitle}</h2>
+            <a class="post-redirect" href="blogpost.html?id=${postId}">
+                <div class="blog-post" style="background-image: url('${postImage}');">
+                    <div class="blogpost-stylingwrapper">
+                        <div class="blog-post-content content-font">
+                            <h2 class="blogtitle-list">${postTitle}</h2>
+                            <p class="tagline">${postTagline}</p>
+                            <p class="date">${formattedDate}</p>
+                        </div>
+                    <div>
                 </div>
-              <div>
-          </div>
-        </a>
-      `;
+            </a>
+        `;
 
 		blogPostsContainer.insertAdjacentHTML("beforeend", postHTML);
 	});
 }
+
+
 
 export async function loadBlogPosts(startIndex = 0, perPage = 10) {
 	try {
