@@ -91,7 +91,7 @@
 	height: 100%;
 	display: flex;
 	justify-content: center;
-	align-items: center; 
+	align-items: center;
 }
 
 .searchbox {
@@ -406,4 +406,22 @@ Blogposts
 }
 
 @media screen and (max-width: 600px) {
+}
+
+/*
+CONTACT
+*/
+
+.contactform-wrapper {
+	text-align: center;
+	margin: 40px auto;
+}
+
+#contactForm {
+	padding: 20px 0px;
+	width: 50vw;
+	margin: auto;
+	background: white;
+	border: 2px solid;
+	border-style: groove;
 }
