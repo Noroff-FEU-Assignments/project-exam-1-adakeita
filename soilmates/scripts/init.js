@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		const postsPerPage = 10;
 
 		// Show or hide "View More" button based on the number of posts
-		if (posts.length <= postsPerPage) {
+		if (posts.length < postsPerPage) {
 			viewMoreButton.classList.add("hidden");
 		} else {
 			viewMoreButton.classList.remove("hidden");
