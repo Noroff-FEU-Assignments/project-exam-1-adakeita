@@ -84,8 +84,14 @@
 bloglist
 */
 
+.post-header-container{
+	width: 65vw;
+    margin: 50px auto;
+}
+
 .post-header {
-	font-size: 55px;
+	font-size: 35px;
+	text-align: left;
 }
 
 content-styling {
@@ -151,15 +157,17 @@ content-styling {
 
 .blog-post {
 	border: 1px solid #000000;
-	padding: 15px;
+	padding: 10px;
 	padding-left: 0;
-	margin: 20px auto;
+	margin: 21px auto;
 	border-radius: 5px;
 	background-position-y: center;
 	background-size: cover;
-	width: 35%;
+	width: 40%;
+	height: 135px;
 	transition: 0.23s ease-in-out;
 }
+
 .blog-post-content {
 	padding: 0;
 	border-radius: 3px;
