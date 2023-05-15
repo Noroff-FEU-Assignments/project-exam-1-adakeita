@@ -122,7 +122,7 @@ bloglist
 */
 
 .post-header-container {
-	width: 65vw;
+	width: 63vw;
 	margin: 50px auto;
 }
 
@@ -178,7 +178,7 @@ content-styling {
 }
 
 .blogtitle-list {
-	font-size: 18px;
+	font-size: 13px;
 	position: relative;
 }
 
@@ -196,12 +196,12 @@ content-styling {
 	border: 1px solid #000000;
 	padding: 10px;
 	padding-left: 0;
-	margin: 21px auto;
+	margin: 20px auto;
 	border-radius: 5px;
 	background-position-y: center;
 	background-size: cover;
 	width: 40%;
-	height: 135px;
+	height: 85px;
 	transition: 0.23s ease-in-out;
 }
 
@@ -212,13 +212,7 @@ content-styling {
 	width: 100%;
 	margin: 0;
 	background: #ffffffcf;
-}
-
-.blogtitle-list {
-	font-size: 20px;
-	text-align: left;
-	padding: 0;
-	margin: 0;
+	font-size: 55%;
 }
 
 .date {
@@ -231,13 +225,14 @@ content-styling {
 }
 
 #view-more-button {
-	padding: 30px;
+	padding: 10px;
 	background: white;
 	border: 1px solid black;
 	border-radius: 5px;
 	box-shadow: 5px 5px 7px 0px #0000007d;
 	font-size: 21px;
 	transition: 0.23s ease-in-out;
+	width: 63vw;
 }
 
 #view-more-button:hover {
@@ -424,4 +419,24 @@ CONTACT
 	background: white;
 	border: 2px solid;
 	border-style: groove;
+}
+
+.contact-rows {
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.contact-info {
+	width: 50%;
+}
+
+.contact-msg {
+	width: 50%;
+}
+
+#message {
+	width: 90%;
+	height: 70%;
+	resize: none;
 }
