@@ -329,7 +329,7 @@ Blogposts
 		text-align: center;
 	}
 
-	.blogpost-text {
+	.comments-container .blogpost-text {
 		line-height: 1.5;
 	}
 }
@@ -346,18 +346,27 @@ Blogposts
 /*comments*/
 
 .comment {
+	text-align: center;
 	border-bottom: 1px solid black;
 }
 
 .comment-content-wrapper {
-	width: 50vw;
-	margin: auto;
-	margin: 20px auto;
+	display: flex;
+	width: 80vw;
+	margin: 45px auto;
+	height: 160px;
 }
 
 .post-comment-container {
-	margin: 20px auto;
-	padding: 15px;
+	margin: 0px auto;
+	padding: 10px;
+	width: 60%;
+}
+
+.comment-container {
+	height: 100%;
+	width: 40%;
+	margin: 0px 15px;
 }
 
 #comment-form {

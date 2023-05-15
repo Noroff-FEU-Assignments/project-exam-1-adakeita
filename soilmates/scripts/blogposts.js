@@ -156,19 +156,22 @@ export function moveImageContainer() {
 function createBlogPostContent(blogText, postImage, title, tagline) {
 	return `
         <div class="blogpost-content-wrapper">
-            <div class="blogpost-header-container">
+            <div class="header-tagline-container">
                 <h1 class="blogpost-title">${title}</h1>
                 <p class="blogpost-tagline">${tagline}</p>
             </div>
-            <div class="blogpost-text-container">
-                <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p>")}</p>
-            </div>
-            <div class="blogpost-img-container">
-                <img class="blogpost-img" src="${postImage}" alt="Blog post image">
+            <div class="image-text-container">
+                <div class="blogpost-text-container">
+                    <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p>")}</p>
+                </div>
+                <div class="blogpost-img-container">
+                    <img class="blogpost-img" src="${postImage}" alt="Blog post image">
+                </div>
             </div>
         </div>
     `;
 }
+
 
 function displayNotFoundMessage(headerContent) {
 	const titleElement = createPageHeaderElement("Post not found");
