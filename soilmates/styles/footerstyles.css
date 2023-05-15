@@ -1,15 +1,17 @@
 footer {
     overflow: hidden;
     background: white;
-    height: 130px;
+    height: 90px;
     border: 1px solid #1f761f;
 }
 
 .footer-ul {
     display: flex;
+    margin: 20px auto;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
+    flex-direction: row;
 }
 
 .footer-text-container {
@@ -17,7 +19,7 @@ footer {
 }
 
 .footer-icon-container {
-    width: 40px;
+    width: 25px;
 }
 
 .footer-icon {
