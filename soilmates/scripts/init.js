@@ -11,7 +11,6 @@ import {
 	displayBlogPost,
 	displayBlogList,
 	loadBlogPosts,
-	moveImageContainer,
 } from "./blogposts.js";
 import {
 	setupLoginButton,
@@ -79,7 +78,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 		});
 	}
 	else if (window.location.pathname.includes("blogpost.html")) {
-		window.addEventListener("resize", moveImageContainer);
 		const postId = window.location.search.split("=")[1]; // Get the post ID from the URL
 		const post = getPostById(postId); // Get the blog post using the ID
 		displayBlogPost(post); // Display the blog post

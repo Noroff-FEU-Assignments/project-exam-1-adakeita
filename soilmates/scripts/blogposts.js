@@ -78,6 +78,7 @@ export function createModal() {
 
 	return modal;
 }
+
 export async function displayBlogPost() {
 	showLoadingIndicator();
 
@@ -90,6 +91,14 @@ export async function displayBlogPost() {
 
 	if (post) {
 		const postData = post.acf;
+		const blogText = post.content.rendered;
+		const postTitle = postData["post-title"];
+		const postTagline = postData["tagline"];
+		const postIntro = postData["intro"];
+
+		const pageHeader = createPageHeaderElement(postTitle);
+		contentContainer.insertBefore(pageHeader, blogPostWrapper);
+        pageHeader.classList.add("blogpost-header");
 
 		const blogPostContainer = createBlogPostContainerElement();
 		const blogPostContent = createBlogPostContent(postData);
@@ -113,7 +122,6 @@ export async function displayBlogPost() {
 		});
 
 		blogPostWrapper.appendChild(blogPostContainer);
-		moveImageContainer();
 	} else {
 		displayNotFoundMessage(blogPostWrapper);
 	}
@@ -121,46 +129,21 @@ export async function displayBlogPost() {
 	hideLoadingIndicator();
 }
 
-export function moveImageContainer() {
-	const blogPostContentWrapper = document.querySelector(".blogpost-content-wrapper");
-	const textContainer = document.querySelector(".blogpost-text-container");
-	const imgContainer = document.querySelector(".blogpost-img-container");
-	const mediaContainer =
-		document.querySelector(".blogpost-media-container") || document.createElement("div");
-
-	if (window.innerWidth < 760) {
-		if (!mediaContainer.classList.contains("blogpost-media-container")) {
-			mediaContainer.classList.add("blogpost-media-container");
-			blogPostContentWrapper.appendChild(mediaContainer);
-		}
-		mediaContainer.appendChild(textContainer);
-		mediaContainer.appendChild(imgContainer);
-	} else {
-		if (mediaContainer.classList.contains("blogpost-media-container")) {
-			mediaContainer.remove();
-			blogPostContentWrapper.appendChild(textContainer);
-			blogPostContentWrapper.appendChild(imgContainer);
-		}
-	}
-}
-
 function createBlogPostContent(postData) {
-    const { 
-        "post-image": postImage, 
-        "post-title": title, 
-        tagline, 
-        "blog-text": blogText, 
-        summary, 
-        conclusion, 
-        "postimg-1": postImg1, 
-        "postimg-2": postImg2, 
-        "postimg-3": postImg3 
-    } = postData;
+	const {
+		"post-image": postImage,
+		"post-title": title,
+		tagline,
+		intro, // Added intro here
+		"blog-text": blogText,
+		summary,
+		conclusion,
+		"postimg-1": postImg1,
+		"postimg-2": postImg2,
+		"postimg-3": postImg3,
+	} = postData;
 
-    return `
-        <div class="blogpost-header-container">
-            <h1 class="blogpost-title">${title}</h1>
-        </div>
+	return `
         <div class="blogpost-summary-img-wrapper">
             <div class="blogpost-summary-container">
                 <p class="blogpost-summary">${summary}</p>
@@ -169,11 +152,12 @@ function createBlogPostContent(postData) {
                 <img class="blogpost-img" src="${postImage}" alt="Blog post image">
             </div>
         </div>
-        <div class="blogpost-tagline-container">
-            <p class="blogpost-tagline">${tagline}</p>
+        <div class="blogpost-tagline-intro-wrapper">
+            <h2 class="blogpost-tagline">${tagline}</h2>
+            <p class="blogpost-intro">${intro}</p>
         </div>
         <div class="blogpost-text-container">
-            <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p>")}</p>
+            <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p class>")}</p>
         </div>
         <div class="blogpost-imgs-wrapper">
             <div class="blogpost-imgs-container">
