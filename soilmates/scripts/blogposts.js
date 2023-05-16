@@ -12,7 +12,11 @@ export function displayBlogList(posts) {
 		const postTitle = post.acf["post-title"];
 		const postTagline = post.acf["tagline"];
 		const postDate = new Date(post.date);
-		const formattedDate = `${postDate.getDate().toString().padStart(2, '0')}/${(postDate.getMonth() + 1).toString().padStart(2, '0')}/${postDate.getFullYear().toString().substr(-2)}`;
+		const formattedDate = `${postDate.getDate().toString().padStart(2, "0")}/${(
+			postDate.getMonth() + 1
+		)
+			.toString()
+			.padStart(2, "0")}/${postDate.getFullYear().toString().substr(-2)}`;
 		const postExcerpt = post.acf["blog-text"].substring(0, 100) + "...";
 		const postId = post.id;
 		const postImage = post.acf["post-image"];
@@ -34,8 +38,6 @@ export function displayBlogList(posts) {
 		blogPostsContainer.insertAdjacentHTML("beforeend", postHTML);
 	});
 }
-
-
 
 export async function loadBlogPosts(startIndex = 0, perPage = 10) {
 	try {
@@ -76,7 +78,6 @@ export function createModal() {
 
 	return modal;
 }
-
 export async function displayBlogPost() {
 	showLoadingIndicator();
 
@@ -89,20 +90,9 @@ export async function displayBlogPost() {
 
 	if (post) {
 		const postData = post.acf;
-		const postImage = postData["post-image"];
-		const postTitle = postData["post-title"];
-		const postTagline = postData["tagline"];
-
-		const headerTaglineContainer = document.createElement('div');
-		headerTaglineContainer.classList.add('header-tagline-container');
-		headerTaglineContainer.innerHTML = `
-            <h1 class="blogpost-title">${postTitle}</h1>
-            <p class="blogpost-tagline">${postTagline}</p>
-        `;
-		contentContainer.insertBefore(headerTaglineContainer, blogPostWrapper);
 
 		const blogPostContainer = createBlogPostContainerElement();
-		const blogPostContent = createBlogPostContent(postData["blog-text"], postImage);
+		const blogPostContent = createBlogPostContent(postData);
 		blogPostContainer.innerHTML += blogPostContent;
 
 		const blogpostImg = blogPostContainer.querySelector(".blogpost-img");
@@ -111,7 +101,7 @@ export async function displayBlogPost() {
 
 		// Open the modal when image is clicked
 		blogpostImg.addEventListener("click", () => {
-			modalImage.src = postImage;
+			modalImage.src = postData["post-image"];
 			modal.classList.remove("hidden");
 		});
 
@@ -130,8 +120,6 @@ export async function displayBlogPost() {
 
 	hideLoadingIndicator();
 }
-
-
 
 export function moveImageContainer() {
 	const blogPostContentWrapper = document.querySelector(".blogpost-content-wrapper");
@@ -156,19 +144,53 @@ export function moveImageContainer() {
 	}
 }
 
-function createBlogPostContent(blogText, postImage) {
-	return `
-        <div class="blogpost-content-wrapper">
-            <div class="blogpost-text-container">
-                <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p>")}</p>
+function createBlogPostContent(postData) {
+    const { 
+        "post-image": postImage, 
+        "post-title": title, 
+        tagline, 
+        "blog-text": blogText, 
+        summary, 
+        conclusion, 
+        "postimg-1": postImg1, 
+        "postimg-2": postImg2, 
+        "postimg-3": postImg3 
+    } = postData;
+
+    return `
+        <div class="blogpost-header-container">
+            <h1 class="blogpost-title">${title}</h1>
+        </div>
+        <div class="blogpost-summary-img-wrapper">
+            <div class="blogpost-summary-container">
+                <p class="blogpost-summary">${summary}</p>
             </div>
             <div class="blogpost-img-container">
                 <img class="blogpost-img" src="${postImage}" alt="Blog post image">
             </div>
         </div>
+        <div class="blogpost-tagline-container">
+            <p class="blogpost-tagline">${tagline}</p>
+        </div>
+        <div class="blogpost-text-container">
+            <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p>")}</p>
+        </div>
+        <div class="blogpost-imgs-wrapper">
+            <div class="blogpost-imgs-container">
+                <img class="blogpost-img" src="${postImg1}" alt="Blog post image 1">
+            </div>
+            <div class="blogpost-imgs-container">
+                <img class="blogpost-img" src="${postImg2}" alt="Blog post image 2">
+            </div>
+            <div class="blogpost-imgs-container">
+                <img class="blogpost-img" src="${postImg3}" alt="Blog post image 3">
+            </div>
+        </div>
+        <div class="blogpost-conclusion-container">
+            <p class="blogpost-conclusion">${conclusion}</p>
+        </div>
     `;
 }
-
 
 function displayNotFoundMessage(headerContent) {
 	const titleElement = createPageHeaderElement("Post not found");
