@@ -15,12 +15,14 @@ export function hideLoadingIndicator() {
 }
 
 export function setupHamburgerMenu() {
+	const navContainer = document.querySelector('.nav-container');
 	const hamburger = document.querySelector(".hamburger");
 	const navLinksWrapper = document.querySelector(".nav-links-wrapper");
 	const closeButton = document.querySelector(".close-menu");
 	const logoContainer = document.querySelector(".logo-container");
 
 	const toggleMenu = () => {
+		navContainer.classList.toggle('open');
 		navLinksWrapper.classList.toggle("open");
 		document.body.classList.toggle("open");
 		logoContainer.classList.toggle("open");
