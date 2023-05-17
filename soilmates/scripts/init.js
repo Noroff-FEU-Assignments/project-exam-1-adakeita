@@ -5,6 +5,7 @@ import {
 	fetchCommentsForPost,
 	getPostById,
 	filterPostsByQuery,
+	setupHamburgerMenu,
 } from "./utils.js";
 import { setupCarousel } from "./carousel.js";
 import {
@@ -12,18 +13,10 @@ import {
 	displayBlogList,
 	loadBlogPosts,
 } from "./blogposts.js";
-import {
-	setupLoginButton,
-	setupLogoutButton,
-	setupSubmitCommentButton,
-} from "./buttonhandlers.js";
-import { handleRedirectCallback, initAuth0 } from "./auth.js";
-
 
 document.addEventListener("DOMContentLoaded", async () => {
-	await initAuth0();
+	setupHamburgerMenu();
 	await fetchAllPosts();
-	await handleRedirectCallback();
 
 	if (
 		window.location.pathname.includes("index.html") ||

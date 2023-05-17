@@ -1,10 +1,4 @@
-import {
-	login,
-	logout,
-	isAuthenticated,
-	getUserProfile,
-	getAccessToken,
-} from "./auth.js";
+
 
 export async function setupLoginButton() {
 	const loginButton = document.getElementById("login");

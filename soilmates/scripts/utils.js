@@ -14,6 +14,22 @@ export function hideLoadingIndicator() {
 	}
 }
 
+export function setupHamburgerMenu() {
+	const hamburger = document.querySelector(".hamburger");
+	const navLinksWrapper = document.querySelector(".nav-links-wrapper");
+	const closeButton = document.querySelector(".close-menu");
+	const logoContainer = document.querySelector(".logo-container");
+
+	const toggleMenu = () => {
+		navLinksWrapper.classList.toggle("open");
+		document.body.classList.toggle("open");
+		logoContainer.classList.toggle("open");
+	};
+
+	hamburger.addEventListener("click", toggleMenu);
+	closeButton.addEventListener("click", toggleMenu);
+}
+
 export async function fetchAllPosts() {
 	showLoadingIndicator();
 	try {
@@ -97,56 +113,57 @@ export function displayComments(comments) {
 	});
 }
 
-
 export function filterPostsByQuery(query) {
 	return allPosts.filter((post) => {
 		const titleMatch = post.title.rendered.toLowerCase().includes(query);
 		let tagMatch = false;
 		if (Array.isArray(post.acf.tag)) {
-			tagMatch = post.acf.tag.some(tag => tag.slug.toLowerCase() === query);
+			tagMatch = post.acf.tag.some((tag) => tag.slug.toLowerCase() === query);
 		}
 		return titleMatch || tagMatch;
 	});
 }
 
-
 function validateContactForm(event) {
 	event.preventDefault();
 
 	// Get input values
-	let name = document.getElementById('name').value;
-	let email = document.getElementById('email').value;
-	let subject = document.getElementById('subject').value;
-	let message = document.getElementById('message').value;
+	let name = document.getElementById("name").value;
+	let email = document.getElementById("email").value;
+	let subject = document.getElementById("subject").value;
+	let message = document.getElementById("message").value;
 
 	// Clear previous error messages
-	document.getElementById('nameError').innerHTML = "";
-	document.getElementById('emailError').innerHTML = "";
-	document.getElementById('subjectError').innerHTML = "";
-	document.getElementById('messageError').innerHTML = "";
+	document.getElementById("nameError").innerHTML = "";
+	document.getElementById("emailError").innerHTML = "";
+	document.getElementById("subjectError").innerHTML = "";
+	document.getElementById("messageError").innerHTML = "";
 
 	// Validate input
 	let isValid = true;
 
 	if (name.length < 5) {
 		isValid = false;
-		document.getElementById('nameError').innerHTML = "Name must be more than 5 characters long.";
+		document.getElementById("nameError").innerHTML =
+			"Name must be more than 5 characters long.";
 	}
 
 	let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 	if (!email.match(emailPattern)) {
 		isValid = false;
-		document.getElementById('emailError').innerHTML = "Must be a valid email address.";
+		document.getElementById("emailError").innerHTML = "Must be a valid email address.";
 	}
 
 	if (subject.length < 15) {
 		isValid = false;
-		document.getElementById('subjectError').innerHTML = "Subject must be more than 15 characters long.";
+		document.getElementById("subjectError").innerHTML =
+			"Subject must be more than 15 characters long.";
 	}
 
 	if (message.length < 25) {
 		isValid = false;
-		document.getElementById('messageError').innerHTML = "Message must be more than 25 characters long.";
+		document.getElementById("messageError").innerHTML =
+			"Message must be more than 25 characters long.";
 	}
 
 	if (isValid) {
