@@ -63,6 +63,7 @@
 
 .carousel-header {
 	margin-top: 20px;
+	font-size: 28px;
 }
 
 .main-latest-post {
@@ -120,6 +121,7 @@
 
 .previous-post-header {
 	padding: 5px;
+	font-size: 12px;
 }
 
 .carousel-img-container {
@@ -134,10 +136,65 @@
 	border-radius: 5px;
 	border-style: groove;
 	box-shadow: 5px 5px 7px 0px #0000007d;
+	transition: 0.23s ease-in-out;
 }
 
 .carousel-img:hover {
 	transform: scale(1.1);
 	transition: 0.23s ease-in-out;
 	cursor: pointer;
+}
+
+.carousel-pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+  }
+  
+  .pagination-dot {
+	width: 10px;
+	height: 10px;
+	margin: 0 5px;
+	background: #ddd;
+	border-radius: 50%;
+  }
+  
+  .pagination-dot.active {
+	background: orange;
+  }
+
+
+@media (max-width: 500px) {
+	.carousel-container {
+		min-width: 0;
+		height: 100%;
+	}
+
+	.carousel-content {
+		min-width: 0;
+		width: 90%;
+	}
+
+	.main-latest-post {
+		flex-direction: column;
+		height: auto;
+	}
+
+	.latest-index-text-container,
+	.latest-index-image-container {
+		width: 100%;
+	}
+
+	.previous-post-container {
+		flex-direction: column;
+	}
+
+	.carousel-img-container {
+		width: 100%;
+		margin: 10px;
+	}
+
+	.arrow-container {
+		display: none;
+	}
 }

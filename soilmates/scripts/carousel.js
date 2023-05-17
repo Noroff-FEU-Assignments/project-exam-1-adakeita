@@ -54,7 +54,7 @@ const createCarouselContentWrapper = (posts) => `
       <div class="loading-indicator"></div>
     </div>
     <div class="content-font carousel-content">
-      <h2 class="site-font carousel-header">New posts</h2>
+      <h2 class="site-font carousel-header">Fresh posts</h2>
       ${createMainLatestPost(posts[0])}
       ${createPreviousPostContainer(posts)}
     </div>
@@ -62,7 +62,9 @@ const createCarouselContentWrapper = (posts) => `
       <img class="carousel-arrow right-arrow" src="images/right-arrow.png" alt="Right Arrow">
     </div>
   </div>
+  <div class="carousel-pagination"></div>
 `;
+
 
 function swapMainContainerAndCarouselImage(clickedImage) {
 	const mainImage = document.querySelector(".latest-index-img");
@@ -181,5 +183,56 @@ function updateArrowVisibility() {
 export async function setupCarousel() {
 	await fetchAllPosts();
 	await fetchLatestPosts(0, true);
-	setupArrows();
+
+	// Check the window width to determine control
+	if (window.innerWidth <= 500) {
+		// For small screens
+
+		let touchStartX = 0;
+		let touchEndX = 0;
+		const threshold = 100; // Threshold
+
+		// Listen for touch events
+		const carouselContainer = document.querySelector('.carousel-container');
+
+		carouselContainer.addEventListener('touchstart', (event) => {
+			touchStartX = event.touches[0].clientX;
+		});
+
+		carouselContainer.addEventListener('touchend', (event) => {
+			touchEndX = event.changedTouches[0].clientX;
+			handleGesture();
+		});
+
+		carouselContainer.addEventListener('touchmove', (event) => {
+			event.preventDefault(); // Prevent scroll while swipe
+		});
+
+		// Determine swipe direction
+		const handleGesture = async () => {
+			if (touchStartX - touchEndX > threshold) {
+				// Swiped left
+				const newIndex = currentStartIndex + 4;
+				const newPosts = await fetchLatestPosts(newIndex, true);
+
+				if (newPosts.length > 0) {
+					currentStartIndex = newIndex;
+				}
+
+				updateArrowVisibility();
+			}
+
+			if (touchEndX - touchStartX > threshold) {
+				// Swiped right
+				currentStartIndex -= 4;
+				if (currentStartIndex < 0) {
+					currentStartIndex = 0;
+				}
+				await fetchLatestPosts(currentStartIndex, true);
+			}
+		};
+	} else {
+		setupArrows();
+	}
 }
+
