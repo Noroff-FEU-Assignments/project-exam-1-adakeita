@@ -13,8 +13,8 @@ body {
 .content-container {
 	background-image: url(../images/Untitled.png);
 	background-repeat: no-repeat;
-	background-position: unset;
-	background-size: cover;
+    background-position: center;
+    background-size: cover;
 	overflow: hidden;
 }
 

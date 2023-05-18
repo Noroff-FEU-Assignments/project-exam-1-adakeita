@@ -172,11 +172,23 @@
 	.main-latest-post {
 		flex-direction: column;
 		height: auto;
+		font-size: 80%;
+		padding: 0px;
+	}
+
+	.carousel-header {
+		margin: 0 auto;
+		font-size: 22px;
+	}
+
+	.index-post-header {
+		font-size: 15px;
 	}
 
 	.latest-index-text-container,
 	.latest-index-image-container {
 		width: 100%;
+		padding: 5px;
 	}
 
 	.previous-post-container {
@@ -186,6 +198,10 @@
 	.carousel-img-container {
 		width: 100%;
 		margin: 10px;
+	}
+	
+	.carousel-img {
+		height: 75px;
 	}
 
 	.arrow-container {

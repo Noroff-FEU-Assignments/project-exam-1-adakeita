@@ -363,7 +363,7 @@ Blogposts
 	resize: vertical;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 545px) {
 	.arrow-container {
 		display: block;
 	}
@@ -385,6 +385,7 @@ CONTACT
 	background: white;
 	border: 2px solid;
 	border-style: groove;
+	background-color: #f9b44e;
 }
 
 .contact-rows {
@@ -405,6 +406,13 @@ CONTACT
 	width: 90%;
 	height: 70%;
 	resize: none;
+}
+
+@media (max-width: 500px) {
+	#contactForm {
+		padding: 20px 5px;
+		width: 95vw;
+	}
 }
 
 @media screen and (max-width: 600px) {

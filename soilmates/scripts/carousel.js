@@ -29,7 +29,7 @@ const createMainLatestPost = (post) => `
 const createPreviousPostContainer = (posts) => `
   <div class="previous-post-container">
   <div class="previous-post-header site-font">
-<h2>Previous<h2>
+<h2>Previous</h2>
 </div>
     ${posts
 			.slice(1, 4)
