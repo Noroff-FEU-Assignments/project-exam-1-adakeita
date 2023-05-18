@@ -23,8 +23,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 		window.location.pathname === "/"
 	) {
 		setupCarousel();
-		setupLoginButton();
-		setupLogoutButton();
 	}
 	else if (window.location.pathname.includes("posts.html")) {
 		// Parse the search query

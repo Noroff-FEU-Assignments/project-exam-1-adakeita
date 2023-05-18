@@ -1,7 +1,6 @@
-import { getLatestPosts, fetchAllPosts, allPosts } from './utils.js';
+import { getLatestPosts, fetchAllPosts, allPosts } from "./utils.js";
 
-
-const carouselBg = document.querySelector(".carousel-bg");
+const carouselContainer = document.querySelector(".carousel-container");
 let leftArrow;
 let rightArrow;
 let currentStartIndex = 0;
@@ -10,8 +9,8 @@ let firstLoad = true;
 const createMainLatestPost = (post) => `
   <div class="main-latest-post">
     <div class="latest-index-text-container">
-      <p class="index-post-header">${post.acf["post-title"]}</p>
-      <p class="latest-index-text">
+      <p class="index-post-header content-font">${post.acf["post-title"]}</p>
+      <p class="latest-index-text content-font">
         ${post.acf["blog-text"].substring(0, 100)}...
         <br>
         <p class="readmore-container">
@@ -20,8 +19,9 @@ const createMainLatestPost = (post) => `
       </p>
     </div>
     <div class="latest-index-image-container">
-      <img class="latest-index-img" src="${post.acf["post-image"]}" alt="${post.acf["post-title"]
-	}">
+      <img class="latest-index-img" src="${post.acf["post-image"]}" alt="${
+	post.acf["post-title"]
+}">
     </div>
   </div>
 `;
@@ -32,18 +32,17 @@ const createPreviousPostContainer = (posts) => `
 <h2>Previous<h2>
 </div>
     ${posts
-		.slice(1, 4)
-		.map(
-			(post) => `
+			.slice(1, 4)
+			.map(
+				(post) => `
       <div class="carousel-img-container">
         <img class="carousel-img" src="${post.acf["post-image"]}" alt="${post.acf["post-title"]}" data-id="${post.id}" data-text="${post.acf["blog-text"]}">
       </div>
     `
-		)
-		.join("")}
+			)
+			.join("")}
   </div>
 `;
-
 
 const createCarouselContentWrapper = (posts) => `
   <div class="carousel-content-wrapper">
@@ -56,15 +55,15 @@ const createCarouselContentWrapper = (posts) => `
     <div class="content-font carousel-content">
       <h2 class="site-font carousel-header">Fresh posts</h2>
       ${createMainLatestPost(posts[0])}
-      ${createPreviousPostContainer(posts)}
+      ${createPreviousPostContainer(posts)}	
+	  <div class="carousel-pagination"></div>
     </div>
     <div class="arrow-container right-arrow-container">
       <img class="carousel-arrow right-arrow" src="images/right-arrow.png" alt="Right Arrow">
     </div>
-  </div>
-  <div class="carousel-pagination"></div>
-`;
 
+  </div>
+`;
 
 function swapMainContainerAndCarouselImage(clickedImage) {
 	const mainImage = document.querySelector(".latest-index-img");
@@ -93,10 +92,9 @@ function swapMainContainerAndCarouselImage(clickedImage) {
 	clickedImage.dataset.text = tempData.text;
 }
 
-
 async function fetchLatestPosts(startIndex = 0, updateCarousel = false) {
 	try {
-		const data = (await getLatestPosts(startIndex, 4)) || [];
+		const data = getLatestPosts(startIndex, 4) || [];
 
 		if (data.length === 0) {
 			return [];
@@ -105,11 +103,11 @@ async function fetchLatestPosts(startIndex = 0, updateCarousel = false) {
 		data.reverse(); // Reverse the data array here
 
 		if (firstLoad) {
-			carouselBg.innerHTML = createCarouselContentWrapper(data);
+			carouselContainer.innerHTML = createCarouselContentWrapper(data);
 			firstLoad = false;
 		} else if (updateCarousel) {
 			document.querySelector(".carousel-content-wrapper").remove();
-			carouselBg.innerHTML = createCarouselContentWrapper(data);
+			carouselContainer.innerHTML = createCarouselContentWrapper(data);
 		}
 
 		setupArrows(data);
@@ -119,6 +117,7 @@ async function fetchLatestPosts(startIndex = 0, updateCarousel = false) {
 		document.querySelectorAll(".carousel-img").forEach((img) => {
 			img.addEventListener("click", () => swapMainContainerAndCarouselImage(img));
 		});
+		createCarouselPagination(Math.floor(currentStartIndex / 4));
 
 		return data;
 	} catch (error) {
@@ -136,6 +135,8 @@ async function handleArrowClick(increment) {
 	}
 
 	updateArrowVisibility();
+
+	createCarouselPagination(Math.floor(currentStartIndex / 4));
 }
 
 function setupArrows() {
@@ -153,20 +154,11 @@ function setupArrows() {
 }
 
 async function handleLeftArrowClick() {
-	currentStartIndex -= 4;
-	if (currentStartIndex < 0) {
-		currentStartIndex = 0;
-	}
-	await fetchLatestPosts(currentStartIndex, true);
+	await handleArrowClick(-4);
 }
 
 async function handleRightArrowClick() {
-	const tempStartIndex = currentStartIndex + 4;
-	const nextData = await getLatestPosts(tempStartIndex, 1);
-	if (nextData.length > 0) {
-		currentStartIndex = tempStartIndex;
-		await fetchLatestPosts(currentStartIndex, true);
-	}
+	await handleArrowClick(4);
 }
 
 function updateArrowVisibility() {
@@ -180,32 +172,56 @@ function updateArrowVisibility() {
 	rightArrow.style.display = currentStartIndex >= maxStartIndex ? "none" : "block";
 }
 
+function createCarouselPagination(currentPage) {
+	const totalPages = 3;
+	let dots = "";
+	for (let i = 0; i < totalPages; i++) {
+		const activeClass = i === currentPage ? "active" : "";
+		dots += `<div class="pagination-dot ${activeClass}"></div>`;
+	}
+	document.querySelector(".carousel-pagination").innerHTML = dots;
+}
+
 export async function setupCarousel() {
 	await fetchAllPosts();
 	await fetchLatestPosts(0, true);
 
-	// Check the window width to determine control
-	if (window.innerWidth <= 500) {
+	// Check the window width
+	if (window.innerWidth <= 545) {
 		// For small screens
 
 		let touchStartX = 0;
+		let touchStartY = 0;
 		let touchEndX = 0;
+		let touchEndY = 0;
 		const threshold = 100; // Threshold
 
-		// Listen for touch events
-		const carouselContainer = document.querySelector('.carousel-container');
+		// Listen for touch
+		const carouselContainer = document.querySelector(".carousel-container");
 
-		carouselContainer.addEventListener('touchstart', (event) => {
+		carouselContainer.addEventListener("touchstart", (event) => {
 			touchStartX = event.touches[0].clientX;
+			touchStartY = event.touches[0].clientY;
 		});
 
-		carouselContainer.addEventListener('touchend', (event) => {
+		carouselContainer.addEventListener("touchmove", (event) => {
 			touchEndX = event.changedTouches[0].clientX;
-			handleGesture();
+			touchEndY = event.changedTouches[0].clientY;
+
+			// Calculate the absolute difference between X and Y
+			const diffX = Math.abs(touchStartX - touchEndX);
+			const diffY = Math.abs(touchStartY - touchEndY);
+
+			// If swipe was horizontal prevent default
+			if (diffX > diffY) {
+				event.preventDefault();
+			}
 		});
 
-		carouselContainer.addEventListener('touchmove', (event) => {
-			event.preventDefault(); // Prevent scroll while swipe
+		carouselContainer.addEventListener("touchend", (event) => {
+			touchEndX = event.changedTouches[0].clientX;
+			touchEndY = event.changedTouches[0].clientY;
+			handleGesture();
 		});
 
 		// Determine swipe direction
@@ -220,6 +236,7 @@ export async function setupCarousel() {
 				}
 
 				updateArrowVisibility();
+				createCarouselPagination(Math.floor(currentStartIndex / 4));
 			}
 
 			if (touchEndX - touchStartX > threshold) {
@@ -235,4 +252,3 @@ export async function setupCarousel() {
 		setupArrows();
 	}
 }
-
