@@ -154,3 +154,10 @@
 		z-index: 101;
 	}
 }
+
+@media (max-width: 450px) {
+	.logo-container.open {
+		width: 80px;
+		margin: 35px auto;
+	}
+}
