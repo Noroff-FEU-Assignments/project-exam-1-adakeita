@@ -517,3 +517,9 @@ CONTACT
 		margin: 10px auto;
 	}
 }
+
+@media screen and (max-width: 600px) {
+	.searchbox-input {
+		width: 100%;
+	}
+}
