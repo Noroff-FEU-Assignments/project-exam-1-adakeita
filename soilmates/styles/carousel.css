@@ -15,7 +15,6 @@
 	align-items: center;
 }
 
-
 .carousel-content {
 	box-sizing: border-box;
 	width: 80%;
@@ -142,21 +141,20 @@
 .carousel-pagination {
 	display: flex;
 	justify-content: center;
-	margin-top: 10px;
-  }
-  
-  .pagination-dot {
+	margin: 10px auto;
+}
+
+.pagination-dot {
 	width: 10px;
 	height: 10px;
 	margin: 0 5px;
 	background: #ddd;
 	border-radius: 50%;
-  }
-  
-  .pagination-dot.active {
-	background: orange;
-  }
+}
 
+.pagination-dot.active {
+	background: orange;
+}
 
 @media (max-width: 545px) {
 	.carousel-container {
@@ -167,6 +165,7 @@
 	.carousel-content {
 		min-width: 0;
 		width: 90%;
+		margin: 5px auto;
 	}
 
 	.main-latest-post {
@@ -174,6 +173,12 @@
 		height: auto;
 		font-size: 80%;
 		padding: 0px;
+		margin: 0;
+		width: 85%;
+	}
+
+	.latest-index-img {
+		max-height: 140px;
 	}
 
 	.carousel-header {
@@ -193,15 +198,27 @@
 
 	.previous-post-container {
 		flex-direction: column;
+		width: 85%;
+		padding: 0px 5px;
+	}
+
+	.previous-post-header h2 {
+		margin: 0;
 	}
 
 	.carousel-img-container {
 		width: 100%;
-		margin: 10px;
+		margin: 2px 0px;
 	}
-	
+
 	.carousel-img {
 		height: 75px;
+	}
+
+	.carousel-img:hover {
+		transform: none;
+		transition: 0.23s ease-in-out;
+		cursor: pointer;
 	}
 
 	.arrow-container {

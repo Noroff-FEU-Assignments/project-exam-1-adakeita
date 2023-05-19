@@ -53,10 +53,10 @@ const createCarouselContentWrapper = (posts) => `
       <div class="loading-indicator"></div>
     </div>
     <div class="content-font carousel-content">
+	<div class="carousel-pagination"></div>
       <h2 class="site-font carousel-header">Fresh posts</h2>
       ${createMainLatestPost(posts[0])}
       ${createPreviousPostContainer(posts)}	
-	  <div class="carousel-pagination"></div>
     </div>
     <div class="arrow-container right-arrow-container">
       <img class="carousel-arrow right-arrow" src="images/right-arrow.png" alt="Right Arrow">
