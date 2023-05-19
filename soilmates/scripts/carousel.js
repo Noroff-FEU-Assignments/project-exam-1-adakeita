@@ -88,7 +88,6 @@ function swapMainContainerAndCarouselImage(clickedImage) {
 	// Update clicked image data with previous main container data
 	clickedImage.dataset.id = tempData.id;
 	clickedImage.src = tempData.src;
-	clickedImage.alt = tempData.tagline;
 	clickedImage.dataset.text = tempData.text;
 }
 
@@ -172,83 +171,98 @@ function updateArrowVisibility() {
 	rightArrow.style.display = currentStartIndex >= maxStartIndex ? "none" : "block";
 }
 
+async function setupTouchEvents() {
+    // Check the window width
+    if (window.innerWidth <= 545) {
+        // For small screens
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        const threshold = 100; // Threshold
+
+        // Listen for touch
+        const carouselContainer = document.querySelector(".carousel-container");
+
+        carouselContainer.addEventListener("touchstart", (event) => {
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+        });
+
+        carouselContainer.addEventListener("touchmove", (event) => {
+            touchEndX = event.changedTouches[0].clientX;
+            touchEndY = event.changedTouches[0].clientY;
+
+            // Calculate the absolute difference between X and Y
+            const diffX = Math.abs(touchStartX - touchEndX);
+            const diffY = Math.abs(touchStartY - touchEndY);
+
+            // If swipe was horizontal prevent default
+            if (diffX > diffY) {
+                event.preventDefault();
+            }
+        });
+
+        carouselContainer.addEventListener("touchend", (event) => {
+            touchEndX = event.changedTouches[0].clientX;
+            touchEndY = event.changedTouches[0].clientY;
+            handleGesture();
+        });
+
+        // Determine swipe direction
+        const handleGesture = async () => {
+            if (touchStartX - touchEndX > threshold) {
+                // Swiped left
+                const newIndex = currentStartIndex + 4;
+                const newPosts = await fetchLatestPosts(newIndex, true);
+
+                if (newPosts.length > 0) {
+                    currentStartIndex = newIndex;
+                }
+
+                updateArrowVisibility();
+                createCarouselPagination(Math.floor(currentStartIndex / 4));
+            }
+
+            if (touchEndX - touchStartX > threshold) {
+                // Swiped right
+                currentStartIndex -= 4;
+                if (currentStartIndex < 0) {
+                    currentStartIndex = 0;
+                }
+                await fetchLatestPosts(currentStartIndex, true);
+            }
+        };
+    }
+}
+
 function createCarouselPagination(currentPage) {
-	const totalPages = 3;
-	let dots = "";
-	for (let i = 0; i < totalPages; i++) {
-		const activeClass = i === currentPage ? "active" : "";
-		dots += `<div class="pagination-dot ${activeClass}"></div>`;
-	}
-	document.querySelector(".carousel-pagination").innerHTML = dots;
+    const totalPages = 3;
+    let dots = "";
+    for (let i = 0; i < totalPages; i++) {
+        const activeClass = i === currentPage ? "active" : "";
+        dots += `<div class="pagination-dot ${activeClass}" data-index="${i}"></div>`;
+    }
+    const carouselPagination = document.querySelector(".carousel-pagination");
+    carouselPagination.innerHTML = dots;
+    attachPaginationEventListeners();
+    console.log("createCarousel being used")
+}
+
+function attachPaginationEventListeners() {
+    document.querySelectorAll('.pagination-dot').forEach(dot => {
+        dot.addEventListener('click', async (event) => {
+            const pageIndex = Number(event.target.dataset.index);
+            currentStartIndex = pageIndex * 4;
+            await fetchLatestPosts(currentStartIndex, true);
+            createCarouselPagination(Math.floor(currentStartIndex / 4));
+        });
+    });
 }
 
 export async function setupCarousel() {
-	await fetchAllPosts();
-	await fetchLatestPosts(0, true);
-
-	// Check the window width
-	if (window.innerWidth <= 545) {
-		// For small screens
-
-		let touchStartX = 0;
-		let touchStartY = 0;
-		let touchEndX = 0;
-		let touchEndY = 0;
-		const threshold = 100; // Threshold
-
-		// Listen for touch
-		const carouselContainer = document.querySelector(".carousel-container");
-
-		carouselContainer.addEventListener("touchstart", (event) => {
-			touchStartX = event.touches[0].clientX;
-			touchStartY = event.touches[0].clientY;
-		});
-
-		carouselContainer.addEventListener("touchmove", (event) => {
-			touchEndX = event.changedTouches[0].clientX;
-			touchEndY = event.changedTouches[0].clientY;
-
-			// Calculate the absolute difference between X and Y
-			const diffX = Math.abs(touchStartX - touchEndX);
-			const diffY = Math.abs(touchStartY - touchEndY);
-
-			// If swipe was horizontal prevent default
-			if (diffX > diffY) {
-				event.preventDefault();
-			}
-		});
-
-		carouselContainer.addEventListener("touchend", (event) => {
-			touchEndX = event.changedTouches[0].clientX;
-			touchEndY = event.changedTouches[0].clientY;
-			handleGesture();
-		});
-
-		// Determine swipe direction
-		const handleGesture = async () => {
-			if (touchStartX - touchEndX > threshold) {
-				// Swiped left
-				const newIndex = currentStartIndex + 4;
-				const newPosts = await fetchLatestPosts(newIndex, true);
-
-				if (newPosts.length > 0) {
-					currentStartIndex = newIndex;
-				}
-
-				updateArrowVisibility();
-				createCarouselPagination(Math.floor(currentStartIndex / 4));
-			}
-
-			if (touchEndX - touchStartX > threshold) {
-				// Swiped right
-				currentStartIndex -= 4;
-				if (currentStartIndex < 0) {
-					currentStartIndex = 0;
-				}
-				await fetchLatestPosts(currentStartIndex, true);
-			}
-		};
-	} else {
-		setupArrows();
-	}
+    await fetchAllPosts();
+    await fetchLatestPosts(0, true);
+    setupTouchEvents();
+    createCarouselPagination(Math.floor(currentStartIndex / 4));
 }

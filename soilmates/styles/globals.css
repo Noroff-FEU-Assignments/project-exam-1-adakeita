@@ -11,11 +11,11 @@ body {
 }
 
 .content-container {
-	background-image: url(../images/Untitled.png);
-	background-repeat: no-repeat;
-    background-position: center;
+    background-image: url("../images/Untitled.png");
+    background-repeat: repeat-y;
+    background-position: top;
     background-size: cover;
-	overflow: hidden;
+    overflow: hidden;
 }
 
 ::marker {

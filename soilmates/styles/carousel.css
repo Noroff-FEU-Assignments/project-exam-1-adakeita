@@ -152,6 +152,10 @@
 	border-radius: 50%;
 }
 
+.pagination-dot:hover {
+  cursor: pointer;
+}
+
 .pagination-dot.active {
 	background: orange;
 }
