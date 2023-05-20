@@ -132,9 +132,9 @@ export async function displayBlogPost() {
 function createBlogPostContent(postData) {
 	const {
 		"post-image": postImage,
-		"post-title": title,
+		"post-title":
 		tagline,
-		intro, // Added intro here
+		intro,
 		"blog-text": blogText,
 		summary,
 		conclusion,

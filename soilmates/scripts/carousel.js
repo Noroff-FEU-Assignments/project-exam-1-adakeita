@@ -161,8 +161,7 @@ async function handleRightArrowClick() {
 }
 
 function updateArrowVisibility() {
-	const totalPosts = allPosts.length;
-	const maxStartIndex = Math.max(0, totalPosts - 4);
+	const maxStartIndex = 8;
 
 	// Hide left arrow
 	leftArrow.style.display = currentStartIndex === 0 ? "none" : "block";
