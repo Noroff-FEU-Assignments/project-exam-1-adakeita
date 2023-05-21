@@ -75,7 +75,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 		const comments = await fetchCommentsForPost(postId); // Fetch comments for the blog post
 		displayComments(comments);
-
-		setupSubmitCommentButton(postId);
 	}
 });

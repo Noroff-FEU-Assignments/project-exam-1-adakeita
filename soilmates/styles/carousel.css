@@ -198,6 +198,7 @@
 	.latest-index-image-container {
 		width: 100%;
 		padding: 5px;
+		text-align: center;
 	}
 
 	.previous-post-container {
@@ -217,12 +218,11 @@
 
 	.carousel-img {
 		height: 75px;
+		box-shadow: none;
 	}
 
 	.carousel-img:hover {
 		transform: none;
-		transition: 0.23s ease-in-out;
-		cursor: pointer;
 	}
 
 	.arrow-container {

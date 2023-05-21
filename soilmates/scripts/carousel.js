@@ -1,10 +1,16 @@
-import { getLatestPosts, fetchAllPosts, allPosts } from "./utils.js";
+import {
+	fetchAllPosts,
+	allPosts,
+	handleTouchEvents,
+	fetchLatestPostsForCarousel,
+} from "./utils.js";
 
 const carouselContainer = document.querySelector(".carousel-container");
 let leftArrow;
 let rightArrow;
 let currentStartIndex = 0;
 let firstLoad = true;
+const POSTS_PER_PAGE = 4;
 
 const createMainLatestPost = (post) => `
   <div class="main-latest-post">
@@ -32,7 +38,8 @@ const createPreviousPostContainer = (posts) => `
 <h2>Previous</h2>
 </div>
     ${posts
-			.slice(1, 4)
+			.slice(0, posts.length - 1)
+			.reverse() // Reverse the order
 			.map(
 				(post) => `
       <div class="carousel-img-container">
@@ -55,7 +62,7 @@ const createCarouselContentWrapper = (posts) => `
     <div class="content-font carousel-content">
 	<div class="carousel-pagination"></div>
       <h2 class="site-font carousel-header">Fresh posts</h2>
-      ${createMainLatestPost(posts[0])}
+	  ${createMainLatestPost(posts[posts.length - 1])}
       ${createPreviousPostContainer(posts)}	
     </div>
     <div class="arrow-container right-arrow-container">
@@ -65,7 +72,7 @@ const createCarouselContentWrapper = (posts) => `
   </div>
 `;
 
-function swapMainContainerAndCarouselImage(clickedImage) {
+const swapMainContainerAndCarouselImage = (clickedImage) => {
 	const mainImage = document.querySelector(".latest-index-img");
 	const titleElement = document.querySelector(".index-post-header");
 	const excerptElement = document.querySelector(".latest-index-text");
@@ -89,56 +96,59 @@ function swapMainContainerAndCarouselImage(clickedImage) {
 	clickedImage.dataset.id = tempData.id;
 	clickedImage.src = tempData.src;
 	clickedImage.dataset.text = tempData.text;
-}
+};
 
-async function fetchLatestPosts(startIndex = 0, updateCarousel = false) {
+const fetchLatestPosts = async (startIndex = 0, updateCarousel = false) => {
 	try {
-		const data = getLatestPosts(startIndex, 4) || [];
+		const data = await fetchLatestPostsForCarousel();
 
 		if (data.length === 0) {
 			return [];
 		}
 
-		data.reverse(); // Reverse the data array here
+		// Calculate start and end index for slicing data
+		const endIndex = data.length - startIndex;
+		const beginIndex = endIndex - POSTS_PER_PAGE;
 
 		if (firstLoad) {
-			carouselContainer.innerHTML = createCarouselContentWrapper(data);
+			carouselContainer.innerHTML = createCarouselContentWrapper(
+				data.slice(beginIndex, endIndex)
+			);
 			firstLoad = false;
 		} else if (updateCarousel) {
 			document.querySelector(".carousel-content-wrapper").remove();
-			carouselContainer.innerHTML = createCarouselContentWrapper(data);
+			carouselContainer.innerHTML = createCarouselContentWrapper(
+				data.slice(beginIndex, endIndex)
+			);
 		}
 
-		setupArrows(data);
+		setupArrows();
 
 		updateArrowVisibility();
 
 		document.querySelectorAll(".carousel-img").forEach((img) => {
 			img.addEventListener("click", () => swapMainContainerAndCarouselImage(img));
 		});
-		createCarouselPagination(Math.floor(currentStartIndex / 4));
+		createCarouselPagination(Math.floor(startIndex / POSTS_PER_PAGE));
 
 		return data;
 	} catch (error) {
 		console.error("Error fetching the latest posts:", error);
 		return [];
 	}
-}
+};
 
-async function handleArrowClick(increment) {
+const handleArrowClick = async (increment) => {
 	const newIndex = currentStartIndex + increment;
-	const newPosts = await fetchLatestPosts(newIndex, true);
-
-	if (newPosts.length > 0) {
+	if (newIndex >= 0 && newIndex < 9) {
+		await fetchLatestPosts(newIndex, true);
 		currentStartIndex = newIndex;
+		updateArrowVisibility();
+		createCarouselPagination(Math.floor((12 - currentStartIndex - 1) / POSTS_PER_PAGE));
 	}
+};
 
-	updateArrowVisibility();
-
-	createCarouselPagination(Math.floor(currentStartIndex / 4));
-}
-
-function setupArrows() {
+const setupArrows = () => {
 	leftArrow = document.querySelector(".left-arrow");
 	rightArrow = document.querySelector(".right-arrow");
 
@@ -150,17 +160,17 @@ function setupArrows() {
 	rightArrow.addEventListener("click", handleRightArrowClick);
 
 	updateArrowVisibility();
-}
+};
 
-async function handleLeftArrowClick() {
-	await handleArrowClick(-4);
-}
+const handleLeftArrowClick = async () => {
+	await handleArrowClick(-POSTS_PER_PAGE);
+};
 
-async function handleRightArrowClick() {
-	await handleArrowClick(4);
-}
+const handleRightArrowClick = async () => {
+	await handleArrowClick(POSTS_PER_PAGE);
+};
 
-function updateArrowVisibility() {
+const updateArrowVisibility = () => {
 	const maxStartIndex = 8;
 
 	// Hide left arrow
@@ -168,100 +178,74 @@ function updateArrowVisibility() {
 
 	// Hide right arrow
 	rightArrow.style.display = currentStartIndex >= maxStartIndex ? "none" : "block";
-}
+};
 
-async function setupTouchEvents() {
-    // Check the window width
-    if (window.innerWidth <= 545) {
-        // For small screens
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let touchEndX = 0;
-        let touchEndY = 0;
-        const threshold = 100; // Threshold
+const setupTouchEvents = () => {
+	if (window.innerWidth <= 545) {
+		// Check the window width for small screens
+		const threshold = 100;
+		const maxStartIndex = 8;
 
-        // Listen for touch
-        const carouselContainer = document.querySelector(".carousel-container");
+		// swipe left
+		const handleSwipeLeft = async () => {
+			const newIndex = currentStartIndex + POSTS_PER_PAGE;
+			if (newIndex <= maxStartIndex) {
+				const newPosts = await fetchLatestPosts(newIndex, true);
 
-        carouselContainer.addEventListener("touchstart", (event) => {
-            touchStartX = event.touches[0].clientX;
-            touchStartY = event.touches[0].clientY;
-        });
+				if (newPosts.length > 0) {
+					currentStartIndex = newIndex;
+				}
 
-        carouselContainer.addEventListener("touchmove", (event) => {
-            touchEndX = event.changedTouches[0].clientX;
-            touchEndY = event.changedTouches[0].clientY;
+				updateArrowVisibility();
+				createCarouselPagination(Math.floor(currentStartIndex / POSTS_PER_PAGE));
+			}
+		};
 
-            // Calculate the absolute difference between X and Y
-            const diffX = Math.abs(touchStartX - touchEndX);
-            const diffY = Math.abs(touchStartY - touchEndY);
+		// swipe right
+		const handleSwipeRight = async () => {
+			currentStartIndex -= POSTS_PER_PAGE;
+			if (currentStartIndex < 0) {
+				currentStartIndex = 0;
+			}
+			await fetchLatestPosts(currentStartIndex, true);
+			updateArrowVisibility();
+			createCarouselPagination(Math.floor(currentStartIndex / POSTS_PER_PAGE));
+		};
 
-            // If swipe was horizontal prevent default
-            if (diffX > diffY) {
-                event.preventDefault();
-            }
-        });
+		// Listen for touch
+		const carouselContainer = document.querySelector(".carousel-container");
 
-        carouselContainer.addEventListener("touchend", (event) => {
-            touchEndX = event.changedTouches[0].clientX;
-            touchEndY = event.changedTouches[0].clientY;
-            handleGesture();
-        });
-
-        // Determine swipe direction
-        const handleGesture = async () => {
-            if (touchStartX - touchEndX > threshold) {
-                // Swiped left
-                const newIndex = currentStartIndex + 4;
-                const newPosts = await fetchLatestPosts(newIndex, true);
-
-                if (newPosts.length > 0) {
-                    currentStartIndex = newIndex;
-                }
-
-                updateArrowVisibility();
-                createCarouselPagination(Math.floor(currentStartIndex / 4));
-            }
-
-            if (touchEndX - touchStartX > threshold) {
-                // Swiped right
-                currentStartIndex -= 4;
-                if (currentStartIndex < 0) {
-                    currentStartIndex = 0;
-                }
-                await fetchLatestPosts(currentStartIndex, true);
-            }
-        };
-    }
-}
+		// Use the handleTouchEvents function from utils.js
+		handleTouchEvents(carouselContainer, threshold, handleSwipeLeft, handleSwipeRight);
+	}
+};
 
 function createCarouselPagination(currentPage) {
-    const totalPages = 3;
-    let dots = "";
-    for (let i = 0; i < totalPages; i++) {
-        const activeClass = i === currentPage ? "active" : "";
-        dots += `<div class="pagination-dot ${activeClass}" data-index="${i}"></div>`;
-    }
-    const carouselPagination = document.querySelector(".carousel-pagination");
-    carouselPagination.innerHTML = dots;
-    attachPaginationEventListeners();
-    console.log("createCarousel being used")
+	const totalPages = 3;
+	let dots = "";
+	for (let i = 0; i < totalPages; i++) {
+		const activeClass = i === currentPage ? "active" : "";
+		dots += `<div class="pagination-dot ${activeClass}" data-index="${i}"></div>`;
+	}
+	const carouselPagination = document.querySelector(".carousel-pagination");
+	carouselPagination.innerHTML = dots;
+	attachPaginationEventListeners();
 }
 
 function attachPaginationEventListeners() {
-    document.querySelectorAll('.pagination-dot').forEach(dot => {
-        dot.addEventListener('click', async (event) => {
-            const pageIndex = Number(event.target.dataset.index);
-            currentStartIndex = pageIndex * 4;
-            await fetchLatestPosts(currentStartIndex, true);
-            createCarouselPagination(Math.floor(currentStartIndex / 4));
-        });
-    });
+	document.querySelectorAll(".pagination-dot").forEach((dot) => {
+		dot.addEventListener("click", async (event) => {
+			const pageIndex = Number(event.target.dataset.index);
+			currentStartIndex = pageIndex * 4;
+			await fetchLatestPosts(currentStartIndex, true);
+			createCarouselPagination(Math.floor(currentStartIndex / 4));
+		});
+	});
 }
 
 export async function setupCarousel() {
-    await fetchAllPosts();
-    await fetchLatestPosts(0, true);
-    setupTouchEvents();
-    createCarouselPagination(Math.floor(currentStartIndex / 4));
+	await fetchAllPosts();
+	await fetchLatestPosts(0, true);
+	setupTouchEvents();
+	createCarouselPagination(Math.floor(currentStartIndex / 4));
 }

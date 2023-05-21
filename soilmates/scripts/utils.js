@@ -1,4 +1,6 @@
-export let allPosts = [];
+// -----------------
+// DOM Manipulations
+// -----------------
 
 export function showLoadingIndicator() {
 	const loadingIndicator = document.querySelector(".loading-indicator");
@@ -14,15 +16,40 @@ export function hideLoadingIndicator() {
 	}
 }
 
+export function createModal() {
+	const modal = document.createElement("div");
+	modal.classList.add("modal", "hidden");
+
+	const modalImage = document.createElement("img");
+	modalImage.setAttribute("id", "modal-image");
+	modalImage.setAttribute("alt", "Blog post image enlarged");
+
+	modal.appendChild(modalImage);
+	document.body.appendChild(modal);
+
+	return modal;
+}
+
+export function createPageHeaderElement(text) {
+	const header = document.createElement("h1");
+	header.classList.add("page-header");
+	header.textContent = text;
+	return header;
+}
+
+// -----------------
+// Navigation and UI Events
+// -----------------
+
 export function setupHamburgerMenu() {
-	const navContainer = document.querySelector('.nav-container');
+	const navContainer = document.querySelector(".nav-container");
 	const hamburger = document.querySelector(".hamburger");
 	const navLinksWrapper = document.querySelector(".nav-links-wrapper");
 	const closeButton = document.querySelector(".close-menu");
 	const logoContainer = document.querySelector(".logo-container");
 
 	const toggleMenu = () => {
-		navContainer.classList.toggle('open');
+		navContainer.classList.toggle("open");
 		navLinksWrapper.classList.toggle("open");
 		document.body.classList.toggle("open");
 		logoContainer.classList.toggle("open");
@@ -32,7 +59,93 @@ export function setupHamburgerMenu() {
 	closeButton.addEventListener("click", toggleMenu);
 }
 
+export const handleTouchEvents = (
+	element,
+	threshold,
+	handleSwipeLeft,
+	handleSwipeRight
+) => {
+	let touchStartX = 0;
+	let touchStartY = 0;
+	let touchEndX = 0;
+	let touchEndY = 0;
+
+	element.addEventListener("touchstart", (event) => {
+		touchStartX = event.touches[0].clientX;
+		touchStartY = event.touches[0].clientY;
+	});
+
+	element.addEventListener("touchmove", (event) => {
+		touchEndX = event.changedTouches[0].clientX;
+		touchEndY = event.changedTouches[0].clientY;
+
+		// Calculate the absolute difference between X and Y
+		const diffX = Math.abs(touchStartX - touchEndX);
+		const diffY = Math.abs(touchStartY - touchEndY);
+
+		// If swipe was horizontal prevent default
+		if (diffX > diffY) {
+			event.preventDefault();
+		}
+	});
+
+	element.addEventListener("touchend", (event) => {
+		touchEndX = event.changedTouches[0].clientX;
+		touchEndY = event.changedTouches[0].clientY;
+		handleGesture();
+	});
+
+	const handleGesture = async () => {
+		if (touchStartX - touchEndX > threshold) {
+			// Swiped left
+			await handleSwipeLeft();
+		}
+
+		if (touchEndX - touchStartX > threshold) {
+			// Swiped right
+			await handleSwipeRight();
+		}
+	};
+};
+
+// -----------------
+// Data Fetching and Handling
+// -----------------
+
+export async function fetchLatestPostsForCarousel() {
+	console.log("Fetching latest posts for carousel...");
+	showLoadingIndicator();
+	try {
+		const perPage = 12;
+		const response = await fetch(
+			`https://api.adakeita.dev/wp-json/wp/v2/blogpost?per_page=${perPage}`
+		);
+
+		if (!response.ok) {
+			throw new Error("Failed to fetch posts for the carousel");
+		}
+
+		const data = await response.json();
+		// Reverse the data to get the latest posts at the beginning
+		const reversedData = data.reverse();
+
+		// Add the posts to allPosts, but only if they're not already there
+		for (const post of reversedData) {
+			if (!allPosts.find((p) => p.id === post.id)) {
+				allPosts.unshift(post);
+			}
+		}
+
+		return reversedData;
+	} catch (error) {
+		console.error("Error fetching latest posts for carousel:", error);
+	} finally {
+		hideLoadingIndicator();
+	}
+}
+
 export async function fetchAllPosts() {
+	console.log("Fetching all posts...");
 	showLoadingIndicator();
 	try {
 		const allFetchedPosts = [];
@@ -82,16 +195,23 @@ export function getPostById(id) {
 	return allPosts.find((post) => parseInt(post.id, 10) === id);
 }
 
-export async function fetchCommentsForPost(postId) {
-	const response = await fetch(
-		`https://api.adakeita.dev/wp-json/wp/v2/comments?post=${postId}`
-	);
-	const data = await response.json();
-	return data;
+// -----------------
+// Data Filtering
+// -----------------
+
+export function filterPostsByQuery(query) {
+	return allPosts.filter((post) => {
+		const titleMatch = post.title.rendered.toLowerCase().includes(query);
+		let tagMatch = false;
+		if (Array.isArray(post.acf.tag)) {
+			tagMatch = post.acf.tag.some((tag) => tag.slug.toLowerCase() === query);
+		}
+		return titleMatch || tagMatch;
+	});
 }
 
 export function displayComments(comments) {
-	const commentsContainer = document.querySelector(".comments-container");
+	const commentsContainer = document.querySelector(".view-comments-box");
 
 	// check comments is array
 	if (!Array.isArray(comments)) {
@@ -115,18 +235,11 @@ export function displayComments(comments) {
 	});
 }
 
-export function filterPostsByQuery(query) {
-	return allPosts.filter((post) => {
-		const titleMatch = post.title.rendered.toLowerCase().includes(query);
-		let tagMatch = false;
-		if (Array.isArray(post.acf.tag)) {
-			tagMatch = post.acf.tag.some((tag) => tag.slug.toLowerCase() === query);
-		}
-		return titleMatch || tagMatch;
-	});
-}
+// -----------------
+// Form Validation
+// -----------------
 
-function validateContactForm(event) {
+export function validateContactForm(event) {
 	event.preventDefault();
 
 	// Get input values
@@ -174,4 +287,72 @@ function validateContactForm(event) {
 	}
 }
 
-export { validateContactForm };
+// -----------------
+// Data Storage
+// -----------------
+
+export let allPosts = [];
+
+//----
+//COMMENTS
+//-----------
+
+export async function fetchCommentsForPost(postId) {
+	const response = await fetch(
+		`https://api.adakeita.dev/wp-json/wp/v2/comments?post=${postId}`
+	);
+	const data = await response.json();
+	return data;
+}
+
+export function handleCommentsForPost(postId) {
+	// Fetch and display comments on load
+	fetchCommentsForPost(postId).then(displayComments);
+
+	// Handle form submission
+	const commentForm = document.getElementById("comment-form");
+
+	commentForm.addEventListener("submit", async (event) => {
+		event.preventDefault();
+
+		const author_name = document.getElementById("author_name").value;
+		const email = document.getElementById("email").value;
+		const comment = document.getElementById("comment").value;
+
+		// Check for empty values before sending
+		if (author_name && email && comment) {
+			await postComment(postId, author_name, email, comment);
+			document.getElementById("author_name").value = "";
+			document.getElementById("email").value = "";
+			document.getElementById("comment").value = "";
+			const comments = await fetchCommentsForPost(postId);
+			displayComments(comments);
+		}
+	});
+}
+
+export async function postComment(postId, author_name, email, comment) {
+	try {
+		const response = await fetch(`https://api.adakeita.dev/wp-json/wp/v2/comments`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				post: postId,
+				author_name,
+				author_email: email,
+				content: comment,
+			}),
+		});
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		const data = await response.json();
+		console.log(data);
+	} catch (error) {
+		console.log(error);
+	}
+}

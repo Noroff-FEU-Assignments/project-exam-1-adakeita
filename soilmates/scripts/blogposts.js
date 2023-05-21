@@ -3,6 +3,8 @@ import {
 	showLoadingIndicator,
 	hideLoadingIndicator,
 	getPostById,
+	createModal,
+	createPageHeaderElement,
 } from "./utils.js";
 
 export function displayBlogList(posts) {
@@ -52,31 +54,10 @@ export async function loadBlogPosts(startIndex = 0, perPage = 10) {
 	}
 }
 
-export function createPageHeaderElement(text) {
-	const header = document.createElement("h1");
-	header.classList.add("page-header");
-	header.textContent = text;
-	return header;
-}
-
 export function createBlogPostContainerElement() {
 	const blogPostContainer = document.createElement("div");
 	blogPostContainer.classList.add("blogpost-container");
 	return blogPostContainer;
-}
-
-export function createModal() {
-	const modal = document.createElement("div");
-	modal.classList.add("modal", "hidden");
-
-	const modalImage = document.createElement("img");
-	modalImage.setAttribute("id", "modal-image");
-	modalImage.setAttribute("alt", "Blog post image enlarged");
-
-	modal.appendChild(modalImage);
-	document.body.appendChild(modal);
-
-	return modal;
 }
 
 export async function displayBlogPost() {
