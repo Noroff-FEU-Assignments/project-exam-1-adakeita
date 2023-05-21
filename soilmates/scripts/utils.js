@@ -210,31 +210,6 @@ export function filterPostsByQuery(query) {
 	});
 }
 
-export function displayComments(comments) {
-	const commentsContainer = document.querySelector(".view-comments-box");
-
-	// check comments is array
-	if (!Array.isArray(comments)) {
-		console.error("displayComments: comments is not an array");
-		return;
-	}
-
-	if (comments.length === 0) {
-		commentsContainer.innerHTML = "<p>No comments yet.</p>";
-		return;
-	}
-
-	comments.forEach((comment) => {
-		const commentHTML = `
-		<div class="comment">
-		  <p><strong>${comment.author_name}:</strong> ${comment.content.rendered}</p>
-		</div>
-	  `;
-
-		commentsContainer.insertAdjacentHTML("beforeend", commentHTML);
-	});
-}
-
 // -----------------
 // Form Validation
 // -----------------
@@ -297,6 +272,34 @@ export let allPosts = [];
 //COMMENTS
 //-----------
 
+export function displayComments(comments) {
+	const commentsContainer = document.querySelector(".view-comments-box");
+
+	// check comments is array
+	if (!Array.isArray(comments)) {
+		console.error("displayComments: comments is not an array");
+		return;
+	}
+
+	// Reset comments container
+	commentsContainer.innerHTML = "";
+
+	if (comments.length === 0) {
+		commentsContainer.innerHTML = "<p>No comments yet.</p>";
+		return;
+	}
+
+	comments.forEach((comment) => {
+		const commentHTML = `
+		<div class="comment">
+		  <p><strong>${comment.author_name}:</strong> ${comment.content.rendered}</p>
+		</div>
+	  `;
+
+		commentsContainer.insertAdjacentHTML("beforeend", commentHTML);
+	});
+}
+
 export async function fetchCommentsForPost(postId) {
 	const response = await fetch(
 		`https://api.adakeita.dev/wp-json/wp/v2/comments?post=${postId}`
@@ -337,6 +340,7 @@ export async function postComment(postId, author_name, email, comment) {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: "Basic " + btoa("adakeita:qtR6 rLjU hy1Q cmgx Kpb1 oS5y"),
 			},
 			body: JSON.stringify({
 				post: postId,

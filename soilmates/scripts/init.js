@@ -6,13 +6,10 @@ import {
 	getPostById,
 	filterPostsByQuery,
 	setupHamburgerMenu,
+	handleCommentsForPost
 } from "./utils.js";
 import { setupCarousel } from "./carousel.js";
-import {
-	displayBlogPost,
-	displayBlogList,
-	loadBlogPosts,
-} from "./blogposts.js";
+import { displayBlogPost, displayBlogList, loadBlogPosts } from "./blogposts.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
 	setupHamburgerMenu();
@@ -23,11 +20,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 		window.location.pathname === "/"
 	) {
 		setupCarousel();
-	}
-	else if (window.location.pathname.includes("posts.html")) {
+	} else if (window.location.pathname.includes("posts.html")) {
 		// Parse the search query
 		const urlParams = new URLSearchParams(window.location.search);
-		const searchQuery = urlParams.get('search');
+		const searchQuery = urlParams.get("search");
 
 		let posts;
 
@@ -67,13 +63,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 				viewMoreButton.classList.add("hidden");
 			}
 		});
-	}
-	else if (window.location.pathname.includes("blogpost.html")) {
+	} else if (window.location.pathname.includes("blogpost.html")) {
 		const postId = window.location.search.split("=")[1]; // Get the post ID from the URL
 		const post = getPostById(postId); // Get the blog post using the ID
-		displayBlogPost(post); // Display the blog post
+		displayBlogPost(post); // Display blog post
 
-		const comments = await fetchCommentsForPost(postId); // Fetch comments for the blog post
+		const comments = await fetchCommentsForPost(postId); // Fetch comments
 		displayComments(comments);
+
+		handleCommentsForPost(postId); //comment form event listener
 	}
 });
