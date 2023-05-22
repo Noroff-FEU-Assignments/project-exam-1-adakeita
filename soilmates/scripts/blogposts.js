@@ -116,7 +116,7 @@ function createBlogPostContent(postData) {
 	const {
 		"post-image": postImage,
 		"post-title": postTitle,
-		tagline: tagline, // Corrected here
+		tagline: tagline,
 		intro,
 		"blog-text": blogText,
 		summary,
