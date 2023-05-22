@@ -1,37 +1,6 @@
-/*footer {
-    overflow: hidden;
-    background: white;
-    height: 90px;
-    border: 1px solid #1f761f;
-}
-
-.footer-ul {
-    display: flex;
-    margin: 20px auto;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: row;
-}
-
-.footer-text-container {
-    text-align: center;
-}
-
-.footer-icon-container {
-    width: 25px;
-}
-
-.footer-icon {
-    width: 100%;
-}
-*/
-
 .footer-distributed {
 	display: flex;
 	background: #ffffff;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-	box-sizing: border-box;
 	width: 100%;
 	text-align: center;
 	padding: 50px 20px;
@@ -44,9 +13,6 @@
 .footer-distributed .footer-left,
 .footer-distributed .footer-center,
 .footer-distributed .footer-right {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	margin: 0px 10px;
 	width: 33%;
 }
@@ -58,8 +24,13 @@
 
 /* The company logo */
 
+.footer-logo-wrapper {
+	width: 60px;
+	margin: auto;
+}
+
 .logo-img-footer {
-	width: 100px;
+	width: 100%;
 }
 
 .footer-distributed h3 span {
@@ -70,16 +41,13 @@
 
 .footer-distributed .footer-links {
 	color: #000000;
-	margin: 20px 0 12px;
 	padding: 0;
 }
 
 .footer-distributed .footer-links a {
 	display: inline-block;
-	line-height: 1.8;
-	font-weight: 400;
+	line-height: 0.5;
 	text-decoration: none;
-	color: inherit;
 }
 
 .footer-distributed .footer-company-name {
@@ -92,6 +60,11 @@
 /* Footer Center */
 
 .footer-distributed .footer-center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0px 25px;
+	line-height: 1.5;
 }
 
 .footer-distributed .footer-center i {
@@ -149,6 +122,18 @@
 /* Footer Right */
 
 .footer-distributed .footer-right {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.4;
+}
+
+.attr {
+	margin: 10px auto;
+	font-weight: bold;
+}
+
+.footer-attributions {
+	font-weight: normal;
 }
 
 .footer-distributed .footer-company-about {
@@ -171,21 +156,21 @@
 	margin-top: 25px;
 }
 
+.footer-link-logo {
+	width: 30px;
+}
+
 .footer-distributed .footer-icons a {
 	display: inline-block;
 	width: 35px;
 	height: 35px;
 	cursor: pointer;
-	background-color: #33383b;
 	border-radius: 2px;
-
 	font-size: 20px;
-	color: #000000;
 	text-align: center;
 	line-height: 35px;
-
 	margin-right: 3px;
-	margin-bottom: 5px;
+	border: 1px solid;
 }
 
 /* If you don't want the footer to be responsive, remove these media queries */
