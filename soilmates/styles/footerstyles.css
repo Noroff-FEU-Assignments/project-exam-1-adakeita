@@ -3,7 +3,7 @@
 	background: #ffffff;
 	width: 100%;
 	text-align: center;
-	padding: 50px 20px;
+	padding: 30px 20px;
 	margin: auto;
 	height: 100%;
 	align-items: center;
@@ -13,7 +13,7 @@
 .footer-distributed .footer-left,
 .footer-distributed .footer-center,
 .footer-distributed .footer-right {
-	margin: 0px 10px;
+	margin: 5px 10px;
 	width: 33%;
 }
 
@@ -57,7 +57,9 @@
 	margin: 0;
 }
 
-/* Footer Center */
+/* 
+Footer Center 
+*/
 
 .footer-distributed .footer-center {
 	display: flex;
@@ -88,9 +90,21 @@
 .footer-distributed .footer-center p {
 	display: inline-block;
 	color: #000000;
-	font-weight: 400;
 	vertical-align: middle;
 	margin: 0;
+}
+
+.footer-adr {
+	display: grid;
+}
+
+.city {
+    font-weight: bold;
+}
+
+.github-icon {
+    width: 25px;
+    margin: 10px;
 }
 
 .footer-distributed .footer-center p span {
@@ -119,7 +133,9 @@
 	content: none;
 }
 
-/* Footer Right */
+/* 
+Footer Right 
+*/
 
 .footer-distributed .footer-right {
 	display: flex;
@@ -128,7 +144,7 @@
 }
 
 .attr {
-	margin: 10px auto;
+	margin: 5px auto;
 	font-weight: bold;
 }
 
@@ -175,9 +191,18 @@
 
 /* If you don't want the footer to be responsive, remove these media queries */
 
-@media (max-width: 880px) {
+@media (max-width: 650px) {
 	.footer-distributed {
-		font: bold 14px sans-serif;
+		display: flex;
+		background: #ffffff;
+		width: 100%;
+		text-align: center;
+		padding: 30px 50px;
+		margin: auto;
+		height: 100%;
+		align-items: center;
+		justify-content: space-evenly;
+		flex-direction: column;
 	}
 
 	.footer-distributed .footer-left,

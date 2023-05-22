@@ -144,7 +144,7 @@ const handleArrowClick = async (increment) => {
 		await fetchLatestPosts(newIndex, true);
 		currentStartIndex = newIndex;
 		updateArrowVisibility();
-		createCarouselPagination(Math.floor((12 - currentStartIndex - 1) / POSTS_PER_PAGE));
+		createCarouselPagination(Math.floor(currentStartIndex / POSTS_PER_PAGE));
 	}
 };
 

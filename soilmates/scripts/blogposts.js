@@ -28,9 +28,11 @@ export function displayBlogList(posts) {
                 <div class="blog-post" style="background-image: url('${postImage}');">
                     <div class="blogpost-stylingwrapper">
                         <div class="blog-post-content content-font">
-                            <h2 class="blogtitle-list">${postTitle}</h2>
+						<div class="index-headers">
+                            <h2 class="blogtitle-list site-font">${postTitle}</h2>
+							<p class="date">${formattedDate}</p>
+							</div>
                             <p class="tagline">${postTagline}</p>
-                            <p class="date">${formattedDate}</p>
                         </div>
                     <div>
                 </div>
@@ -79,7 +81,7 @@ export async function displayBlogPost() {
 
 		const pageHeader = createPageHeaderElement(postTitle);
 		contentContainer.insertBefore(pageHeader, blogPostWrapper);
-        pageHeader.classList.add("blogpost-header");
+		pageHeader.classList.add("blogpost-header");
 
 		const blogPostContainer = createBlogPostContainerElement();
 		const blogPostContent = createBlogPostContent(postData);
@@ -113,8 +115,8 @@ export async function displayBlogPost() {
 function createBlogPostContent(postData) {
 	const {
 		"post-image": postImage,
-		"post-title":
-		tagline,
+		"post-title": postTitle,
+		tagline: tagline, // Corrected here
 		intro,
 		"blog-text": blogText,
 		summary,
@@ -135,9 +137,9 @@ function createBlogPostContent(postData) {
         </div>
         <div class="blogpost-tagline-intro-wrapper">
             <h2 class="blogpost-tagline">${tagline}</h2>
-            <p class="blogpost-intro">${intro}</p>
+            <p class="blogpost-intro site-font">${intro}</p>
         </div>
-        <div class="blogpost-text-container">
+        <div class="blogpost-text-container content-font">
             <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p class>")}</p>
         </div>
         <div class="blogpost-imgs-wrapper">
