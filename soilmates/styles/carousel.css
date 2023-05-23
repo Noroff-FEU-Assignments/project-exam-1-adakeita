@@ -1,4 +1,5 @@
 .carousel-container {
+	font-family: "Lato", sans-serif;
 	width: 100vw;
 	min-width: 545px;
 	margin: 40px auto;
@@ -105,6 +106,15 @@
 	max-height: 200px;
 	object-fit: cover;
 	border-radius: 5px;
+}
+
+.readmore-container {
+	border-bottom: 1px solid orange;
+    width: max-content;
+}
+
+.read-more-link {
+	font-style: italic;
 }
 
 .previous-post-container {

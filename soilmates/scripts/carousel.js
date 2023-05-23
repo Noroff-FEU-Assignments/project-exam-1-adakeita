@@ -15,12 +15,12 @@ const POSTS_PER_PAGE = 4;
 const createMainLatestPost = (post) => `
   <div class="main-latest-post">
     <div class="latest-index-text-container">
-      <p class="index-post-header content-font">${post.acf["post-title"]}</p>
-      <p class="latest-index-text content-font">
+      <p class="index-post-header ">${post.acf["post-title"]}</p>
+      <p class="latest-index-text ">
         ${post.acf["blog-text"].substring(0, 100)}...
         <br>
         <p class="readmore-container">
-          <a class="read-more-link" href="blogpost.html?id=${post.id}">Read More</a>
+          <a class="read-more-link" href="blogpost.html?id=${post.id}">Read full post</a>
         </p>
       </p>
     </div>
@@ -59,9 +59,9 @@ const createCarouselContentWrapper = (posts) => `
     <div class="carousel-content-loading-wrapper">
       <div class="loading-indicator"></div>
     </div>
-    <div class="content-font carousel-content">
+    <div class=" carousel-content">
 	<div class="carousel-pagination"></div>
-      <h2 class="site-font carousel-header">Fresh posts</h2>
+      <h2 class=" carousel-header">Fresh posts</h2>
 	  ${createMainLatestPost(posts[posts.length - 1])}
       ${createPreviousPostContainer(posts)}	
     </div>

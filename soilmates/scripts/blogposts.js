@@ -27,9 +27,9 @@ export function displayBlogList(posts) {
             <a class="post-redirect" href="blogpost.html?id=${postId}">
                 <div class="blog-post" style="background-image: url('${postImage}');">
                     <div class="blogpost-stylingwrapper">
-                        <div class="blog-post-content content-font">
+                        <div class="blog-post-content ">
 						<div class="index-headers">
-                            <h2 class="blogtitle-list site-font">${postTitle}</h2>
+                            <h2 class="blogtitle-list ">${postTitle}</h2>
 							<p class="date">${formattedDate}</p>
 							</div>
                             <p class="tagline">${postTagline}</p>
@@ -138,9 +138,9 @@ function createBlogPostContent(postData) {
         </div>
         <div class="blogpost-tagline-intro-wrapper">
             <h2 class="blogpost-tagline small-header">${tagline}</h2>
-            <p class="blogpost-intro site-font">${intro}</p>
+            <p class="blogpost-intro ">${intro}</p>
         </div>
-        <div class="blogpost-text-container content-font">
+        <div class="blogpost-text-container ">
             <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p class>")}</p>
         </div>
         <div class="blogpost-imgs-wrapper">

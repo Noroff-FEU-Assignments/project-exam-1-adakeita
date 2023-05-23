@@ -66,9 +66,23 @@
 }
 
 .searchbox-input {
+	font-family: "Lato", sans-serif;
+	letter-spacing: 1px;
+	font-size: 15px;
 	padding: 15px 50px;
 	border: 1px solid;
 	box-shadow: 4px 3px 6px 2px #000000a6;
+}
+
+.searchbtn {
+	text-transform: uppercase;
+	background: #009f90;
+	color: white;
+}
+
+.searchbtn:hover {
+	background: #04695f;
+	cursor: pointer;
 }
 
 /*
@@ -120,7 +134,7 @@ content-styling {
 	border-radius: 5px;
 	background-position-y: center;
 	background-size: cover;
-	width: 45%;
+	width: 40%;
 	height: 120px;
 	filter: grayscale();
 	box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5);
@@ -183,17 +197,20 @@ content-styling {
 .viewmore-wrapper {
 	text-align: center;
 	margin: 30px auto;
+	width: 100%;
 }
 
 #view-more-button {
 	padding: 10px;
-	background: white;
+	background: #dc8c16;
 	border: 1px solid black;
 	border-radius: 5px;
 	box-shadow: 5px 5px 7px 0px #0000007d;
 	font-size: 21px;
 	transition: 0.23s ease-in-out;
-	width: 55vw;
+	color: white;
+	/* width: 100%; */
+	width: 60%;
 }
 
 #view-more-button:hover {
@@ -307,6 +324,11 @@ Blogposts
 	margin: auto;
 }
 
+.submit-comment-btn:hover {
+	background-color: #354b2e;
+	cursor: pointer;
+}
+
 /*comments*/
 
 .comment {
@@ -346,6 +368,8 @@ Blogposts
 }
 
 #comment-form {
+	letter-spacing: 2px;
+	text-transform: uppercase;
 	margin: auto;
 	width: 100%;
 	display: flex;
@@ -357,7 +381,7 @@ Blogposts
 .comment-input-wrapper {
 	display: flex;
 	flex-direction: row;
-	padding: 5px 0px;
+	padding: 10px 0px 5px;
 	justify-content: space-evenly;
 	width: 100%;
 	align-items: flex-start;
@@ -398,7 +422,7 @@ Blogposts
 	width: 100%;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 	.comment-section {
 		width: 100vw;
 		height: 100%;
@@ -463,8 +487,7 @@ ABOUT
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	background-color: #f3c971;
-	height: 60vh;
+	height: 65vh;
 }
 
 .bgr-wrapper {
@@ -477,13 +500,23 @@ ABOUT
 }
 
 .story-text-wrapper {
+	display: flex;
 	width: 50%;
 	padding: 0px 15px;
 	height: 100%;
+	background-color: #f3c971;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
 }
 
 .story-text {
 	line-height: 1.5;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .about-us-container {
@@ -500,7 +533,7 @@ ABOUT
 
 @media (max-width: 750px) {
 	.story-container {
-		height: 810px;
+		height: fit-content;
 		flex-direction: column;
 		border-bottom: 1px solid;
 		background-color: #ecc163;
@@ -510,12 +543,15 @@ ABOUT
 		padding: 0px 30px;
 		display: inline;
 		width: 100%;
-		height: 65%;
 	}
 
 	.bgr-wrapper {
 		width: 100%;
 		height: 35%;
+	}
+
+	.bgr-about {
+		min-height: 200px;
 	}
 }
 
@@ -606,9 +642,9 @@ CONTACT
 	BLOGLIST
 	*/
 	.blog-post {
-		width: 100%;
+		width: 75%;
 		filter: none;
-		margin: 20px 35px;
+		margin: 20px auto;
 	}
 
 	@media screen and (max-width: 600px) {

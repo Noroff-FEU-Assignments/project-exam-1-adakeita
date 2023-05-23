@@ -8,6 +8,7 @@ body {
 	margin: 0;
 	overflow-x: hidden;
 	background: var(--background);
+	font-family: "Lato", sans-serif;
 }
 
 .content-container {
@@ -38,7 +39,6 @@ li {
 }
 
 .header-styling {
-	font-family: "Lato", sans-serif;
 	font-style: normal;
 	font-weight: 400;
 	letter-spacing: 6px;
@@ -46,19 +46,10 @@ li {
 }
 
 .small-header {
-	font-family: "Lato", sans-serif;
 	font-style: normal;
 	font-weight: 400;
 	letter-spacing: 2px;
 	text-transform: uppercase;
-}
-
-.site-font {
-	font-family: "Playfair Display", serif;
-}
-
-.content-font {
-	font-family: "Lato", sans-serif;
 }
 
 .loading-indicator {
