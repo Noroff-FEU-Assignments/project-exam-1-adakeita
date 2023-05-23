@@ -55,8 +55,14 @@
 }
 
 .carousel-header {
+	font-family: "Lato", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	letter-spacing: 2px;
+	margin: 0 auto;
+	font-size: 22px;
 	margin-top: 20px;
-	font-size: 28px;
+	text-transform: uppercase;
 }
 
 .main-latest-post {
@@ -153,7 +159,7 @@
 }
 
 .pagination-dot:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .pagination-dot.active {

@@ -34,8 +34,8 @@ const createMainLatestPost = (post) => `
 
 const createPreviousPostContainer = (posts) => `
   <div class="previous-post-container">
-  <div class="previous-post-header site-font">
-<h2>Previous</h2>
+  <div class="previous-post-header small-header">
+<h2>Next posts</h2>
 </div>
     ${posts
 			.slice(0, posts.length - 1)

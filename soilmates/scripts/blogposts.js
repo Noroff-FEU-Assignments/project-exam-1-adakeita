@@ -82,6 +82,7 @@ export async function displayBlogPost() {
 		const pageHeader = createPageHeaderElement(postTitle);
 		contentContainer.insertBefore(pageHeader, blogPostWrapper);
 		pageHeader.classList.add("blogpost-header");
+		pageHeader.classList.add("header-styling");
 
 		const blogPostContainer = createBlogPostContainerElement();
 		const blogPostContent = createBlogPostContent(postData);
@@ -136,7 +137,7 @@ function createBlogPostContent(postData) {
             </div>
         </div>
         <div class="blogpost-tagline-intro-wrapper">
-            <h2 class="blogpost-tagline">${tagline}</h2>
+            <h2 class="blogpost-tagline small-header">${tagline}</h2>
             <p class="blogpost-intro site-font">${intro}</p>
         </div>
         <div class="blogpost-text-container content-font">

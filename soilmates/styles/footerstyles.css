@@ -1,3 +1,9 @@
+.illstr-attr {
+	font-family: "LATO";
+	font-size: 14px;
+	margin: 15px;
+}
+
 .footer-distributed {
 	display: flex;
 	background: #ffffff;
@@ -99,12 +105,12 @@ Footer Center
 }
 
 .city {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .github-icon {
-    width: 25px;
-    margin: 10px;
+	width: 25px;
+	margin: 10px;
 }
 
 .footer-distributed .footer-center p span {
@@ -188,8 +194,6 @@ Footer Right
 	margin-right: 3px;
 	border: 1px solid;
 }
-
-/* If you don't want the footer to be responsive, remove these media queries */
 
 @media (max-width: 650px) {
 	.footer-distributed {

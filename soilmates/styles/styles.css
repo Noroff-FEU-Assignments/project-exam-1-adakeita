@@ -11,14 +11,13 @@
 }
 
 .welcome-wrapper {
-	background-color: #f29e48;
+	background-color: rgba(242, 158, 72, 0.9);
 	margin: 0;
 	height: 50vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	border-bottom: 1px solid green;
 }
 
 .welcome-img-container {
@@ -53,48 +52,23 @@
 }
 
 .search-posts-container {
+	display: flex;
 	height: 215px;
-	margin: 30px auto;
-	background: #6fc4e6;
-}
-
-.search-posts-container {
-	display: flex;
-	margin: auto;
+	margin: 0 auto;
 	flex-direction: row;
-	border-top: 1px solid green;
-}
-
-.searchbox-wrapper {
-	width: 65%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
 }
 
 .searchbox {
-	width: 80%;
 	text-align: center;
 	margin: auto;
 }
 
 .searchbox-input {
 	padding: 5px 50px;
-}
-
-.searchbox-img-wrapper {
-	width: 35%;
-	height: 100%;
-}
-
-.searchbox-img {
-	background-image: url("../images/searchbox-plant.png");
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
-	width: 100%;
-	height: 100%;
+	border: 1px solid;
+	box-shadow: 4px 3px 6px 2px #000000a6;
 }
 
 /*
@@ -122,16 +96,12 @@ content-styling {
 	display: flex;
 	overflow-y: auto;
 	margin: auto;
-	width: 70%;
+	width: 75%;
 	margin-bottom: 45px;
 	padding: 0px 0px;
 	flex-direction: column;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
-}
-
-::-webkit-scrollbar {
-	display: none;
 }
 
 .blog-list-container {
@@ -144,11 +114,17 @@ content-styling {
 }
 
 .blog-post {
+	border: none;
+	padding: 5px;
+	margin: 20px auto;
+	border-radius: 5px;
+	background-position-y: center;
+	background-size: cover;
+	width: 45%;
+	height: 120px;
 	filter: grayscale();
-	border: 6px solid whitesmoke;
 	box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5);
-	margin-bottom: 1rem;
-	transition: filter 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
 }
 
 .blog-post:hover {
@@ -173,25 +149,14 @@ content-styling {
 	transition: all 0.4s ease-in-out;
 }
 
-.blog-post {
-	border: 1px solid #000000;
-	padding: 10px;
-	padding-left: 0;
-	margin: 20px auto;
-	border-radius: 5px;
-	background-position-y: center;
-	background-size: cover;
-	width: 40%;
-	height: 100px;
-	transition: 0.23s ease-in-out;
-}
-
 .blogpost-stylingwrapper {
 	background: #ffffffcf;
-	padding: 3px;
+	padding: 5px;
 	display: flex;
-	align-items: flex-start;
 	flex-direction: column;
+	align-items: center;
+	flex-wrap: wrap;
+	align-content: space-between;
 }
 
 .index-headers {
@@ -205,10 +170,9 @@ content-styling {
 .blog-post-content {
 	padding: 0;
 	border-radius: 3px;
-	text-align: left;
 	width: 100%;
 	margin: 0;
-	font-size: 65%;
+	font-size: 70%;
 }
 
 .date {
@@ -229,7 +193,7 @@ content-styling {
 	box-shadow: 5px 5px 7px 0px #0000007d;
 	font-size: 21px;
 	transition: 0.23s ease-in-out;
-	width: 63vw;
+	width: 55vw;
 }
 
 #view-more-button:hover {
@@ -331,6 +295,20 @@ Blogposts
 
 /*comments*/
 
+.submit-comment-btn {
+	padding: 10px 15px;
+	background-color: #3e5f32;
+	border: none;
+	color: white;
+	text-transform: uppercase;
+	min-width: 155px;
+	border-radius: 2px;
+	letter-spacing: 0.2px;
+	margin: auto;
+}
+
+/*comments*/
+
 .comment {
 	border-bottom: 1px solid black;
 	display: flex;
@@ -342,7 +320,7 @@ Blogposts
 	max-width: 940px;
 	width: 90vw;
 	margin: 45px auto;
-	height: 160px;
+	height: 215px;
 }
 
 .add-comment-box {
@@ -386,7 +364,8 @@ Blogposts
 }
 
 .comment-form-input {
-	padding: 5px;
+	padding: 7px;
+	margin: 5px 0px 10px 0px;
 }
 
 .personalia-comment-form {
@@ -407,7 +386,7 @@ Blogposts
 
 .comment-text {
 	resize: none;
-	height: 77px;
+	height: 101px;
 	width: 100%;
 }
 
@@ -441,7 +420,7 @@ Blogposts
 	}
 
 	.comment-form-input {
-		padding: 5px;
+		padding: 7px;
 		width: 100%;
 		margin: 10px auto;
 	}
@@ -544,6 +523,11 @@ ABOUT
 CONTACT
 */
 
+.header-container {
+	text-align: center;
+	font-weight: 400;
+}
+
 .contactform-wrapper {
 	text-align: center;
 	margin: 40px auto;
@@ -553,10 +537,8 @@ CONTACT
 	padding: 20px 0px;
 	width: 50vw;
 	margin: auto;
-	background: white;
-	border: 2px solid;
-	border-style: groove;
-	background-color: #f9b44e;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 2px;
 }
 
 .contact-rows {
