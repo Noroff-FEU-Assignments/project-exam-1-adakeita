@@ -214,52 +214,47 @@ export function filterPostsByQuery(query) {
 // Form Validation
 // -----------------
 
-export function validateContactForm(event) {
-	event.preventDefault();
+export function initContactForm() {
+	const form = document.getElementById("contact-form");
+	form.addEventListener("submit", function (event) {
+		event.preventDefault();
 
-	// Get input values
-	let name = document.getElementById("name").value;
-	let email = document.getElementById("email").value;
-	let subject = document.getElementById("subject").value;
-	let message = document.getElementById("message").value;
+		const name = document.getElementById("name").value;
+		const email = document.getElementById("email").value;
+		const subject = document.getElementById("subject").value;
+		const message = document.getElementById("message").value;
 
-	// Clear previous error messages
-	document.getElementById("nameError").innerHTML = "";
-	document.getElementById("emailError").innerHTML = "";
-	document.getElementById("subjectError").innerHTML = "";
-	document.getElementById("messageError").innerHTML = "";
+		let nameError = "";
+		let emailError = "";
+		let subjectError = "";
+		let messageError = "";
 
-	// Validate input
-	let isValid = true;
+		if (name.length <= 5) {
+			nameError = "Name should be more than 5 characters long.";
+		}
 
-	if (name.length < 5) {
-		isValid = false;
-		document.getElementById("nameError").innerHTML =
-			"Name must be more than 5 characters long.";
-	}
+		if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
+			emailError = "Must be a valid email address.";
+		}
 
-	let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-	if (!email.match(emailPattern)) {
-		isValid = false;
-		document.getElementById("emailError").innerHTML = "Must be a valid email address.";
-	}
+		if (subject.length <= 15) {
+			subjectError = "Subject should be more than 15 characters long.";
+		}
 
-	if (subject.length < 15) {
-		isValid = false;
-		document.getElementById("subjectError").innerHTML =
-			"Subject must be more than 15 characters long.";
-	}
+		if (message.length <= 25) {
+			messageError = "Message content should be more than 25 characters long.";
+		}
 
-	if (message.length < 25) {
-		isValid = false;
-		document.getElementById("messageError").innerHTML =
-			"Message must be more than 25 characters long.";
-	}
+		document.getElementById("name-error").textContent = nameError;
+		document.getElementById("email-error").textContent = emailError;
+		document.getElementById("subject-error").textContent = subjectError;
+		document.getElementById("message-error").textContent = messageError;
 
-	if (isValid) {
-		// If input is valid
-		console.log("Form is valid, sending data...");
-	}
+		if (!nameError && !emailError && !subjectError && !messageError) {
+			alert("Form submitted successfully!");
+			// Here you could add code to actually send the form data.
+		}
+	});
 }
 
 // -----------------

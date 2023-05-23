@@ -14,6 +14,7 @@
 	height: 100%;
 	align-items: center;
 	justify-content: space-evenly;
+	border-top: 1px solid  var(--green-theme);
 }
 
 .footer-distributed .footer-left,
@@ -26,6 +27,7 @@
 /* Footer left */
 
 .footer-distributed .footer-left {
+	margin: auto;
 }
 
 /* The company logo */

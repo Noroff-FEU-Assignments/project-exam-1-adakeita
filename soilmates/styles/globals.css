@@ -1,5 +1,6 @@
 :root {
 	--background: #f9f7f5;
+	--green-theme: #435b40;
 }
 
 body {
@@ -113,4 +114,13 @@ li {
 
 ::-webkit-scrollbar {
 	display: none;
+}
+
+@media (max-width: 600px) {
+	.content-container {
+		background-repeat: repeat;
+		background-position: unset;
+		background-size: contain;
+		overflow: hidden;
+	}
 }

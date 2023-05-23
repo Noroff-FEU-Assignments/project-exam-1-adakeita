@@ -2,6 +2,17 @@
 <html lang="en">
 
 <head>
+    <!-- Hotjar Tracking Code for soilmates -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3504720,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,30 +62,23 @@
             </h1>
         </div>
         <div class="contactform-wrapper">
-            <form id="contactForm" class="">
-                <div class="contact-rows">
-                    <div class="contact-info">
-                        <label for="name">Name:</label><br>
-                        <input type="text" id="name" name="name"><br>
-                        <span id="nameError" style="color:red;"></span><br>
+            <div class="container">
+                <form id="contact-form">
+                    <input type="text" id="name" placeholder="Name" />
+                    <div id="name-error" class="error-message"></div>
 
-                        <label for="email">Email:</label><br>
-                        <input type="text" id="email" name="email"><br>
-                        <span id="emailError" style="color:red;"></span><br>
+                    <input type="email" id="email" placeholder="Email Address" />
+                    <div id="email-error" class="error-message"></div>
 
-                        <label for="subject">Subject:</label><br>
-                        <input type="text" id="subject" name="subject"><br>
-                        <span id="subjectError" style="color:red;"></span><br>
+                    <input type="text" id="subject" placeholder="Subject" />
+                    <div id="subject-error" class="error-message"></div>
 
-                        <input type="submit" value="Submit">
-                    </div>
-                    <div class="contact-msg">
-                        <label for="message">Message:</label><br>
-                        <textarea id="message" name="message"></textarea><br>
-                        <span id="messageError" style="color:red;"></span><br>
-                    </div>
-                </div>
-            </form>
+                    <textarea id="message" placeholder="Message Content"></textarea>
+                    <div id="message-error" class="error-message"></div>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
         </div>
     </main>
     <footer class="footer-container">
@@ -96,7 +100,7 @@
 
                     <div class="github-link">
                         <p class="github-profile"></p>
-                        <a href="#">
+                        <a href="https://www.github.com/adakeita">
                             <img class="github-icon" src="images/github.png" alt="github-link-image">
                         </a>
                     </div>
@@ -112,20 +116,20 @@
                 </p>
 
                 <div class="footer-icons">
-                    <a href="#">
-                        <img class="footer-link-logo" src="./images/flaticon.png" alt="">
+                    <a href="https://www.flaticon.com/">
+                        <img class="footer-link-logo" src="./images/flaticon.png" alt="flaticon-link-img">
                     </a>
-                    <a href="#">
-                        <img class="footer-link-logo" src="./images/unsplash.png" alt="">
+                    <a href="https://www.unsplash.com/">
+                        <img class="footer-link-logo" src="./images/unsplash.png" alt="flaticon-link-img">
                     </a>
-                    <a href="#">
-                        <img class="footer-link-logo" src="./images/stackoverflow.png" alt="">
+                    <a href="https://www.stackoverflow.com/">
+                        <img class="footer-link-logo" src="./images/stackoverflow.png" alt="flaticon-link-img">
                     </a>
                 </div>
             </div>
         </div>
         <p class="illstr-attr">
-            © Development Ada Mathilde Keita | Illustrated by Juni Andersen.
+            © Development Ada Mathilde Keita
         </p>
     </footer>
 </body>

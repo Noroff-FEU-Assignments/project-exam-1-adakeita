@@ -6,7 +6,8 @@ import {
 	getPostById,
 	filterPostsByQuery,
 	setupHamburgerMenu,
-	handleCommentsForPost
+	handleCommentsForPost,
+	initContactForm,
 } from "./utils.js";
 import { setupCarousel } from "./carousel.js";
 import { displayBlogPost, displayBlogList, loadBlogPosts } from "./blogposts.js";
@@ -58,10 +59,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 		viewMoreButton.addEventListener("click", async () => {
 			startIndex += postsPerPage;
 			const newPosts = await loadBlogPosts(startIndex, postsPerPage);
+			console.log(newPosts); // Add this line
 			// Check if there are more posts to load after this batch
-			if (newPosts.length < postsPerPage) {
+			if ((newPosts || []).length < postsPerPage) {
 				viewMoreButton.classList.add("hidden");
 			}
+			// Display the new posts
+			displayBlogList(newPosts);
 		});
 	} else if (window.location.pathname.includes("blogpost.html")) {
 		const postId = window.location.search.split("=")[1]; // Get the post ID from the URL
@@ -72,5 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		displayComments(comments);
 
 		handleCommentsForPost(postId); //comment form event listener
+	} else if (window.location.pathname.includes("contact.html")) {
+		initContactForm();
 	}
 });
