@@ -56,9 +56,6 @@ const createCarouselContentWrapper = (posts) => `
     <div class="arrow-container left-arrow-container">
       <img class="carousel-arrow left-arrow" src="images/left-arrow.png" alt="Left Arrow">
     </div>
-    <div class="carousel-content-loading-wrapper">
-      <div class="loading-indicator"></div>
-    </div>
     <div class=" carousel-content">
 	<div class="carousel-pagination"></div>
       <h2 class=" carousel-header">Fresh posts</h2>

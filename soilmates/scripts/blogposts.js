@@ -22,22 +22,21 @@ export function displayBlogList(posts) {
 		const postExcerpt = post.acf["blog-text"].substring(0, 100) + "...";
 		const postId = post.id;
 		const postImage = post.acf["post-image"];
+		const postURL = "blogpost.html?id=" + postId;
 
 		const postHTML = `
-            <a class="post-redirect" href="blogpost.html?id=${postId}">
-                <div class="blog-post" style="background-image: url('${postImage}');">
-                    <div class="blogpost-stylingwrapper">
-                        <div class="blog-post-content ">
+			<div class="blog-post" style="background-image: url('${postImage}');" onclick="location.href='${postURL}'">
+				<div class="blogpost-stylingwrapper">
+					<div class="blog-post-content ">
 						<div class="index-headers">
-                            <h2 class="blogtitle-list ">${postTitle}</h2>
+							<h2 class="blogtitle-list ">${postTitle}</h2>
 							<p class="date">${formattedDate}</p>
-							</div>
-                            <p class="tagline">${postTagline}</p>
-                        </div>
-                    <div>
-                </div>
-            </a>
-        `;
+						</div>
+						<p class="tagline">${postTagline}</p>
+					</div>
+				<div>
+			</div>
+		`;
 
 		blogPostsContainer.insertAdjacentHTML("beforeend", postHTML);
 	});
@@ -105,6 +104,16 @@ export async function displayBlogPost() {
 			}
 		});
 
+		const blogpostImgs = blogPostContainer.querySelectorAll(".blogpost-img");
+
+		blogpostImgs.forEach((img) => {
+			img.addEventListener("click", () => {
+				modalImage.src = img.src;
+				modal.classList.remove("hidden");
+			});
+		});
+
+
 		blogPostWrapper.appendChild(blogPostContainer);
 	} else {
 		displayNotFoundMessage(blogPostWrapper);
@@ -116,7 +125,6 @@ export async function displayBlogPost() {
 function createBlogPostContent(postData) {
 	const {
 		"post-image": postImage,
-		"post-title": postTitle,
 		tagline: tagline,
 		intro,
 		"blog-text": blogText,

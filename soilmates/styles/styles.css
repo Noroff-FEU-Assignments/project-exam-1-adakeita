@@ -60,7 +60,7 @@
 .search-posts-container {
 	display: flex;
 	height: 215px;
-	margin: 0 auto;
+	margin: 35 auto;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
@@ -385,6 +385,41 @@ BLOGPOST
 	margin-top: 40px;
 }
 
+@media screen and (max-width: 600px) {
+	/*
+	BLOGPOST
+	*/
+	.blogpost-summary-img-wrapper {
+		width: 100%;
+		height: 100%;
+		flex-direction: column-reverse;
+	}
+
+	.blogpost-summary-container,
+	.blogpost-img-container {
+		width: 100%;
+	}
+
+	.blogpost-text-container {
+		text-align: center;
+	}
+
+	.blogpost-imgs-container {
+		width: 100%;
+	}
+
+	.blogpost-img {
+		max-height: 195px;
+	}
+
+	.blogpost-imgs-wrapper {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: fit-content;
+	}
+}
+
 /*comments*/
 
 .comment {
@@ -591,7 +626,7 @@ ABOUT
 .about-us-container {
 	background-color: white;
 	width: 100%;
-	margin: 30px auto;
+	margin: 100px auto;
 	padding: 20px 20px;
 	border: 1px solid;
 }
@@ -633,15 +668,32 @@ CONTACT
 	font-weight: 400;
 }
 
+/*
+CONTACT
+*/
+
 .contactform-wrapper {
 	text-align: center;
 	margin: 40px auto;
+	padding: 20px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	background-color: white;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	width: 90%;
 }
 
 .container {
 	width: 100%;
 	max-width: 600px;
 	margin: 0 auto;
+	padding: 20px;
+}
+
+#contact-form {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
 }
 
 #contact-form input,
@@ -649,44 +701,31 @@ CONTACT
 	width: 100%;
 	padding: 10px;
 	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	font-size: 1em;
+}
+
+#contact-form button {
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+#contact-form button:hover {
+	background-color: #0056b3;
+}
+
+.contact-msg {
+	min-height: 150px;
 }
 
 .error-message {
 	color: red;
 	margin-bottom: 20px;
-}
-
-@media screen and (max-width: 600px) {
-	/*
-	BLOGPOST
-	*/
-	.blogpost-summary-img-wrapper {
-		width: 100%;
-		height: 100%;
-		flex-direction: column-reverse;
-	}
-
-	.blogpost-summary-container,
-	.blogpost-img-container {
-		width: 100%;
-	}
-
-	.blogpost-text-container {
-		text-align: center;
-	}
-
-	.blogpost-imgs-container {
-		width: 100%;
-	}
-
-	.blogpost-img {
-		max-height: 195px;
-	}
-
-	.blogpost-imgs-wrapper {
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		height: fit-content;
-	}
+	font-weight: bold;
 }
