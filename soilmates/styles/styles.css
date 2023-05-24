@@ -60,7 +60,7 @@
 .search-posts-container {
 	display: flex;
 	height: 215px;
-	margin: 35 auto;
+	margin: 35px auto;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
