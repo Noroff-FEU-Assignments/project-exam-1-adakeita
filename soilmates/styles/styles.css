@@ -82,12 +82,13 @@
 
 .searchbtn {
 	text-transform: uppercase;
-	background: #009f90;
-	color: white;
+    background: #059619;
+    color: white;
+	transition: all 0.3s ease-in-out;
 }
 
 .searchbtn:hover {
-	background: #04695f;
+	background: #03540d;
 	cursor: pointer;
 }
 
@@ -669,19 +670,16 @@ CONTACT
 	font-weight: 400;
 }
 
-/*
-CONTACT
-*/
-
 .contactform-wrapper {
 	text-align: center;
 	margin: 40px auto;
 	padding: 20px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-	background-color: white;
-	border: 1px solid #ddd;
+	background-color: #ffffffd9;
+	border: 1px solid #607d8b;
 	border-radius: 5px;
-	width: 90%;
+	width: 55vw;
+	max-width: 600px;
 }
 
 .container {
@@ -702,23 +700,26 @@ CONTACT
 	width: 100%;
 	padding: 10px;
 	margin-bottom: 10px;
-	border: 1px solid #ddd;
+	border: 1px solid #000;
 	border-radius: 5px;
 	font-size: 1em;
 }
 
 #contact-form button {
 	padding: 10px 20px;
-	background-color: #007bff;
+	background-color: #259e2a;
 	color: white;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
+	font-size: 15px;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
 }
 
 #contact-form button:hover {
-	background-color: #0056b3;
+	background-color: #0e560a;
 }
 
 .contact-msg {
@@ -729,4 +730,10 @@ CONTACT
 	color: red;
 	margin-bottom: 20px;
 	font-weight: bold;
+}
+
+@media (max-width: 575px) {
+	.contactform-wrapper {
+		width: 100%;
+	}
 }
