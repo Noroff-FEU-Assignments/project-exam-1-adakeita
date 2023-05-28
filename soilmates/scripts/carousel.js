@@ -17,7 +17,7 @@ const createMainLatestPost = (post) => `
     <div class="latest-index-text-container">
       <p class="index-post-header ">${post.acf["post-title"]}</p>
       <p class="latest-index-text ">
-        ${post.acf["blog-text"].substring(0, 100)}...
+	  ${post.acf["summary"]}...
         <br>
         <p class="readmore-container">
           <a class="read-more-link" href="blogpost.html?id=${post.id}">Read full post</a>
@@ -43,7 +43,7 @@ const createPreviousPostContainer = (posts) => `
 			.map(
 				(post) => `
       <div class="carousel-img-container">
-        <img class="carousel-img" src="${post.acf["post-image"]}" alt="${post.acf["post-title"]}" data-id="${post.id}" data-text="${post.acf["blog-text"]}">
+	  <img class="carousel-img" src="${post.acf["post-image"]}" alt="${post.acf["post-title"]}" data-id="${post.id}" data-text="${post.acf["summary"]}">
       </div>
     `
 			)
@@ -54,7 +54,7 @@ const createPreviousPostContainer = (posts) => `
 const createCarouselContentWrapper = (posts) => `
   <div class="carousel-content-wrapper">
     <div class="arrow-container left-arrow-container">
-      <img class="carousel-arrow left-arrow" src="images/left-arrow.png" alt="Left Arrow" aria-label="Previous slide">
+      <img class="carousel-arrow left-arrow" src="images/left-arrow.png" alt="Left Arrow" aria-label="Previous slide" role="button">
     </div>
     <div class="carousel-content">
 	<div class="carousel-pagination"></div>
@@ -63,7 +63,7 @@ const createCarouselContentWrapper = (posts) => `
       ${createPreviousPostContainer(posts)}	
     </div>
     <div class="arrow-container right-arrow-container">
-      <img class="carousel-arrow right-arrow" src="images/right-arrow.png" alt="Right Arrow" aria-label="Next slide">
+      <img class="carousel-arrow right-arrow" src="images/right-arrow.png" alt="Right Arrow" aria-label="Next slide" role="button">
     </div>
 
   </div>

@@ -101,10 +101,10 @@
 
 .search-error {
 	color: red;
-    font-weight: bold;
-    background: var(--header-background);
-    padding: 15px;
-    text-transform: uppercase;
+	font-weight: bold;
+	background: var(--header-background);
+	padding: 15px;
+	text-transform: uppercase;
 	margin: 0;
 }
 
@@ -154,7 +154,7 @@
 	}
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 420px) {
 	.searchbox-input {
 		width: 100%;
 	}
@@ -213,7 +213,7 @@ content-styling {
 	height: 120px;
 	filter: grayscale();
 	box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5);
-	transition: all 0.4s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 
 .blog-post:hover {
@@ -292,7 +292,7 @@ content-styling {
 
 #view-more-button:hover {
 	background: var(--button-hover);
-	cursor: pointer;	
+	cursor: pointer;
 }
 
 @media screen and (max-width: 700px) {
@@ -300,7 +300,7 @@ content-styling {
 	BLOGLIST
 	*/
 
-	.blog-list-container-wrapper {
+	.bloglist-wrapper {
 		width: 90%;
 	}
 
@@ -309,6 +309,10 @@ content-styling {
 		width: 75%;
 		filter: none;
 		margin: 20px auto;
+	}
+
+	#view-more-button {
+		width: auto;
 	}
 }
 
@@ -383,9 +387,30 @@ BLOGPOST
 	text-align: center;
 }
 
+.blogpost-tagline {
+	margin: 40px auto;
+    font-size: 20px;
+}
+
 .blogpost-intro {
-	line-height: 1.6;
-	margin-bottom: 35px;
+	line-height: 1.5;
+	margin-bottom: 40px;
+	padding: 10px;
+	font-style: italic;
+}
+
+.p-header {
+	margin: 5px 0px 10px 0px;
+    font-size: 16px;
+	font-weight: bold;
+}
+
+.blogpost-text-paragraphs {
+	margin: 10px auto 50px;
+}
+
+.blog-text {
+	margin: 10px 0px 30px;
 }
 
 .blogpost-imgs-wrapper {
@@ -413,6 +438,7 @@ BLOGPOST
 	padding: 15px 0px;
 	line-height: 1.7;
 	margin-top: 40px;
+	font-style: italic;
 }
 
 @media screen and (max-width: 600px) {
@@ -428,6 +454,10 @@ BLOGPOST
 	.blogpost-summary-container,
 	.blogpost-img-container {
 		width: 100%;
+	}
+
+	.blogpost-summary {
+		text-align: center;
 	}
 
 	.blogpost-text-container {
@@ -453,9 +483,24 @@ BLOGPOST
 /*comments*/
 
 .comment {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #767676;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
+	max-width: 85%;
+	margin: auto;
+}
+
+.view-comments-box::-webkit-scrollbar {
+	display: block;
+	width: 5px;
+}
+
+.author {
+	width: 30%;
+}
+
+.comment-content {
+	width: 70%;
 }
 
 .comment-section {
@@ -482,10 +527,8 @@ BLOGPOST
 }
 
 .view-comments-box p {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 70%;
+	text-align: center;
+    font-size: 15px;
 }
 
 #comment-form {
@@ -531,7 +574,7 @@ BLOGPOST
 
 .comment-text {
 	resize: none;
-	height: 101px;
+	height: 100px;
 	width: 100%;
 }
 
@@ -545,7 +588,7 @@ BLOGPOST
 
 .submit-comment-btn {
 	padding: 10px 15px;
-	background-color: #3e5f32;
+	background-color: var(--button-default);
 	border: none;
 	color: white;
 	text-transform: uppercase;
@@ -556,7 +599,7 @@ BLOGPOST
 }
 
 .submit-comment-btn:hover {
-	background-color: #354b2e;
+	background-color: var(--button-hover);
 	cursor: pointer;
 }
 
@@ -577,14 +620,14 @@ BLOGPOST
 	}
 
 	.personalia-comment-form {
-		align-items: center;
+		align-items: flex-start;
 		width: 100%;
 	}
 
 	.comment-form-input {
 		padding: 7px;
 		width: 100%;
-		margin: 10px auto;
+		margin: 5px auto 15px;
 	}
 
 	.comment-text-container {
@@ -600,16 +643,14 @@ BLOGPOST
 
 	.comment-btn-container {
 		justify-content: center;
+		max-width: 100%;
 	}
 }
 
 @media (min-width: 545px) {
 	.comment-btn-container {
-		display: flex;
-		justify-content: flex-start;
-		padding: 5px 30px;
-		max-width: 530px;
-		width: 100%;
+		text-align: center;
+		padding: 5px 0px;
 	}
 }
 
@@ -718,6 +759,11 @@ CONTACT
 	padding: 20px;
 }
 
+.contact-label {
+	text-align: left;
+	margin-bottom: 5px;
+}
+
 #contact-form {
 	display: flex;
 	flex-direction: column;
@@ -736,7 +782,7 @@ CONTACT
 
 #contact-form button {
 	padding: 10px 20px;
-	background-color: #259e2a;
+	background-color: var(--button-default);
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -748,7 +794,7 @@ CONTACT
 }
 
 #contact-form button:hover {
-	background-color: #0e560a;
+	background-color: var(--button-hover);
 }
 
 .contact-msg {
@@ -760,6 +806,39 @@ CONTACT
 	color: red;
 	margin-bottom: 20px;
 	font-weight: bold;
+}
+
+.contact-modal {
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+.close-button {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 @media (max-width: 615px) {

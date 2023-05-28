@@ -185,7 +185,7 @@
 	.carousel-content {
 		min-width: 0;
 		width: 90%;
-		margin: 5px auto;
+		margin: 5px auto 15px;
 	}
 
 	.main-latest-post {
@@ -215,6 +215,11 @@
 		width: 100%;
 		padding: 5px;
 		text-align: center;
+	}
+
+	.readmore-container {
+		text-align: center;
+		margin: 0 auto;
 	}
 
 	.previous-post-container {

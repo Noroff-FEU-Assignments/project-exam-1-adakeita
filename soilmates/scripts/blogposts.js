@@ -38,7 +38,6 @@ export async function loadBlogPosts(startIndex = 0, perPage = 10) {
 
 		// Setup the "View more" button
 		setupViewMoreButton();
-
 	} catch (error) {
 		console.error("Error loading blog posts:", error);
 	} finally {
@@ -101,10 +100,7 @@ export async function displayBlogPost() {
 
 	if (post) {
 		const postData = post.acf;
-		const blogText = post.content.rendered;
 		const postTitle = postData["post-title"];
-		const postTagline = postData["tagline"];
-		const postIntro = postData["intro"];
 
 		const pageHeader = createPageHeaderElement(postTitle);
 		contentContainer.insertBefore(pageHeader, blogPostWrapper);
@@ -155,7 +151,9 @@ function createBlogPostContent(postData) {
 		"post-image": postImage,
 		tagline: tagline,
 		intro,
-		"blog-text": blogText,
+		"blogtext-1": blogText1,
+		"blogtext-2": blogText2,
+		"blogtext-3": blogText3,
 		summary,
 		conclusion,
 		"postimg-1": postImg1,
@@ -164,36 +162,44 @@ function createBlogPostContent(postData) {
 	} = postData;
 
 	return `
-        <div class="blogpost-summary-img-wrapper">
-            <div class="blogpost-summary-container">
-                <p class="blogpost-summary">${summary}</p>
-            </div>
-            <div class="blogpost-img-container">
-                <img class="blogpost-img" src="${postImage}" alt="Blog post image">
-            </div>
+	<div class="blogpost-summary-img-wrapper">
+	<div class="blogpost-summary-container">
+		<p class="blogpost-summary">${summary}</p>
+	</div>
+	<div class="blogpost-img-container">
+		<img class="blogpost-img" src="${postImage}" alt="Blog post image">
+	</div>
+</div>
+<div class="blogpost-tagline-intro-wrapper">
+	<h2 class="blogpost-tagline small-header">${tagline}</h2>
+	<p class="blogpost-intro ">${intro}</p>
+</div>
+    <div class="blogpost-text-container">
+        <div class="blogpost-text-paragraphs">
+           <p class="blogpost-text">${blogText1}</p>
         </div>
-        <div class="blogpost-tagline-intro-wrapper">
-            <h2 class="blogpost-tagline small-header">${tagline}</h2>
-            <p class="blogpost-intro ">${intro}</p>
+        <div class="blogpost-text-paragraphs">
+           <p class="blogpost-text">${blogText2}</p>
         </div>
-        <div class="blogpost-text-container ">
-            <p class="blogpost-text">${blogText.replace(/\r\n/g, "</p><p class>")}</p>
+        <div class="blogpost-text-paragraphs">
+        <p class="blogpost-text">${blogText3}</p>
         </div>
-        <div class="blogpost-imgs-wrapper">
-            <div class="blogpost-imgs-container">
-                <img class="blogpost-img" src="${postImg1}" alt="Blog post image 1">
-            </div>
-            <div class="blogpost-imgs-container">
-                <img class="blogpost-img" src="${postImg2}" alt="Blog post image 2">
-            </div>
-            <div class="blogpost-imgs-container">
-                <img class="blogpost-img" src="${postImg3}" alt="Blog post image 3">
-            </div>
-        </div>
-        <div class="blogpost-conclusion-container">
-            <p class="blogpost-conclusion">${conclusion}</p>
-        </div>
-    `;
+    </div>
+<div class="blogpost-imgs-wrapper">
+	<div class="blogpost-imgs-container">
+		<img class="blogpost-img" src="${postImg1}" alt="Blog post image 1">
+	</div>
+	<div class="blogpost-imgs-container">
+		<img class="blogpost-img" src="${postImg2}" alt="Blog post image 2">
+	</div>
+	<div class="blogpost-imgs-container">
+		<img class="blogpost-img" src="${postImg3}" alt="Blog post image 3">
+	</div>
+</div>
+<div class="blogpost-conclusion-container">
+	<p class="blogpost-conclusion">${conclusion}</p>
+</div>
+`;
 }
 
 function displayNotFoundMessage(headerContent) {

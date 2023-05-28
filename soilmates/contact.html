@@ -63,74 +63,84 @@
         <div class="contactform-wrapper">
             <div class="container">
                 <form id="contact-form">
-                    <input type="text" id="name" placeholder="Name" />
+                    <label class="contact-label" for="name">Name</label>
+                    <input type="text" id="name" placeholder="Jane Doe" />
                     <div id="name-error" class="error-message"></div>
 
-                    <input type="email" id="email" placeholder="Email Address" />
+                    <label class="contact-label" for="email">Email</label>
+                    <input type="email" id="email" placeholder="example@host.com" />
                     <div id="email-error" class="error-message"></div>
 
-                    <input type="text" id="subject" placeholder="Subject" />
+                    <label class="contact-label" for="subject">Subject</label>
+                    <input type="text" id="subject" placeholder="Hello Soilmates!" />
                     <div id="subject-error" class="error-message"></div>
 
-                    <textarea class="contact-msg" id="message" placeholder="Message Content"></textarea>
+                    <label class="contact-label" for="message">Message</label>
+                    <textarea class="contact-msg" id="message" placeholder="Write your message here.."></textarea>
                     <div id="message-error" class="error-message"></div>
 
                     <button type="submit">Submit</button>
                 </form>
             </div>
         </div>
+        <div id="success-modal" class="contact-modal hidden">
+            <div class="modal-content">
+                <span id="contact-modal-close" class="close-button">&times;</span>
+                <p>Message sent, thanks for reaching out!</p>
+            </div>
+        </div>
     </main>
     <footer class="footer-container" role="footer-navigation">
-        <div class="footer-distributed ">
-            <div class="footer-left">
-                <div class="footer-logo-wrapper">
-                    <img class="logo-img-footer" src="images/Soilmates_mini_icon.png"
-                        alt="logo-image: plant in house and name">
+        <footer class="footer-container">
+            <div class="footer-distributed">
+                <div class="footer-left">
+                    <div class="footer-logo-wrapper">
+                        <img class="logo-img-footer" src="images/Soilmates_mini_icon.png"
+                            alt="simplified logo: leaf">
+                    </div>
+                    <p class="footer-links">
+                        <a href="posts.html" class="link-1 footer-sitelink" aria-label="blogindex-link">Blog</a>
+                        <a href="contact.html" class="footer-sitelink" aria-label="contactpage-link">Contact</a>
+                    </p>
                 </div>
-                <p class="footer-links">
-                    <a href="posts.html" class="link-1 footer-sitelink">Blog</a>
-                    <a href="contact.html" class="footer-sitelink">Contact</a>
-                </p>
-            </div>
-            <div class="footer-center">
-                <div class="footer-adr">
-                    <p class="location">Somewhere on a laptop</p>
-                    <p class="city">Oslo, Norway</p>
-
-                    <div class="github-link">
-                        <p class="github-profile"></p>
-                        <a href="https://www.github.com/adakeita">
-                            <img class="github-icon" src="images/github.png" alt="github-link-image">
+                <div class="footer-center">
+                    <div class="footer-adr">
+                        <p class="location">Somewhere on a laptop</p>
+                        <p class="city">Oslo, Norway</p>
+                        <div class="github-link">
+                            <p class="github-profile"></p>
+                            <a href="https://www.github.com/adakeita" role="button" aria-label="github-link">
+                                <img class="github-icon" src="images/github.png" alt="github-link-image">
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="footer-email" aria-label="company-email"><a href="mailto:hello@adakeita.dev">hello@adakeita.dev</a></p>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <p class="attr">Attributions</p>
+                    <p class="footer-attributions">
+                        This assignment uses resources from mulitple sites, you can find these sites below.
+                    </p>
+    
+                    <div class="footer-icons">
+                        <a href="https://www.flaticon.com/" role="button" aria-label="flaticon-link">
+                            <img class="footer-link-logo" src="./images/flaticon.png" alt="flaticon-link-img">
+                        </a>
+                        <a href="https://www.unsplash.com/" role="button" aria-label="unsplash-link">
+                            <img class="footer-link-logo" src="./images/unsplash.png" alt="unsplash-link-img">
+                        </a>
+                        <a href="https://www.stackoverflow.com/" role="button" aria-label="stackoverflow-link">
+                            <img class="footer-link-logo" src="./images/stackoverflow.png" alt="stackoverflow-link-img">
                         </a>
                     </div>
                 </div>
-                <div>
-                    <p class="footer-email"><a href="mailto:support@company.com">support@company.com</a></p>
-                </div>
             </div>
-            <div class="footer-right">
-                <p class="attr">Attributions</p>
-                <p class="footer-attributions">
-                    This assignment uses resources from mulitple sites, you can find these sites below.
-                </p>
-
-                <div class="footer-icons">
-                    <a href="https://www.flaticon.com/">
-                        <img class="footer-link-logo" src="./images/flaticon.png" alt="flaticon-link-img">
-                    </a>
-                    <a href="https://www.unsplash.com/">
-                        <img class="footer-link-logo" src="./images/unsplash.png" alt="flaticon-link-img">
-                    </a>
-                    <a href="https://www.stackoverflow.com/">
-                        <img class="footer-link-logo" src="./images/stackoverflow.png" alt="flaticon-link-img">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <p class="illstr-attr">
-            © Development Ada Mathilde Keita
-        </p>
-    </footer>
+            <p class="codeby-attr">
+                © Ada Mathilde Keita 2023
+            </p>
+        </footer>
 </body>
 
 </html>

@@ -264,7 +264,9 @@ export function initContactForm() {
 
 		if (subject.length <= 15) {
 			subjectError = "Subject needs to be at least 15 characters.";
-			document.getElementById("subject").setAttribute("aria-describedby", "subject-error");
+			document
+				.getElementById("subject")
+				.setAttribute("aria-describedby", "subject-error");
 			document.getElementById("subject").setAttribute("aria-invalid", "true");
 		} else {
 			document.getElementById("subject").removeAttribute("aria-describedby");
@@ -273,7 +275,9 @@ export function initContactForm() {
 
 		if (message.length <= 25) {
 			messageError = "Message has to be more than 25 characters.";
-			document.getElementById("message").setAttribute("aria-describedby", "message-error");
+			document
+				.getElementById("message")
+				.setAttribute("aria-describedby", "message-error");
 			document.getElementById("message").setAttribute("aria-invalid", "true");
 		} else {
 			document.getElementById("message").removeAttribute("aria-describedby");
@@ -286,8 +290,17 @@ export function initContactForm() {
 		document.getElementById("message-error").textContent = messageError;
 
 		if (!nameError && !emailError && !subjectError && !messageError) {
-			alert("Form submitted successfully!");
-			// Here you could add code to actually send the form data.
+
+			const successModal = document.getElementById("success-modal");
+			successModal.classList.remove("hidden");
+			document.getElementById("contact-modal-close").addEventListener("click", () => {
+				successModal.classList.add("hidden");
+			});
+
+			document.getElementById("name").value = "";
+			document.getElementById("email").value = "";
+			document.getElementById("subject").value = "";
+			document.getElementById("message").value = "";
 		}
 	});
 }
@@ -337,7 +350,7 @@ export function displayComments(comments) {
 	commentsContainer.innerHTML = "";
 
 	if (comments.length === 0) {
-		commentsContainer.innerHTML = "<p>No comments yet.</p>";
+		commentsContainer.innerHTML = "<p><em>Be the first to comment</em></p>";
 		commentsContainer.classList.add("no-comments");
 		return;
 	}
@@ -345,7 +358,12 @@ export function displayComments(comments) {
 	comments.forEach((comment) => {
 		const commentHTML = `
 		<div class="comment">
-		  <p><strong>${comment.author_name}:</strong> ${comment.content.rendered}</p>
+		<div class="author">
+		  <p><strong>${comment.author_name}:</strong></p> 
+		 </div>
+		 <div class="comment-content"> 
+		  <p>${comment.content.rendered}</p>
+		  </div>
 		</div>
 	  `;
 
