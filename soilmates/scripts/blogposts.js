@@ -15,7 +15,6 @@ export function setupViewMoreButton() {
 	viewMoreButton.addEventListener("click", async () => {
 		startIndex += postsPerPage;
 		const newPosts = await loadBlogPosts(startIndex, postsPerPage);
-		console.log(newPosts);
 		// Check if there are more posts to load after this batch
 		if ((newPosts || []).length < postsPerPage) {
 			viewMoreButton.classList.add("hidden");
@@ -33,7 +32,6 @@ export async function loadBlogPosts(startIndex = 0, perPage = 10) {
 	try {
 		showLoadingIndicator();
 		const posts = getBlogPosts(startIndex, perPage);
-		console.log("Blog posts to display:", posts);
 		displayBlogList(posts);
 
 		// Setup the "View more" button

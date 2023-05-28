@@ -128,7 +128,6 @@ export function highlightActiveNavItem() {
 // -----------------
 
 export async function fetchLatestPostsForCarousel() {
-	console.log("Fetching latest posts for carousel...");
 	showLoadingIndicator();
 	try {
 		const perPage = 12;
@@ -160,7 +159,6 @@ export async function fetchLatestPostsForCarousel() {
 }
 
 export async function fetchAllPosts() {
-	console.log("Fetching all posts...");
 	showLoadingIndicator();
 	try {
 		const allFetchedPosts = [];
@@ -192,7 +190,6 @@ export async function fetchAllPosts() {
 	} catch (error) {
 		console.error("Error fetching all posts:", error);
 	}
-	console.log("Fetched all posts:", allPosts);
 	hideLoadingIndicator();
 }
 
@@ -201,12 +198,10 @@ export function getLatestPosts(startIndex = 0, perPage = 4) {
 }
 
 export function getBlogPosts(startIndex = 0, perPage = 10) {
-	console.log("Fetched all posts:", allPosts);
 	return allPosts.slice(startIndex, startIndex + perPage);
 }
 
 export function getPostById(id) {
-	console.log("Searching for post with ID:", id);
 	return allPosts.find((post) => parseInt(post.id, 10) === id);
 }
 
