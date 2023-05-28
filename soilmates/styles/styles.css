@@ -7,7 +7,7 @@
 
 .page-header {
 	text-align: center;
-	background-color: #ffffffbd;
+	background-color: var(--header-background);
 }
 
 .page-text-container {
@@ -17,7 +17,7 @@
 
 .welcome-wrapper {
 	background-color: rgba(242, 158, 72, 0.9);
-	margin: 0;
+	margin: 0 0 115px 0;
 	height: 50vh;
 	display: flex;
 	align-items: center;
@@ -52,15 +52,21 @@
 	width: 75%;
 }
 
+.lets-be {
+	font-size: 18px;
+}
+
 .about-link-wrapper {
 	margin: 20px auto;
 	font-weight: bold;
+	font-style: italic;
+	text-decoration: underline;
 }
 
 .search-posts-container {
 	display: flex;
 	height: 215px;
-	margin: 35px auto;
+	margin: 10px auto 55px;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
@@ -82,14 +88,24 @@
 
 .searchbtn {
 	text-transform: uppercase;
-    background: #059619;
-    color: white;
+	background: var(--button-default);
+	color: white;
+	margin: 0px 5px;
 	transition: all 0.3s ease-in-out;
 }
 
 .searchbtn:hover {
-	background: #03540d;
+	background: var(--button-hover);
 	cursor: pointer;
+}
+
+.search-error {
+	color: red;
+    font-weight: bold;
+    background: var(--header-background);
+    padding: 15px;
+    text-transform: uppercase;
+	margin: 0;
 }
 
 @media (min-width: 545px) {
@@ -132,7 +148,7 @@
 	}
 
 	.searchbox-input {
-		padding: 5px 15px;
+		padding: 15px 10px;
 		text-align: center;
 		margin: 5px auto;
 	}
@@ -155,9 +171,6 @@ BLOGINDEX
 
 .post-header {
 	font-size: 35px;
-	text-align: left;
-	text-align: center;
-	background-color: #ffffffbd;
 }
 
 content-styling {
@@ -167,19 +180,19 @@ content-styling {
 	overflow: overlay;
 }
 
-.blog-list-container-wrapper {
+.bloglist-wrapper {
+	position: relative;
 	display: flex;
 	overflow-y: auto;
 	margin: auto;
-	width: 75%;
+	width: 70%;
+	max-width: 800px;
 	margin-bottom: 45px;
 	padding: 0px 0px;
 	flex-direction: column;
-	-ms-overflow-style: none;
-	scrollbar-width: none;
 }
 
-.blog-list-container {
+.bloglist-posts {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
@@ -189,13 +202,14 @@ content-styling {
 }
 
 .blog-post {
-	border: none;
+	border: 1px solid black;
 	padding: 5px;
 	margin: 20px auto;
 	border-radius: 5px;
 	background-position-y: center;
 	background-size: cover;
-	width: 40%;
+	width: 45%;
+	max-width: 300px;
 	height: 120px;
 	filter: grayscale();
 	box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5);
@@ -203,9 +217,10 @@ content-styling {
 }
 
 .blog-post:hover {
-	transform: scale(1.1);
+	transform: scale(1.05);
 	filter: none;
-	box-shadow: 2px 2px 10px 2px rgb(242 134 47 / 72%);
+	cursor: pointer;
+	box-shadow: 1px 2px 2px 0px rgb(242 134 47 / 72%);
 }
 
 .blogtitle-list {
@@ -258,26 +273,29 @@ content-styling {
 .viewmore-wrapper {
 	text-align: center;
 	margin: 30px auto;
-	width: 100%;
+	width: 95%;
 }
 
 #view-more-button {
-	padding: 10px;
-	background: #dc8c16;
-	border: 1px solid black;
-	border-radius: 5px;
-	box-shadow: 5px 5px 7px 0px #0000007d;
-	font-size: 21px;
-	transition: 0.23s ease-in-out;
 	color: white;
-	width: 60%;
+	background: var(--button-default);
+	border: 1px solid black;
+	border-radius: 3px;
+	box-shadow: 5px 5px 7px 0px #0000007d;
+	font-size: 17px;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	padding: 10px;
+	width: 100%;
+	transition: all 0.23s ease-in-out;
 }
 
 #view-more-button:hover {
-	transform: scale(1.1);
+	background: var(--button-hover);
+	cursor: pointer;	
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
 	/*
 	BLOGLIST
 	*/
@@ -287,6 +305,7 @@ content-styling {
 	}
 
 	.blog-post {
+		max-width: 100%;
 		width: 75%;
 		filter: none;
 		margin: 20px auto;
@@ -343,20 +362,21 @@ BLOGPOST
 .blogpost-img-container {
 	width: 50%;
 	margin: 10px;
-	transition: 0.23s ease-in-out;
+	transition: all 0.23s ease-in-out;
+	border: 1px solid;
 }
 
-.blogpost-img-container :hover {
-	filter: hue-rotate(75deg);
-	transition: 0.23s ease-in-out;
+.blogpost-img-container:hover {
+	filter: hue-rotate(197deg);
+	transition: all 0.23s ease-in-out;
 	cursor: pointer;
+	border: 1px solid orange;
 }
 
 .blogpost-img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	border: 1px solid rgb(0, 0, 0);
 }
 
 .blogpost-tagline-intro-wrapper {
@@ -377,6 +397,15 @@ BLOGPOST
 	width: 33%;
 	margin: 10px;
 	height: 100%;
+	border: 1px solid rgb(0, 0, 0);
+	transition: all 0.23s ease-in-out;
+}
+
+.blogpost-imgs-container:hover {
+	cursor: pointer;
+	filter: hue-rotate(197deg);
+	border: 1px solid orange;
+	transition: all 0.23s ease-in-out;
 }
 
 .blogpost-conclusion-container {
@@ -629,7 +658,7 @@ ABOUT
 	background-color: white;
 	width: 100%;
 	margin: 100px auto;
-	padding: 20px 20px;
+	padding: 55px;
 	border: 1px solid;
 }
 
@@ -667,18 +696,18 @@ CONTACT
 
 .header-container {
 	text-align: center;
-	font-weight: 400;
+	margin: 40px auto;
 }
 
 .contactform-wrapper {
 	text-align: center;
-	margin: 40px auto;
+	margin: 80px auto;
 	padding: 20px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 	background-color: #ffffffd9;
 	border: 1px solid #607d8b;
 	border-radius: 5px;
-	width: 55vw;
+	width: 70vw;
 	max-width: 600px;
 }
 
@@ -724,6 +753,7 @@ CONTACT
 
 .contact-msg {
 	min-height: 150px;
+	resize: vertical;
 }
 
 .error-message {
@@ -732,8 +762,13 @@ CONTACT
 	font-weight: bold;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 615px) {
 	.contactform-wrapper {
-		width: 100%;
+		width: 90%;
+		padding: 10px;
+	}
+
+	.container {
+		padding: 10px;
 	}
 }

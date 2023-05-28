@@ -54,16 +54,16 @@ const createPreviousPostContainer = (posts) => `
 const createCarouselContentWrapper = (posts) => `
   <div class="carousel-content-wrapper">
     <div class="arrow-container left-arrow-container">
-      <img class="carousel-arrow left-arrow" src="images/left-arrow.png" alt="Left Arrow">
+      <img class="carousel-arrow left-arrow" src="images/left-arrow.png" alt="Left Arrow" aria-label="Previous slide">
     </div>
-    <div class=" carousel-content">
+    <div class="carousel-content">
 	<div class="carousel-pagination"></div>
       <h2 class=" carousel-header">Fresh posts</h2>
 	  ${createMainLatestPost(posts[posts.length - 1])}
       ${createPreviousPostContainer(posts)}	
     </div>
     <div class="arrow-container right-arrow-container">
-      <img class="carousel-arrow right-arrow" src="images/right-arrow.png" alt="Right Arrow">
+      <img class="carousel-arrow right-arrow" src="images/right-arrow.png" alt="Right Arrow" aria-label="Next slide">
     </div>
 
   </div>
@@ -180,7 +180,7 @@ const updateArrowVisibility = () => {
 const setupTouchEvents = () => {
 	if (window.innerWidth <= 545) {
 		// Check the window width for small screens
-		const threshold = 100;
+		const threshold = 80;
 		const maxStartIndex = 8;
 
 		// swipe left
@@ -222,7 +222,10 @@ function createCarouselPagination(currentPage) {
 	let dots = "";
 	for (let i = 0; i < totalPages; i++) {
 		const activeClass = i === currentPage ? "active" : "";
-		dots += `<div class="pagination-dot ${activeClass}" data-index="${i}"></div>`;
+		const ariaCurrent = i === currentPage ? 'aria-current="true"' : "";
+		dots += `<div class="pagination-dot ${activeClass}" data-index="${i}" aria-label="Go to page ${
+			i + 1
+		}" ${ariaCurrent}></div>`;
 	}
 	const carouselPagination = document.querySelector(".carousel-pagination");
 	carouselPagination.innerHTML = dots;

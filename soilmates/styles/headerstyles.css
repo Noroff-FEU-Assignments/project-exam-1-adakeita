@@ -42,6 +42,17 @@
 .nav-link {
 	list-style-type: none;
 	margin: 0px 40px;
+	transition: 0.3s ease-in-out;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid orange;
+	font-weight: normal;
+}
+
+.nav-link:hover {
+	transition: 0.3s ease-in-out;
+	font-weight: bold;
 }
 
 .navcontainer a {

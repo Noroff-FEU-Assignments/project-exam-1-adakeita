@@ -108,6 +108,21 @@ export const handleTouchEvents = (
 	};
 };
 
+export function highlightActiveNavItem() {
+	const path = window.location.pathname;
+	const navItems = document.querySelectorAll(".nav-item a");
+
+	navItems.forEach((item) => {
+		const itemPath = "/" + item.getAttribute("href");
+
+		if (itemPath === path) {
+			item.classList.add("active");
+		} else {
+			item.classList.remove("active");
+		}
+	});
+}
+
 // -----------------
 // Data Fetching and Handling
 // -----------------
@@ -230,19 +245,39 @@ export function initContactForm() {
 		let messageError = "";
 
 		if (name.length <= 5) {
-			nameError = "Name should be more than 5 characters long.";
+			nameError = "Name should be longer than 5 characters.";
+			document.getElementById("name").setAttribute("aria-describedby", "name-error");
+			document.getElementById("name").setAttribute("aria-invalid", "true");
+		} else {
+			document.getElementById("name").removeAttribute("aria-describedby");
+			document.getElementById("name").removeAttribute("aria-invalid");
 		}
 
 		if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
 			emailError = "Must be a valid email address.";
+			document.getElementById("email").setAttribute("aria-describedby", "email-error");
+			document.getElementById("email").setAttribute("aria-invalid", "true");
+		} else {
+			document.getElementById("email").removeAttribute("aria-describedby");
+			document.getElementById("email").removeAttribute("aria-invalid");
 		}
 
 		if (subject.length <= 15) {
-			subjectError = "Subject should be more than 15 characters long.";
+			subjectError = "Subject needs to be at least 15 characters.";
+			document.getElementById("subject").setAttribute("aria-describedby", "subject-error");
+			document.getElementById("subject").setAttribute("aria-invalid", "true");
+		} else {
+			document.getElementById("subject").removeAttribute("aria-describedby");
+			document.getElementById("subject").removeAttribute("aria-invalid");
 		}
 
 		if (message.length <= 25) {
-			messageError = "Message content should be more than 25 characters long.";
+			messageError = "Message has to be more than 25 characters.";
+			document.getElementById("message").setAttribute("aria-describedby", "message-error");
+			document.getElementById("message").setAttribute("aria-invalid", "true");
+		} else {
+			document.getElementById("message").removeAttribute("aria-describedby");
+			document.getElementById("message").removeAttribute("aria-invalid");
 		}
 
 		document.getElementById("name-error").textContent = nameError;
@@ -253,6 +288,28 @@ export function initContactForm() {
 		if (!nameError && !emailError && !subjectError && !messageError) {
 			alert("Form submitted successfully!");
 			// Here you could add code to actually send the form data.
+		}
+	});
+}
+
+export function initSearchForm() {
+	const searchForm = document.querySelector(".searchbox");
+	searchForm.addEventListener("submit", function (event) {
+		event.preventDefault();
+
+		const searchInput = document.querySelector(".searchbox-input");
+		const searchError = document.getElementById("search-error");
+
+		if (searchInput.value.trim() === "") {
+			searchError.classList.remove("hidden");
+			searchError.textContent = "Please enter search";
+			searchInput.setAttribute("aria-describedby", "search-error");
+			searchInput.setAttribute("aria-invalid", "true");
+		} else {
+			searchError.textContent = "";
+			searchInput.removeAttribute("aria-describedby");
+			searchInput.removeAttribute("aria-invalid");
+			window.location.href = `posts.html?search=${searchInput.value}`;
 		}
 	});
 }
@@ -281,6 +338,7 @@ export function displayComments(comments) {
 
 	if (comments.length === 0) {
 		commentsContainer.innerHTML = "<p>No comments yet.</p>";
+		commentsContainer.classList.add("no-comments");
 		return;
 	}
 

@@ -1,6 +1,14 @@
 :root {
-	--background: #f9f7f5;
+	--background: #e2ded9;
 	--green-theme: #435b40;
+	--header-background: #ffffffbd;
+	--button-default: #259e2a;
+	--button-hover: #0e560a;
+}
+
+* {
+	font-family: "Lato", sans-serif;
+	box-sizing: border-box;
 }
 
 body {
@@ -9,15 +17,14 @@ body {
 	margin: 0;
 	overflow-x: hidden;
 	background: var(--background);
-	font-family: "Lato", sans-serif;
 }
 
 .content-container {
-	background-image: url("../images/Untitled.png");
-	background-repeat: repeat-y;
-	background-position: top;
-	background-size: cover;
+	background-image: url(../images/Untitled.png);
+	background-repeat: repeat;
+	background-size: contain;
 	overflow: hidden;
+	min-height: 80vh;
 }
 
 ::marker {
@@ -35,10 +42,6 @@ li {
 	list-style-type: none;
 }
 
-* {
-	box-sizing: border-box;
-}
-
 .header-styling {
 	font-style: normal;
 	font-weight: 400;
@@ -54,8 +57,7 @@ li {
 }
 
 .loading-indicator {
-	display: none;
-	position: fixed;
+	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);

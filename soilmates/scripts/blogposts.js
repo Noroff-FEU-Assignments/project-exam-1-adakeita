@@ -7,8 +7,48 @@ import {
 	createPageHeaderElement,
 } from "./utils.js";
 
+export function setupViewMoreButton() {
+	const viewMoreButton = document.getElementById("view-more-button");
+	let startIndex = 0;
+	const postsPerPage = 10;
+
+	viewMoreButton.addEventListener("click", async () => {
+		startIndex += postsPerPage;
+		const newPosts = await loadBlogPosts(startIndex, postsPerPage);
+		console.log(newPosts);
+		// Check if there are more posts to load after this batch
+		if ((newPosts || []).length < postsPerPage) {
+			viewMoreButton.classList.add("hidden");
+		} else {
+			viewMoreButton.classList.remove("hidden");
+		}
+		// Display the new posts
+		if (newPosts && newPosts.length > 0) {
+			displayBlogList(newPosts);
+		}
+	});
+}
+
+export async function loadBlogPosts(startIndex = 0, perPage = 10) {
+	try {
+		showLoadingIndicator();
+		const posts = getBlogPosts(startIndex, perPage);
+		console.log("Blog posts to display:", posts);
+		displayBlogList(posts);
+
+		// Setup the "View more" button
+		setupViewMoreButton();
+
+	} catch (error) {
+		console.error("Error loading blog posts:", error);
+	} finally {
+		hideLoadingIndicator();
+	}
+}
+
 export function displayBlogList(posts) {
-	const blogPostsContainer = document.querySelector(".blog-list-container");
+	showLoadingIndicator();
+	const postsContainer = document.querySelector(".bloglist-posts");
 
 	posts.forEach((post) => {
 		const postTitle = post.acf["post-title"];
@@ -25,34 +65,22 @@ export function displayBlogList(posts) {
 		const postURL = "blogpost.html?id=" + postId;
 
 		const postHTML = `
-			<div class="blog-post" style="background-image: url('${postImage}');" onclick="location.href='${postURL}'">
-				<div class="blogpost-stylingwrapper">
-					<div class="blog-post-content ">
-						<div class="index-headers">
-							<h2 class="blogtitle-list ">${postTitle}</h2>
-							<p class="date">${formattedDate}</p>
-						</div>
-						<p class="tagline">${postTagline}</p>
-					</div>
-				<div>
-			</div>
-		`;
+		<div class="blog-post" style="background-image: url('${postImage}');" onclick="location.href='${postURL}'" role="link" aria-label="Read blog post: ${postTitle}">
+                <div class="blogpost-stylingwrapper">
+                    <div class="blog-post-content ">
+                        <div class="index-headers">
+                            <h2 class="blogtitle-list ">${postTitle}</h2>
+                            <p class="date">${formattedDate}</p>
+                        </div>
+                        <p class="tagline">${postTagline}</p>
+                    </div>
+                <div>
+            </div>
+        `;
 
-		blogPostsContainer.insertAdjacentHTML("beforeend", postHTML);
+		postsContainer.insertAdjacentHTML("beforeend", postHTML);
 	});
-}
-
-export async function loadBlogPosts(startIndex = 0, perPage = 10) {
-	try {
-		showLoadingIndicator();
-		const posts = getBlogPosts(startIndex, perPage);
-		console.log("Blog posts to display:", posts);
-		displayBlogList(posts);
-	} catch (error) {
-		console.error("Error loading blog posts:", error);
-	} finally {
-		hideLoadingIndicator();
-	}
+	hideLoadingIndicator();
 }
 
 export function createBlogPostContainerElement() {
@@ -88,6 +116,7 @@ export async function displayBlogPost() {
 		blogPostContainer.innerHTML += blogPostContent;
 
 		const blogpostImg = blogPostContainer.querySelector(".blogpost-img");
+		blogpostImg.setAttribute("aria-label", "Open image in modal");
 
 		const modalImage = modal.querySelector("#modal-image");
 
@@ -112,7 +141,6 @@ export async function displayBlogPost() {
 				modal.classList.remove("hidden");
 			});
 		});
-
 
 		blogPostWrapper.appendChild(blogPostContainer);
 	} else {

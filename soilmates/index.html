@@ -3,16 +3,16 @@
 
 <head>
     <!-- Hotjar Tracking Code for soilmates -->
-<script>
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:3504720,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-</script>
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 3504720, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,34 +25,34 @@
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/carousel.css">
     <link rel="stylesheet" href="styles/footerstyles.css">
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
-    <script type="module" src="scripts/utils.js" defer></script>
-    <script type="module" src="scripts/init.js" defer></script>
-    <script type="module" src="scripts/carousel.js" defer></script>
+    <script type="module" src="scripts/init.js"></script>
     <title>Soilmates | Home</title>
 </head>
 
 <body>
-    <nav class="nav-container">
-        <div class="logo-container">
-            <a class="logo-link" href="index.html">
-                <img class="logo-img" src="images/soilmates-logo-draft.png" alt="logo-image: plant in house and name">
-            </a>
-        </div>
-        <button class="hamburger" aria-label="Open navigation menu">
-            <img class="hamburger-icon" src="images/hamburger.png" alt="hamburger-menu-icon">
-        </button>
-        <div class="nav-links-wrapper">
-            <button class="close-menu" aria-label="Close menu">X</button>
-            <ul class="nav-link-container nav-item-container">
-                <li class="nav-item "><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item "><a class="nav-link" href="about.html">About</a></li>
-                <li class="nav-item "><a class="nav-link" href="posts.html">Posts</a></li>
-                <li class="nav-item "><a class="nav-link" href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-    <main class="content-container">
+    <header>
+        <nav class="nav-container" role="navigation">
+            <div class="logo-container">
+                <a class="logo-link" href="index.html">
+                    <img class="logo-img" src="images/soilmates-logo-draft.png"
+                        alt="logo-image: plant in house and name">
+                </a>
+            </div>
+            <button class="hamburger" aria-label="Open navigation menu">
+                <img class="hamburger-icon" src="images/hamburger.png" alt="hamburger-menu-icon">
+            </button>
+            <div class="nav-links-wrapper">
+                <button class="close-menu" aria-label="Close menu">X</button>
+                <ul class="nav-link-container nav-item-container">
+                    <li class="nav-item "><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item "><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item "><a class="nav-link" href="posts.html">Posts</a></li>
+                    <li class="nav-item "><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="content-container" role="main">
         <div class="welcome-wrapper">
             <div class="welcome-img-container">
                 <div class="welcome-img">
@@ -63,33 +63,31 @@
                 <h1 class="site-header header-styling">
                     Welcome to Soilmates
                 </h1>
-                <p class="welcome-text ">
+                <p class="welcome-text">
                     Welcome to Soilmates, a blog devoted to all things plants! We aim to inspire and educate
                     fellow plant enthusiasts about the beauty and benefits of green living. From plant care tips and
                     botanical art and wellness, we cover a wide range of topics to help you
                     cultivate your own green oasis. So come join us on this journey of growth and discovery.
-                    <br>
-                    Let's be Soilmates!
                 </p>
+                <p class="lets-be">Let's be Soilmates!</p>
                 <div class="about-link-wrapper">
-                    <a class="about-link " href="about.html">More about Soilmates</a>
+                    <a class="about-link " href="about.html">Tell me more</a>
                 </div>
             </div>
         </div>
         <div class="carousel-container">
             <div class="loading-indicator"></div>
-            </div>
         </div>
         <div class="search-posts-container">
             <div class="searchbox-wrapper">
                 <form class="searchbox" action="posts.html" method="get">
+                    <div id="search-error" class="search-error hidden"></div>
                     <input class="searchbox-input" name="search" type="text" placeholder="Search posts..." />
-                    <button class="searchbtn searchbox-input" type="submit" value="Search">Search</button>
+                    <button class="searchbtn searchbox-input" type="submit" aria-label="Search">Search</button>
                 </form>
             </div>
         </div>
     </main>
-
     <footer class="footer-container">
         <div class="footer-distributed ">
             <div class="footer-left">
@@ -107,7 +105,7 @@
                     <p class="location">Somewhere on a laptop</p>
                     <p class="city">Oslo, Norway</p>
 
-                    <div class="github-link"> 
+                    <div class="github-link">
                         <p class="github-profile"></p>
                         <a href="https://www.github.com/adakeita">
                             <img class="github-icon" src="images/github.png" alt="github-link-image">
@@ -138,7 +136,7 @@
             </div>
         </div>
         <p class="illstr-attr">
-            © Development Ada Mathilde Keita
+            © Development Ada Mathilde Keita 2023
         </p>
     </footer>
 </body>

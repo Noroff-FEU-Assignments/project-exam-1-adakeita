@@ -2,7 +2,8 @@
 	font-family: "Lato", sans-serif;
 	width: 100vw;
 	min-width: 545px;
-	margin: 100px auto;
+	margin: 50px auto;
+	position: relative;
 }
 
 .carousel-content-wrapper {
@@ -62,7 +63,6 @@
 	letter-spacing: 2px;
 	margin: 0 auto;
 	font-size: 22px;
-	margin-top: 20px;
 	text-transform: uppercase;
 }
 
@@ -110,7 +110,7 @@
 
 .readmore-container {
 	border-bottom: 1px solid orange;
-    width: max-content;
+	width: max-content;
 }
 
 .read-more-link {
@@ -155,15 +155,15 @@
 }
 
 .carousel-pagination {
-	display: flex;
-	justify-content: center;
-	margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    margin: 25px auto;
 }
 
 .pagination-dot {
 	width: 10px;
 	height: 10px;
-	margin: 0 5px;
+	margin: 0 7px;
 	background: #ddd;
 	border-radius: 50%;
 }
@@ -224,7 +224,8 @@
 	}
 
 	.previous-post-header h2 {
-		margin: 0;
+		margin: 3px auto;
+		font-size: 12px;
 	}
 
 	.carousel-img-container {

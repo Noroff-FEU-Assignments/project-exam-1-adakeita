@@ -26,35 +26,35 @@
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/carousel.css">
     <link rel="stylesheet" href="styles/footerstyles.css">
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
-    <script type="module" src="scripts/utils.js" defer></script>
-    <script type="module" src="scripts/init.js" defer></script>
-    <script type="module" src="scripts/carousel.js" defer></script>
+    <script type="module" src="scripts/init.js"></script>
 
     <title>Soilmates | Contact</title>
 </head>
 
 <body>
-    <nav class="nav-container">
-        <div class="logo-container">
-            <a class="logo-link" href="index.html">
-                <img class="logo-img" src="images/soilmates-logo-draft.png" alt="logo-image: plant in house and name">
-            </a>
-        </div>
-        <button class="hamburger" aria-label="Open navigation menu">
-            <img class="hamburger-icon" src="images/hamburger.png" alt="hamburger-menu-icon">
-        </button>
-        <div class="nav-links-wrapper">
-            <button class="close-menu" aria-label="Close menu">X</button>
-            <ul class="nav-link-container nav-item-container">
-                <li class="nav-item "><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item "><a class="nav-link" href="about.html">About</a></li>
-                <li class="nav-item "><a class="nav-link" href="posts.html">Posts</a></li>
-                <li class="nav-item "><a class="nav-link" href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-    <main class="content-container">
+    <header>
+        <nav class="nav-container" role="navigation">
+            <div class="logo-container">
+                <a class="logo-link" href="index.html">
+                    <img class="logo-img" src="images/soilmates-logo-draft.png"
+                        alt="logo-image: plant in house and name">
+                </a>
+            </div>
+            <button class="hamburger" aria-label="Open navigation menu">
+                <img class="hamburger-icon" src="images/hamburger.png" alt="hamburger-menu-icon">
+            </button>
+            <div class="nav-links-wrapper">
+                <button class="close-menu" aria-label="Close menu">X</button>
+                <ul class="nav-link-container nav-item-container">
+                    <li class="nav-item "><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item "><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item "><a class="nav-link" href="posts.html">Posts</a></li>
+                    <li class="nav-item "><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="content-container" role="main">
         <div class="header-container">
             <h1 class="site-header header-styling page-header">
                 Contact
@@ -80,7 +80,7 @@
             </div>
         </div>
     </main>
-    <footer class="footer-container">
+    <footer class="footer-container" role="footer-navigation">
         <div class="footer-distributed ">
             <div class="footer-left">
                 <div class="footer-logo-wrapper">
