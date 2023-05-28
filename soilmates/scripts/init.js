@@ -9,7 +9,7 @@ import {
 	handleCommentsForPost,
 	initContactForm,
 	initSearchForm,
-	highlightActiveNavItem,
+	highlightActiveNavItem
 } from "./utils.js";
 import { setupCarousel } from "./carousel.js";
 import { displayBlogPost, displayBlogList, loadBlogPosts } from "./blogposts.js";
@@ -38,14 +38,42 @@ document.addEventListener("DOMContentLoaded", async () => {
 		} else {
 			// If there is no search query, display all posts as usual
 			posts = await loadBlogPosts();
+			posts = getBlogPosts();
 		}
 
-		if (posts && posts.length === 0) {
+		if (posts.length === 0) {
 			// Display "No results"
 			const postsContainer = document.querySelector(".blog-list-container");
 			postsContainer.innerHTML = "<p>No results.</p>";
+		} else {
+			// Display the posts
+			displayBlogList(posts);
 		}
 
+		const viewMoreButton = document.getElementById("view-more-button");
+		let startIndex = 0;
+		const postsPerPage = 10;
+
+		// Show or hide "View More" button based on the number of posts
+		if (posts.length < postsPerPage) {
+			viewMoreButton.classList.add("hidden");
+		} else {
+			viewMoreButton.classList.remove("hidden");
+		}
+
+		viewMoreButton.addEventListener("click", async () => {
+			startIndex += postsPerPage;
+			const newPosts = await loadBlogPosts(startIndex, postsPerPage);
+			console.log(newPosts);
+			// Check if there are more posts to load after this batch
+			if ((newPosts || []).length < postsPerPage) {
+				viewMoreButton.classList.add("hidden");
+			}
+			// Display the new posts
+			if (newPosts && newPosts.length > 0) {
+				displayBlogList(newPosts);
+			}
+		});
 	} else if (window.location.pathname.includes("blogpost.html")) {
 		const postId = window.location.search.split("=")[1]; // Get the post ID from the URL
 		const post = getPostById(postId); // Get the blog post using the ID
