@@ -369,7 +369,7 @@ BLOGPOST
 	display: flex;
 	align-items: center;
 	padding: 25px;
-	font-size: 18px;
+	font-size: 88%;
 	margin: 10px;
 }
 
@@ -484,6 +484,7 @@ BLOGPOST
 
 	.blogpost-imgs-container {
 		width: 100%;
+		border: none;
 	}
 
 	.blogpost-img {
