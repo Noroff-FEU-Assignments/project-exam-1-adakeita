@@ -458,6 +458,7 @@ BLOGPOST
 
 	.blogpost-summary {
 		text-align: center;
+		font-size: 85%;
 	}
 
 	.blogpost-text-container {
@@ -528,7 +529,7 @@ BLOGPOST
 
 .view-comments-box p {
 	text-align: center;
-    font-size: 15px;
+    font-size: 45px;
 }
 
 #comment-form {
