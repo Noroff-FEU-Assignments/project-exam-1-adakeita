@@ -441,6 +441,13 @@ BLOGPOST
 	font-style: italic;
 }
 
+.no-results {
+	text-align: center;
+    font-size: 25px;
+    background-color: #ffffffab;
+    padding: 35px;
+}
+
 @media screen and (max-width: 600px) {
 	/*
 	BLOGPOST

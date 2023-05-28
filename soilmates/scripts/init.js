@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		if (posts && posts.length === 0) {
 			// Display "No results"
 			const postsContainer = document.querySelector(".bloglist-wrapper");
-			postsContainer.innerHTML = "<p>No results.</p>";
+			postsContainer.innerHTML = "<p class='no-results'>No results.</p>";
 		} else {
 			// Display the posts
 			displayBlogList(posts);
