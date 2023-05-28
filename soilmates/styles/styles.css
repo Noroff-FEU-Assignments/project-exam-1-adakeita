@@ -56,11 +56,21 @@
 	font-size: 18px;
 }
 
-.about-link-wrapper {
-	margin: 20px auto;
-	font-weight: bold;
-	font-style: italic;
-	text-decoration: underline;
+.about-btn {
+	padding: 10px 15px;
+	border-radius: 5px;
+	background-color: white;
+	border: 1px solid;
+	transition: all 0.2s ease-in-out;
+}
+
+.about-btn:hover {
+	background-color: var(--button-hover);
+	cursor: pointer;
+}
+
+.about-btn a:hover {
+	color: white;
 }
 
 .search-posts-container {
@@ -389,7 +399,7 @@ BLOGPOST
 
 .blogpost-tagline {
 	margin: 40px auto;
-    font-size: 20px;
+	font-size: 20px;
 }
 
 .blogpost-intro {
@@ -401,7 +411,7 @@ BLOGPOST
 
 .p-header {
 	margin: 5px 0px 10px 0px;
-    font-size: 16px;
+	font-size: 16px;
 	font-weight: bold;
 }
 
@@ -443,9 +453,9 @@ BLOGPOST
 
 .no-results {
 	text-align: center;
-    font-size: 25px;
-    background-color: #ffffffab;
-    padding: 35px;
+	font-size: 25px;
+	background-color: #ffffffab;
+	padding: 35px;
 }
 
 @media screen and (max-width: 600px) {
@@ -536,7 +546,7 @@ BLOGPOST
 
 .view-comments-box p {
 	text-align: center;
-    font-size: 45px;
+	font-size: 45px;
 }
 
 #comment-form {
