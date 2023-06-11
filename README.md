@@ -71,9 +71,7 @@ Clone repo from GitHub:
 DEPENDENCIES
 
 Include google font in head of HTML.
-{   <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display&display=swap" rel="stylesheet"> }
+{ Lato & Playfair }
 
 
 
