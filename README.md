@@ -2,11 +2,9 @@
 ABOUT THIS PROJECT
 
 
-
 Soilmates
 
-![Model](Paste_link_here)
-
+![Model](https://github.com/Noroff-FEU-Assignments/project-exam-1-adakeita/blob/main/soilmatesshot.png)
 
 
 
@@ -72,7 +70,10 @@ Clone repo from GitHub:
 
 DEPENDENCIES
 
-No dependencies needed.
+Include google font in head of HTML.
+{   <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display&display=swap" rel="stylesheet"> }
 
 
 
