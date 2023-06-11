@@ -545,12 +545,12 @@ BLOGPOST
 .view-comments-box {
 	width: 40%;
 	font-size: 14px;
+	overflow: scroll;
 }
 
 .view-comments-box p {
 	text-align: center;
 	font-size: 16px;
-	overflow: scroll;
 }
 
 #comment-form {
